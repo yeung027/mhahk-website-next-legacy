@@ -369,7 +369,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTestingTesting extends Struct.SingleTypeSchema {
+export interface ApiTestingTesting extends Struct.CollectionTypeSchema {
   collectionName: 'testings';
   info: {
     displayName: 'testing';
