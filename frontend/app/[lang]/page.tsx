@@ -1,11 +1,12 @@
 import { client } from "@/api";
 import { components } from "@/api/strapi";
 import Link from 'next/link'
+import { getDictionary } from './dictionaries'
 
 export default async function Profile({
   params,
 }: {
-  params: Promise<{ lang: string }>
+  params: Promise<{ lang: 'en' | 'nl' }>
 }) {
   const pageResponse = await client.GET("/testings", {
   });
@@ -14,6 +15,7 @@ export default async function Profile({
   console.log(pageData)
 
   const lang = (await params).lang;
+  const dict = await getDictionary(lang);
   console.log(lang)
 
   
@@ -29,6 +31,7 @@ export default async function Profile({
     <Link href="/" locale={"en-us"}>
       To /us/another
     </Link>
+    <div>{dict.products.cart}</div>
                 </div>
             )
           })}
