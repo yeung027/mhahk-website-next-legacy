@@ -23,11 +23,18 @@ export default async function Profile({
             return (
                 <div key={`${testing.documentId}`}>
                     {`testing:${testing.abc}`}
-                    <Link href="/nl" locale={"nl"}>
+                    <Link href="/nl/ok" locale={"nl"}>
       To /nl/another
     </Link>
-    <Link href="/" locale={"en-us"}>
+    <Link href="/ok" locale={"en-us"}>
       To /us/another
+    </Link>
+    <Link href="/nl-NL/ok" locale={"nl"}>
+      To /nl-NL/another
+    </Link>
+
+    <Link href="/nl-NL/" locale={"nl"}>
+      To /nl-NL/
     </Link>
                 </div>
             )
