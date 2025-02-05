@@ -1,5 +1,5 @@
 import { client } from "@/api";
-import type { paths } from "../../api/strapi";
+import { components } from "@/api/strapi";
 
 export default async function Profile() {
   const pageResponse = await client.GET("/testings", {
@@ -9,7 +9,13 @@ export default async function Profile() {
   console.log(pageData)
   return (
     <div>
-      okok
+      {pageData.data?.data?.map((testing:components["schemas"]["Testing"]) => {
+            return (
+                <div key={`${testing.documentId}`}>
+                    {`testing:${testing.abc}`}
+                </div>
+            )
+          })}
     </div>
   );
 }
