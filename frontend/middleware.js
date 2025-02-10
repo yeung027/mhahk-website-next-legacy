@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
  
-let locales = ['en-US', 'nl-NL', 'nl']
+let locales = ['zh-HK', 'cn']
  
 // Get the preferred locale, similar to the above or using a library
-function getLocale(request) { return 'en-US' }
+function getLocale(request) { return 'zh-HK' }
 
 export function middleware(request) {
   // Check if there is any supported locale in the pathname

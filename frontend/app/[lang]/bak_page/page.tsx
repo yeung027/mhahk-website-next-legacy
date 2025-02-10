@@ -1,13 +1,13 @@
 import { client } from "@/api";
 import { components } from "@/api/strapi";
 import Link from 'next/link'
-import { getDictionary } from './dictionaries'
+import { getDictionary } from '../dictionaries'
 import Image from "next/image";
 
 export default async function Profile({
   params,
 }: {
-  params: Promise<{ lang: 'zh-HK' | 'cn' }>
+  params: Promise<{ lang: 'en-US' | 'nl' }>
 }) {
   const pageResponse = await client.GET("/testings", {
   });
@@ -26,10 +26,10 @@ export default async function Profile({
             return (
                 <div key={`${testing.documentId}`}>
                     {`testing:${testing.abc}`}
-                    <Link href="/">
+                    <Link href="/nl">
       To /nl/another
     </Link>
-    <Link href="/cn">
+    <Link href="/">
       To /us/another
     </Link>
     <div>{dict.products.cart}</div>

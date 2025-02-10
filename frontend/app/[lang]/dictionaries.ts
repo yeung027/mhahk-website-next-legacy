@@ -1,9 +1,9 @@
 import 'server-only'
  
 const dictionaries = {
-  'en-US': () => import('./dictionaries/en.json').then((module) => module.default),
-  nl: () => import('./dictionaries/nl.json').then((module) => module.default),
+  'zh-HK': () => import('./dictionaries/zh-HK.json').then((module) => module.default),
+  cn: () => import('./dictionaries/cn.json').then((module) => module.default),
 }
  
-export const getDictionary = async (locale: 'en-US' | 'nl') =>
+export const getDictionary = async (locale: 'zh-HK' | 'cn') =>
   dictionaries[locale]()
