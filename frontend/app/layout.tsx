@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,14 +26,21 @@ export default function RootLayout({
   return (
     <html lang="zh-HK">
       <body
-        className={`antialiased h-screen w-screen flex flex-col items-center`}
+        className={`antialiased h-screen w-full flex flex-col items-center`}
       >
-        <main className={"border-2 border-teal-300 h-full w-full xl:w-[1024px]"}>
-          <header className={"h-[50px] w-full bg-mainGreen hidden xl:flex"}>
-            aa
-          </header>
-          {children}
-        </main>
+        <div className={"h-fit w-full xl:w-[1024px] flex flex-col "}>
+          <main className={"xl:min-h-screen xl:shadow-[0_1px_6px_rgba(0,0,0,0.1)] mb-[10px]"}>
+            <header className={"h-[50px] w-full bg-mainGreen hidden xl:flex flex-row-reverse"}>
+              <div className="border-2">
+                11
+              </div>
+            </header>
+            {/* <div>1</div>
+            <div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div>
+             */}
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
