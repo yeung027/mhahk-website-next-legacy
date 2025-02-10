@@ -4,7 +4,7 @@ let locales = ['en-US', 'nl-NL', 'nl']
  
 // Get the preferred locale, similar to the above or using a library
 function getLocale(request) { return 'en-US' }
- 
+
 export function middleware(request) {
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl
@@ -25,7 +25,7 @@ export function middleware(request) {
 export const config = {
   matcher: [
     // Skip all internal paths (_next)
-    '/((?!_next).*)',
+    "/((?!api|static|.*\\..*|_next).*)"
     // Optional: only run on root (/) URL
     // '/'
   ],
