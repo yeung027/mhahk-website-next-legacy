@@ -6,7 +6,10 @@ interface PageHeaderProps {
 
 export default function PageHeader({ pathname } : PageHeaderProps) {
     return (
-        <header className={"h-[50px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
+        <header className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
+            <div className="ml-[33px]">
+                <input className="text-white bg-[#61b99f] h-[27px] rounded-[3px]" type='search' />
+            </div>
             <div className="">
                 <Link href={`zh-HK/${pathname}`}>
                     繁
