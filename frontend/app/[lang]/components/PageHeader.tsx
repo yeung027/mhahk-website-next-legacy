@@ -1,17 +1,21 @@
-    // ./frontend/src/app/[lang]/components/PageHeader.tsx
-    
-    import React from "react";
-    
-    interface PageHeaderProps {
-      heading: string,
-      text?: string,
-    }
-    
-    export default function PageHeader({ heading, text } : PageHeaderProps) {
-      return (
-        <div className="my-16 w-full text-center">
-        { text && <span className="text-violet-400 font-bold">{text}</span> }
-        <h2 className="text-4xl my-4 lg:text-5xl font-bold font-heading">{heading}</h2>
-      </div>
-      );
+import Link from 'next/link'
+
+interface PageHeaderProps {
+    pathname: string
+  }
+
+export default function PageHeader({ pathname } : PageHeaderProps) {
+    return (
+        <header className={"h-[50px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
+            <div className="">
+                <Link href={`zh-HK/${pathname}`}>
+                    繁
+                </Link>
+                <span className='mx-[8px]'>|</span>
+                <Link href={`cn/${pathname}`}>
+                    簡
+                </Link>
+            </div>
+        </header>
+    )
     }

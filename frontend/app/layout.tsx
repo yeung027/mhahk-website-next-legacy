@@ -30,11 +30,7 @@ export default function RootLayout({
       >
         <div className={"h-fit w-full xl:w-[1024px] flex flex-col "}>
           <main className={"xl:min-h-screen xl:shadow-[0_1px_6px_rgba(0,0,0,0.1)] mb-[10px]"}>
-            <header className={"h-[50px] w-full bg-mainGreen hidden xl:flex flex-row-reverse"}>
-              <div className="border-2">
-                11
-              </div>
-            </header>
+            
             {/* <div>1</div>
             <div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div><div>2</div>
              */}
