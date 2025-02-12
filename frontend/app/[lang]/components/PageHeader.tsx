@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { LiaSearchSolid } from "react-icons/lia";
 
 interface PageHeaderProps {
@@ -7,22 +8,75 @@ interface PageHeaderProps {
 
 export default function PageHeader({ pathname } : PageHeaderProps) {
     return (
-        <header className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
-            <div className="ml-[33px] flex flex-row-reverse">
-                <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px]" type='search' />
-                <div className='absolute'>
-                    <LiaSearchSolid className='h-[27px] text-[1.3rem] text-white mr-[7px] cursor-pointer' />
+        <header className={"flex flex-col"}>
+            <div className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
+                <div className="ml-[33px] flex flex-row-reverse">
+                    <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px]" type='search' />
+                    <div className='absolute'>
+                        <LiaSearchSolid className='h-[27px] text-[1.3rem] text-white mr-[7px] cursor-pointer' />
+                    </div>
+                </div>
+                <div className="">
+                    <Link href={`zh-HK/${pathname}`}>
+                        繁
+                    </Link>
+                    <span className='mx-[8px]'>|</span>
+                    <Link href={`cn/${pathname}`}>
+                        簡
+                    </Link>
                 </div>
             </div>
-            <div className="">
-                <Link href={`zh-HK/${pathname}`}>
-                    繁
-                </Link>
-                <span className='mx-[8px]'>|</span>
-                <Link href={`cn/${pathname}`}>
-                    簡
-                </Link>
+            <div className={"px-[30px]"}>
+                <div className={"grid grid-cols-[500px_auto]"}>
+                    <div className={""}>
+                        <Image
+                            src="/header/logo.png"
+                            width={474}
+                            height={121}
+                            alt="logo"
+                            className={"max-w-[474px] h-[121px]"}
+                            priority={true}
+                        />
+                    </div>
+                    <div className={"flex flex-row-reverse items-center pr-[90px]"}>
+                        <Image
+                            src="/header/donation.png"
+                            width={94}
+                            height={30}
+                            alt="logo"
+                            className={"w-[94px] h-[30px]"}
+                            priority={true}
+                        />
+                        <Image
+                            src="/header/youtube.png"
+                            width={30}
+                            height={30}
+                            alt="logo"
+                            className={"w-[30px] h-[30px]"}
+                            priority={true}
+                        />
+                        <Image
+                            src="/header/fb.png"
+                            width={30}
+                            height={30}
+                            alt="logo"
+                            className={"w-[30px] h-[30px]"}
+                            priority={true}
+                        />
+                        <Image
+                            src="/header/ig.png"
+                            width={30}
+                            height={29}
+                            alt="logo"
+                            className={"w-[30px] h-[29px]"}
+                            priority={true}
+                        />
+                        
+                        
+                        
+                    </div>
+                </div>
             </div>
         </header>
     )
-    }
+}
