@@ -39,7 +39,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             priority={true}
                         />
                     </div>
-                    <div className={"flex flex-row-reverse items-center pr-[90px]"}>
+                    <div className={"flex flex-row-reverse items-center pr-[70px]"}>
                         <Image
                             src="/header/donation.png"
                             width={96}
@@ -94,6 +94,59 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                                 關於我們
                             </span>
                             <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                核心服務
+                            </span>
+                            <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                最新消息
+                            </span>
+                            <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                出版
+                            </span>
+                            <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                資訊分享
+                            </span>
+                            <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                義工服務
+                            </span>
+                            <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                職位空缺
+                            </span>
                         </div>
                         <div className={"mt-[8px] h-[2px] bg-black hidden"} />
                     </li>

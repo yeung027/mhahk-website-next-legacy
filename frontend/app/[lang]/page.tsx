@@ -21,8 +21,18 @@ export default async function Profile({
 
   
   return (
-    <div>
-      what
+    <div className={"w-full flex flex-col items-center"}>
+      <section>
+         <Image
+              src="/index/70thbanner.png"
+              width={929}
+              height={421}
+              alt="logo"
+              className={""}
+              priority={true}
+          />
+      </section>
+      <section>section2</section>
     </div>
     
   );
