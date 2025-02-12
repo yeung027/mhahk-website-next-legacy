@@ -11,7 +11,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
         <header className={"flex flex-col"}>
             <div className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
                 <div className="ml-[33px] flex flex-row-reverse">
-                    <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px]" type='search' />
+                    <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px] placeholder-white text-[0.938rem]" type='search' placeholder="搜尋" />
                     <div className='absolute'>
                         <LiaSearchSolid className='h-[27px] text-[1.3rem] text-white mr-[7px] cursor-pointer' />
                     </div>
@@ -41,35 +41,36 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                     <div className={"flex flex-row-reverse items-center pr-[90px]"}>
                         <Image
                             src="/header/donation.png"
-                            width={94}
+                            width={96}
                             height={30}
                             alt="logo"
-                            className={"w-[94px] h-[30px]"}
                             priority={true}
+                            key={"img422"}
                         />
                         <Image
                             src="/header/youtube.png"
                             width={30}
                             height={30}
                             alt="logo"
-                            className={"w-[30px] h-[30px]"}
                             priority={true}
+                            key={"img3"}
                         />
                         <Image
                             src="/header/fb.png"
                             width={30}
                             height={30}
                             alt="logo"
-                            className={"w-[30px] h-[30px]"}
                             priority={true}
+                            key={"img2"}
                         />
                         <Image
                             src="/header/ig.png"
                             width={30}
-                            height={29}
+                            height={28}
                             alt="logo"
-                            className={"w-[30px] h-[29px]"}
+                            className={"w-[30px] h-[28px] mr-[1px]"}
                             priority={true}
+                            key={"img1"}
                         />
                         
                         
