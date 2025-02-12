@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { LiaSearchSolid } from "react-icons/lia";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 interface PageHeaderProps {
     pathname: string
@@ -26,7 +27,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                     </Link>
                 </div>
             </div>
-            <div className={"px-[30px]"}>
+            <div className={"px-[30px] flex flex-col"}>
                 <div className={"grid grid-cols-[500px_auto]"}>
                     <div className={""}>
                         <Image
@@ -46,6 +47,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             alt="logo"
                             priority={true}
                             key={"img422"}
+                            className={"cursor-pointer"}
                         />
                         <Image
                             src="/header/youtube.png"
@@ -54,6 +56,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             alt="logo"
                             priority={true}
                             key={"img3"}
+                            className={"cursor-pointer"}
                         />
                         <Image
                             src="/header/fb.png"
@@ -62,13 +65,14 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             alt="logo"
                             priority={true}
                             key={"img2"}
+                            className={"cursor-pointer"}
                         />
                         <Image
                             src="/header/ig.png"
                             width={30}
                             height={28}
                             alt="logo"
-                            className={"w-[30px] h-[28px] mr-[1px]"}
+                            className={"w-[30px] h-[28px] mr-[1px] cursor-pointer"}
                             priority={true}
                             key={"img1"}
                         />
@@ -77,6 +81,23 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                         
                     </div>
                 </div>
+                <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] flex flex-row gap-[30px]"}>
+                    <li className={"cursor-pointer"}>
+                        <div className={""}>
+                            首頁
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black"} />
+                    </li>
+                    <li className={"cursor-pointer"}>
+                        <div className={"flex flex-row items-center"}>
+                            <span>
+                                關於我們
+                            </span>
+                            <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        </div>
+                        <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                    </li>
+                </ul>
             </div>
         </header>
     )
