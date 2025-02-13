@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { LiaSearchSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { FiMenu } from "react-icons/fi";
+import MobileMenu from "./MobileMenu";
 
 interface PageHeaderProps {
     pathname: string
@@ -13,11 +13,8 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
     const xl_menuitem_has_submenu_inner = "cursor-pointer flex flex-row items-center"
     const xl_submenu_classname = "flex transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
-    const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
-
-    const menu_sep_classname = "border-t-[1px] border-[#4db093]"
-    const menu_item_classname = "text-green2"
-    const menu_item_has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
+    const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]" 
+    
 
     return (
         <header className={"flex flex-col"}>
@@ -52,7 +49,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             />
                         </div>
                         <div className={"mr-[-1vw] flex xl:hidden items-center justify-end text-[1.5rem]"}>
-                            <FiMenu className={"cursor-pointer"} />
+                            {/* <FiMenu className={"cursor-pointer"} />  */}
                         </div>
                     </div>
                     <div className={"xl:w-full pl-[2vw] xl:pl-0 pt-[2vw] xl:pt-0 flex flex-row-reverse items-center place-self-start xl:place-self-center xl:pr-[70px]"}>
@@ -97,70 +94,8 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                         
                     </div>
                 </div>
-                <div className={"relative xl:hidden"}>
-                <ul className={"flex flex-col gap-[3vw] absolute w-[calc(100%+8vw)] ml-[-4vw] font-['Istok Web', Helvetica] text-[0.875rem] bg-mainGreen w-full mt-[3px] py-[10vw] px-[8vw]"}>
-                    <li className={"flex"}>
-                        <div className="flex flex-row-reverse pb-[4vw]">
-                            <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px] placeholder-white" type='search' placeholder="搜尋" />
-                            <div className='absolute'>
-                                <LiaSearchSolid className='h-[27px] text-[1.3rem] text-white mr-[7px] cursor-pointer' />
-                            </div>
-                        </div>
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} text-black`}>
-                        首頁
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
-                        <span>
-                            關於我們
-                        </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
-                        <span>
-                            核心服務
-                        </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
-                        <span>
-                            最新消息
-                        </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
-                        <span>
-                            出版
-                        </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
-                        <span>
-                            資訊分享
-                        </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
-                        <span>
-                            義工服務
-                        </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
-                    </li>
-                    <li className={`${menu_sep_classname}`} />
-                    <li className={`${menu_item_classname}`}>                       
-                        <span>
-                            職位空缺
-                        </span>
-                    </li>
-                </ul>
-                </div>
+                
+                <MobileMenu pathname={pathname} />
 
                 <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] hidden xl:flex flex-row gap-[30px] mb-[10px]"}>
                     <li className={"relative cursor-pointer"}>
