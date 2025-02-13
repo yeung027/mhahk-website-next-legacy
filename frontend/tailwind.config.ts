@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        mainGreen:'#39a787'
+        mainGreen:'#39a787',
+        green2:'#e8fccf'
       },
       padding: {
         'pageX':'7vw',

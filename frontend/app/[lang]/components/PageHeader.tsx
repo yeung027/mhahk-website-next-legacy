@@ -9,6 +9,10 @@ interface PageHeaderProps {
   }
 
 export default function PageHeader({ pathname } : PageHeaderProps) {
+    const xl_menu_classname = "absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
+    const xl_menuitem_classname = "pt-[15px] pb-[9px]"
+    const xl_menu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
+
     return (
         <header className={"flex flex-col"}>
             <div className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
@@ -41,7 +45,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                                 priority={true}
                             />
                         </div>
-                        <div className={"flex xl:hidden items-center justify-end  text-[1.5rem]"}>
+                        <div className={"flex xl:hidden items-center justify-end text-[1.5rem]"}>
                             <FiMenu className={"cursor-pointer"} />
                         </div>
                     </div>
@@ -94,7 +98,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                         </div>
                         <div className={"mt-[8px] h-[2px] bg-black"} />
                     </li>
-                    <li className={"cursor-pointer"}>
+                    <li className={"cursor-pointer relative"}>
                         <div className={"flex flex-row items-center"}>
                             <span>
                                 關於我們
@@ -102,6 +106,49 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             <MdKeyboardArrowDown className={"ml-[5px]"} />
                         </div>
                         <div className={"mt-[8px] h-[2px] bg-black hidden"} />
+                        <ul className={`${xl_menu_classname}`}>
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    機構簡介
+                                </span>
+                            </li>
+                            <li className={`${xl_menu_sep_classname}`} />
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    願景、使命及價值
+                                </span>
+                            </li>
+                            <li className={`${xl_menu_sep_classname}`} />
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    機構架構
+                                </span>
+                            </li>
+                            <li className={`${xl_menu_sep_classname}`} />
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    大事年表
+                                </span>
+                            </li>
+                            <li className={`${xl_menu_sep_classname}`} />
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    財務報告
+                                </span>
+                            </li>
+                            <li className={`${xl_menu_sep_classname}`} />
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    公開籌款活動審計報告
+                                </span>
+                            </li>
+                            <li className={`${xl_menu_sep_classname}`} />
+                            <li className={`${xl_menuitem_classname}`}>
+                                <span>
+                                    聯絡我們
+                                </span>
+                            </li>
+                        </ul>
                     </li>
                     <li className={"cursor-pointer"}>
                         <div className={"flex flex-row items-center"}>
