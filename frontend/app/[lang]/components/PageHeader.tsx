@@ -9,9 +9,11 @@ interface PageHeaderProps {
   }
 
 export default function PageHeader({ pathname } : PageHeaderProps) {
-    const xl_menu_classname = "absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
-    const xl_menuitem_classname = "pt-[15px] pb-[9px]"
-    const xl_menu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
+    const xl_menuitem_has_submenu = "group relative"
+    const xl_menuitem_has_submenu_inner = "cursor-pointer flex flex-row items-center"
+    const xl_submenu_classname = "transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0.8] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
+    const xl_submenuitem_classname = "pt-[15px] pb-[9px]"
+    const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
 
     return (
         <header className={"flex flex-col"}>
@@ -98,52 +100,52 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                         </div>
                         <div className={"mt-[8px] h-[2px] bg-black"} />
                     </li>
-                    <li className={"cursor-pointer relative"}>
-                        <div className={"flex flex-row items-center"}>
+                    <li className={`${xl_menuitem_has_submenu}`}>
+                        <div className={`${xl_menuitem_has_submenu_inner}`}>
                             <span>
                                 關於我們
                             </span>
                             <MdKeyboardArrowDown className={"ml-[5px]"} />
                         </div>
                         <div className={"mt-[8px] h-[2px] bg-black hidden"} />
-                        <ul className={`${xl_menu_classname}`}>
-                            <li className={`${xl_menuitem_classname}`}>
+                        <ul className={`${xl_submenu_classname}`}>
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     機構簡介
                                 </span>
                             </li>
-                            <li className={`${xl_menu_sep_classname}`} />
-                            <li className={`${xl_menuitem_classname}`}>
+                            <li className={`${xl_submenu_sep_classname}`} />
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     願景、使命及價值
                                 </span>
                             </li>
-                            <li className={`${xl_menu_sep_classname}`} />
-                            <li className={`${xl_menuitem_classname}`}>
+                            <li className={`${xl_submenu_sep_classname}`} />
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     機構架構
                                 </span>
                             </li>
-                            <li className={`${xl_menu_sep_classname}`} />
-                            <li className={`${xl_menuitem_classname}`}>
+                            <li className={`${xl_submenu_sep_classname}`} />
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     大事年表
                                 </span>
                             </li>
-                            <li className={`${xl_menu_sep_classname}`} />
-                            <li className={`${xl_menuitem_classname}`}>
+                            <li className={`${xl_submenu_sep_classname}`} />
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     財務報告
                                 </span>
                             </li>
-                            <li className={`${xl_menu_sep_classname}`} />
-                            <li className={`${xl_menuitem_classname}`}>
+                            <li className={`${xl_submenu_sep_classname}`} />
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     公開籌款活動審計報告
                                 </span>
                             </li>
-                            <li className={`${xl_menu_sep_classname}`} />
-                            <li className={`${xl_menuitem_classname}`}>
+                            <li className={`${xl_submenu_sep_classname}`} />
+                            <li className={`${xl_submenuitem_classname}`}>
                                 <span>
                                     聯絡我們
                                 </span>
