@@ -42,12 +42,12 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                     <div className={"flex flex-row-reverse items-center pr-[70px]"}>
                         <Image
                             src="/header/donation.png"
-                            width={96}
-                            height={30}
+                            width={90}
+                            height={22}
                             alt="logo"
                             priority={true}
-                            key={"img422"}
-                            className={"cursor-pointer"}
+                            key={"img4ggg22"}
+                            className={"cursor-pointer h-[26px] w-[88px] ml-[7px]"}
                         />
                         <Image
                             src="/header/youtube.png"
@@ -55,7 +55,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             height={30}
                             alt="logo"
                             priority={true}
-                            key={"img3"}
+                            key={"img3gggg"}
                             className={"cursor-pointer"}
                         />
                         <Image
@@ -64,7 +64,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             height={30}
                             alt="logo"
                             priority={true}
-                            key={"img2"}
+                            key={"img2gggg"}
                             className={"cursor-pointer"}
                         />
                         <Image
@@ -74,7 +74,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             alt="logo"
                             className={"w-[30px] h-[28px] mr-[1px] cursor-pointer"}
                             priority={true}
-                            key={"img1"}
+                            key={"imgggg1"}
                         />
                         
                         
