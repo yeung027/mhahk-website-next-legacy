@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { LiaSearchSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { FiMenu } from "react-icons/fi";
 
 interface PageHeaderProps {
     pathname: string
@@ -27,19 +28,24 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                     </Link>
                 </div>
             </div>
-            <div className={"px-[30px] flex flex-col"}>
-                <div className={"grid grid-cols-[500px_auto]"}>
-                    <div className={""}>
-                        <Image
-                            src="/header/logo.png"
-                            width={474}
-                            height={121}
-                            alt="logo"
-                            className={"max-w-[474px] h-[121px]"}
-                            priority={true}
-                        />
+            <div className={"px-[7vw] xl:px-[30px] flex flex-col"}>
+                <div className={"flex flex-col xl:grid xl:grid-cols-[500px_auto] pt-[5px] xl:pt-0"}>
+                    <div className={"grid grid-cols-[90%_auto] xl:flex"}>
+                        <div className={""}>
+                            <Image
+                                src="/header/logo.png"
+                                width={474}
+                                height={121}
+                                alt="logo"
+                                className={"w-[80vw] xl:w-[474px] xl:max-w-[474px] xl:h-[121px]"}
+                                priority={true}
+                            />
+                        </div>
+                        <div className={"flex xl:hidden items-center justify-end  text-[1.5rem]"}>
+                            <FiMenu className={"cursor-pointer"} />
+                        </div>
                     </div>
-                    <div className={"flex flex-row-reverse items-center pr-[70px]"}>
+                    <div className={"pl-[2vw] xl:pl-0 pt-[2vw] xl:pt-0 flex flex-row-reverse items-center place-self-start xl:place-self-center xl:pr-[70px]"}>
                         <Image
                             src="/header/donation.png"
                             width={90}
@@ -81,7 +87,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                         
                     </div>
                 </div>
-                <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] flex flex-row gap-[30px]"}>
+                <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] hidden xl:flex flex-row gap-[30px]"}>
                     <li className={"cursor-pointer"}>
                         <div className={""}>
                             首頁
