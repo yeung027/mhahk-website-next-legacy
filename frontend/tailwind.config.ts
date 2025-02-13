@@ -11,6 +11,10 @@ export default {
       colors: {
         mainGreen:'#39a787'
       },
+      padding: {
+        'pageX':'7vw',
+        'pageXLX':'40px'
+      }
     },
   },
   plugins: [],

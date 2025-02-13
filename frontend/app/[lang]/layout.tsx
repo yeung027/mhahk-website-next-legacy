@@ -8,7 +8,7 @@ export default function IndexLayout({
     return (
       <div className={""}>
       <PageHeader pathname={''} />
-      <div className={"px-[7vw] mt-[10px]"}>
+      <div className={"px-pageX xl:px-pageXLX mt-[10px]"}>
         {children}
       </div>
       </div>
