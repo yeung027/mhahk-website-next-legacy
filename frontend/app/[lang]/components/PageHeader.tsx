@@ -12,7 +12,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
     const xl_menuitem_has_submenu = "group relative"
     const xl_menuitem_has_submenu_inner = "cursor-pointer flex flex-row items-center"
     const xl_submenu_classname = "transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0.8] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
-    const xl_submenuitem_classname = "pt-[15px] pb-[9px]"
+    const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
 
     return (
@@ -51,7 +51,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                             <FiMenu className={"cursor-pointer"} />
                         </div>
                     </div>
-                    <div className={"pl-[2vw] xl:pl-0 pt-[2vw] xl:pt-0 flex flex-row-reverse items-center place-self-start xl:place-self-center xl:pr-[70px]"}>
+                    <div className={"xl:w-full pl-[2vw] xl:pl-0 pt-[2vw] xl:pt-0 flex flex-row-reverse items-center place-self-start xl:place-self-center xl:pr-[70px]"}>
                         <Image
                             src="/header/donation.png"
                             width={90}

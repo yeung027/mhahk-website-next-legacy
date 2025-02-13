@@ -10,7 +10,8 @@ export default {
     extend: {
       colors: {
         mainGreen:'#39a787',
-        green2:'#e8fccf'
+        green2:'#e8fccf',
+        hoverBlue:'#12414f'
       },
       padding: {
         'pageX':'7vw',
