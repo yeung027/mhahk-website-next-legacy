@@ -3,34 +3,51 @@ import { components } from "@/api/strapi";
 import Link from 'next/link'
 import { getDictionary } from './dictionaries'
 import Image from "next/image";
+import { comma } from "postcss/lib/list";
 
 export default async function Profile({
   params,
 }: {
   params: Promise<{ lang: 'zh-HK' | 'cn' }>
 }) {
-  const pageResponse = await client.GET("/testings", {
+  const pageResponse = await client.GET("/index-page", {
+    params:{
+      query:{
+        populate:"hero.images"
+      }
+    }
   });
 
   const pageData = pageResponse;
-  console.log(pageData)
+  // pageData.data?.data?.hero?.map((hero) => {
+  //   hero.images?.map((image) => {
+  //     console.log(image)
+  //   })
+  // })
 
   const lang = (await params).lang;
   const dict = await getDictionary(lang);
-  console.log(lang)
+  // console.log(lang)
 
   
   return (
     <div className={"w-full flex flex-col items-center"}>
       <section>
-         <Image
-              src="/index/70thbanner.png"
-              width={929}
-              height={421}
-              alt="logo"
-              className={""}
-              priority={true}
-          />
+         {pageData.data && pageData.data.data && pageData.data.data.hero && pageData.data.data.hero &&
+          pageData.data?.data?.hero?.map((hero) => {
+            
+              return <>
+                {
+                  hero.images &&
+                  hero.images?.map((image) => {
+                    return <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} />
+                    
+                  })
+                }
+              </>
+            
+          })
+         }
       </section>
       <section>section2</section>
     </div>

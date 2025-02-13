@@ -369,25 +369,25 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTestingTesting extends Struct.CollectionTypeSchema {
-  collectionName: 'testings';
+export interface ApiIndexPageIndexPage extends Struct.SingleTypeSchema {
+  collectionName: 'index_pages';
   info: {
-    displayName: 'testing';
-    pluralName: 'testings';
-    singularName: 'testing';
+    displayName: 'Index Page';
+    pluralName: 'index-pages';
+    singularName: 'index-page';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    abc: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    hero: Schema.Attribute.DynamicZone<['hero.images']>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::testing.testing'
+      'api::index-page.index-page'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
@@ -906,7 +906,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::testing.testing': ApiTestingTesting;
+      'api::index-page.index-page': ApiIndexPageIndexPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

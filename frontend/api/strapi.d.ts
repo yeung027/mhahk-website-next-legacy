@@ -4,33 +4,17 @@
  */
 
 export interface paths {
-    "/testings": {
+    "/index-page": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["get/testings"];
-        put?: never;
-        post: operations["post/testings"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/testings/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get/testings/{id}"];
-        put: operations["put/testings/{id}"];
+        get: operations["get/index-page"];
+        put: operations["put/index-page"];
         post?: never;
-        delete: operations["delete/testings/{id}"];
+        delete: operations["delete/index-page"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1301,15 +1285,15 @@ export interface components {
                 details?: Record<string, never>;
             };
         };
-        TestingRequest: {
+        IndexPageRequest: {
             data: {
-                abc?: string;
+                hero?: components["schemas"]["HeroImagesComponent"][];
                 locale?: string;
                 localizations?: (number | string)[];
             };
         };
-        TestingListResponse: {
-            data?: components["schemas"]["Testing"][];
+        IndexPageListResponse: {
+            data?: components["schemas"]["IndexPage"][];
             meta?: {
                 pagination?: {
                     page?: number;
@@ -1319,10 +1303,10 @@ export interface components {
                 };
             };
         };
-        Testing: {
+        IndexPage: {
             id?: number;
             documentId?: string;
-            abc?: string;
+            hero?: components["schemas"]["HeroImagesComponent"][];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1332,97 +1316,6 @@ export interface components {
             createdBy?: {
                 id?: number;
                 documentId?: string;
-                firstname?: string;
-                lastname?: string;
-                username?: string;
-                /** Format: email */
-                email?: string;
-                resetPasswordToken?: string;
-                registrationToken?: string;
-                isActive?: boolean;
-                roles?: {
-                    id?: number;
-                    documentId?: string;
-                    name?: string;
-                    code?: string;
-                    description?: string;
-                    users?: {
-                        id?: number;
-                        documentId?: string;
-                    }[];
-                    permissions?: {
-                        id?: number;
-                        documentId?: string;
-                        action?: string;
-                        actionParameters?: unknown;
-                        subject?: string;
-                        properties?: unknown;
-                        conditions?: unknown;
-                        role?: {
-                            id?: number;
-                            documentId?: string;
-                        };
-                        /** Format: date-time */
-                        createdAt?: string;
-                        /** Format: date-time */
-                        updatedAt?: string;
-                        /** Format: date-time */
-                        publishedAt?: string;
-                        createdBy?: {
-                            id?: number;
-                            documentId?: string;
-                        };
-                        updatedBy?: {
-                            id?: number;
-                            documentId?: string;
-                        };
-                        locale?: string;
-                        localizations?: {
-                            id?: number;
-                            documentId?: string;
-                        }[];
-                    }[];
-                    /** Format: date-time */
-                    createdAt?: string;
-                    /** Format: date-time */
-                    updatedAt?: string;
-                    /** Format: date-time */
-                    publishedAt?: string;
-                    createdBy?: {
-                        id?: number;
-                        documentId?: string;
-                    };
-                    updatedBy?: {
-                        id?: number;
-                        documentId?: string;
-                    };
-                    locale?: string;
-                    localizations?: {
-                        id?: number;
-                        documentId?: string;
-                    }[];
-                }[];
-                blocked?: boolean;
-                preferedLanguage?: string;
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                /** Format: date-time */
-                publishedAt?: string;
-                createdBy?: {
-                    id?: number;
-                    documentId?: string;
-                };
-                updatedBy?: {
-                    id?: number;
-                    documentId?: string;
-                };
-                locale?: string;
-                localizations?: {
-                    id?: number;
-                    documentId?: string;
-                }[];
             };
             updatedBy?: {
                 id?: number;
@@ -1432,7 +1325,7 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
-                abc?: string;
+                hero?: components["schemas"]["HeroImagesComponent"][];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1454,9 +1347,61 @@ export interface components {
                 }[];
             }[];
         };
-        TestingResponse: {
-            data?: components["schemas"]["Testing"];
+        IndexPageResponse: {
+            data?: components["schemas"]["IndexPage"];
             meta?: Record<string, never>;
+        };
+        HeroImagesComponent: {
+            id?: number;
+            /** @enum {string} */
+            __component?: "hero.images";
+            images?: {
+                id?: number;
+                documentId?: string;
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+                folder?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                folderPath?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+            }[];
         };
         UploadFile: {
             id?: number;
@@ -1569,7 +1514,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    "get/testings": {
+    "get/index-page": {
         parameters: {
             query?: {
                 /** @description Sort by attributes ascending (asc) or descending (desc) */
@@ -1607,7 +1552,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TestingListResponse"];
+                    "application/json": components["schemas"]["IndexPageResponse"];
                 };
             };
             /** @description Bad Request */
@@ -1657,7 +1602,7 @@ export interface operations {
             };
         };
     };
-    "post/testings": {
+    "put/index-page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1666,7 +1611,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TestingRequest"];
+                "application/json": components["schemas"]["IndexPageRequest"];
             };
         };
         responses: {
@@ -1676,7 +1621,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TestingResponse"];
+                    "application/json": components["schemas"]["IndexPageResponse"];
                 };
             };
             /** @description Bad Request */
@@ -1726,151 +1671,11 @@ export interface operations {
             };
         };
     };
-    "get/testings/{id}": {
+    "delete/index-page": {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TestingResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    "put/testings/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TestingRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TestingResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    "delete/testings/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;
