@@ -15,6 +15,10 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
 
+    const menu_sep_classname = "border-t-[1px] border-[#4db093]"
+    const menu_item_classname = "text-green2"
+    const menu_item_has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
+
     return (
         <header className={"flex flex-col"}>
             <div className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
@@ -93,6 +97,71 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                         
                     </div>
                 </div>
+                <div className={"relative xl:hidden"}>
+                <ul className={"flex flex-col gap-[3vw] absolute w-[calc(100%+8vw)] ml-[-4vw] font-['Istok Web', Helvetica] text-[0.875rem] bg-mainGreen w-full mt-[3px] py-[10vw] px-[8vw]"}>
+                    <li className={"flex"}>
+                        <div className="flex flex-row-reverse pb-[4vw]">
+                            <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px] placeholder-white" type='search' placeholder="搜尋" />
+                            <div className='absolute'>
+                                <LiaSearchSolid className='h-[27px] text-[1.3rem] text-white mr-[7px] cursor-pointer' />
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} text-black`}>
+                        首頁
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
+                        <span>
+                            關於我們
+                        </span>
+                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
+                        <span>
+                            核心服務
+                        </span>
+                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
+                        <span>
+                            最新消息
+                        </span>
+                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
+                        <span>
+                            出版
+                        </span>
+                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
+                        <span>
+                            資訊分享
+                        </span>
+                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname} ${menu_item_has_subitem_classname}`}>                       
+                        <span>
+                            義工服務
+                        </span>
+                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                    </li>
+                    <li className={`${menu_sep_classname}`} />
+                    <li className={`${menu_item_classname}`}>                       
+                        <span>
+                            職位空缺
+                        </span>
+                    </li>
+                </ul>
+                </div>
+
                 <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] hidden xl:flex flex-row gap-[30px]"}>
                     <li className={"cursor-pointer"}>
                         <div className={""}>
