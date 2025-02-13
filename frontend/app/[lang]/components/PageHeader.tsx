@@ -11,7 +11,7 @@ interface PageHeaderProps {
 export default function PageHeader({ pathname } : PageHeaderProps) {
     const xl_menuitem_has_submenu = "group relative"
     const xl_menuitem_has_submenu_inner = "cursor-pointer flex flex-row items-center"
-    const xl_submenu_classname = "transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0.8] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
+    const xl_submenu_classname = "flex transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]"
 
@@ -51,7 +51,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                                 priority={true}
                             />
                         </div>
-                        <div className={"flex xl:hidden items-center justify-end text-[1.5rem]"}>
+                        <div className={"mr-[-1vw] flex xl:hidden items-center justify-end text-[1.5rem]"}>
                             <FiMenu className={"cursor-pointer"} />
                         </div>
                     </div>
@@ -162,12 +162,12 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
                 </ul>
                 </div>
 
-                <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] hidden xl:flex flex-row gap-[30px]"}>
-                    <li className={"cursor-pointer"}>
+                <ul className={"font-['Noto Sans', Helvetica] text-[0.875rem] px-[10px] hidden xl:flex flex-row gap-[30px] mb-[10px]"}>
+                    <li className={"relative cursor-pointer"}>
                         <div className={""}>
                             首頁
                         </div>
-                        <div className={"mt-[8px] h-[2px] bg-black"} />
+                        <div className={"absolute w-full mt-[8px] h-[2px] bg-black"} />
                     </li>
                     <li className={`${xl_menuitem_has_submenu}`}>
                         <div className={`${xl_menuitem_has_submenu_inner}`}>
