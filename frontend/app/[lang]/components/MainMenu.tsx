@@ -21,7 +21,7 @@ export default function MainMenu({ pathname, items } : PageHeaderProps) {
     const [mobileShow, setMobileShow]             = useState<boolean>(false);
 
     const xl_inner_classname= "xl:bg-white xl:static xl:font-Noto_Sans xl:px-[10px] xl:flex-row xl:gap-[30px] xl:mb-[10px] xl:py-0 xl:mt-0"
-    const xl_menuitem = "xl:relative xl:cursor-pointer xl:text-[#000000e3]"
+    const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu = "xl:group xl:relative xl:text-[#000000e3] xl:flex"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
     const xl_submenu_classname = "flex transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
@@ -48,29 +48,47 @@ export default function MainMenu({ pathname, items } : PageHeaderProps) {
                                 </div>
                             </div>
                         </li>
-                        <li className={`${sep_classname} xl:hidden`} />
                         {items &&
                             items.map((item) => {
-                                return <li className={`${item_classname} ${xl_menuitem}`}>
-                                            {item.items && item.items.length<=1 &&
-                                                <div>
-                                                    {item.name}
-                                                </div>
-                                            }
-                                            {item.items && item.items.length>1 &&
-                                                <div className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} `}>
-                                                    <span>
-                                                        關於我們
-                                                    </span>
-                                                    <MdKeyboardArrowDown className={"ml-[5px]"} />
-                                                </div>
-                                            }
-                                            
-                                            {item.items && item.items[0] && item.items[0].__component == "main-menu.main-menu-item" && 
-                                                <div className={`${item.items[0].url === pathname ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
-                                            }
+                                return  <>
+                                            <li className={`${sep_classname} xl:hidden`} />
+                                            <li className={`${item_classname} ${xl_menuitem}`}>
+                                                {item.items && item.items.length<=1 &&
+                                                    <div>
+                                                        {item.name}
+                                                    </div>
+                                                }
+                                                {item.items && item.items.length>1 &&
+                                                    <div className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} `}>
+                                                        <span>
+                                                            {item.name}
+                                                        </span>
+                                                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                                                    </div>
+                                                }
+                                                
+                                                {item.items && item.items[0] && item.items[0].__component == "main-menu.main-menu-item" && 
+                                                    <div className={`${item.items[0].url === pathname ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
+                                                }
+                                                {item.items && item.items.length>1 &&
+                                                    <ul className={`${xl_submenu_classname}`}>
+                                                        {item.items.map((subitem)=>{
+                                                            return  <>
+                                                                        <li className={`${xl_submenuitem_classname}`}>
+                                                                            <span>
+                                                                                {subitem.__component == "main-menu.main-menu-item" &&
+                                                                                    subitem.name
+                                                                                }
+                                                                            </span>
+                                                                        </li>
+                                                                        <li className={`${xl_submenu_sep_classname} last:hidden`} />
+                                                                    </>
+                                                        })}
+                                                    </ul>
+                                                }
 
-                                        </li>
+                                            </li>
+                                        </>      
                             })
                         }
 
