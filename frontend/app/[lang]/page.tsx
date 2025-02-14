@@ -1,9 +1,6 @@
 import { client } from "@/api";
 import { components } from "@/api/strapi";
-import Link from 'next/link'
 import { getDictionary } from './dictionaries'
-import Image from "next/image";
-import { comma } from "postcss/lib/list";
 import {StrapiLocale, Locale} from "@/models/util";
 
 export default async function Profile({
@@ -27,7 +24,6 @@ export default async function Profile({
   pageData.data
     
       console.log(pageData.data?.data?.hero)
-    
   
 
   // console.log(lang)
