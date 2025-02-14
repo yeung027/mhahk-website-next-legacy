@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_main_menu_mainmenu_submenus",
+  "info": {
+    "displayName": "Mainmenu-submenu"
+  },
+  "options": {},
+  "attributes": {
+    "submenus": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::main-menu.main-menu"
+    }
+  }
+}

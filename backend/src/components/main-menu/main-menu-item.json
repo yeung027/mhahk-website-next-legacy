@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_main_menu_main_menu_items",
+  "info": {
+    "displayName": "mainmenu-item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}
