@@ -1,3 +1,4 @@
+import { Istok_Web } from "next/font/google";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -7,6 +8,10 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      Istok_Web: ['"Istok Web"', 'Helvetica'],
+      Noto_Sans: ['"Noto Sans"', 'Helvetica']
+    },
     extend: {
       colors: {
         mainGreen:'#39a787',

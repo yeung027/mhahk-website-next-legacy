@@ -21,12 +21,6 @@ export default async function Profile({
   });
 
   const pageData = pageResponse;
-  pageData.data
-    
-      console.log(pageData.data?.data?.hero)
-  
-
-  // console.log(lang)
 
   
   return (
