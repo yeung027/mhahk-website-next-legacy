@@ -52,17 +52,24 @@ export default function MainMenu({ pathname, items } : PageHeaderProps) {
                         {items &&
                             items.map((item) => {
                                 return <li className={`${item_classname} ${xl_menuitem}`}>
-                                            <div>
-                                                {item.items?.map((sub:any) =>{
-                                                    return  <>
-                                                                {sub &&
-                                                                    <div>{sub.__component == "main-menu.main-menu-item" ? "o" : "x"}</div>
-                                                                }
-                                                            </>
-                                                }
-                                                )}
-                                            </div>
-                                            <div className={"hidden xl:flex absolute w-full bottom-[-8px] h-[2px] bg-black"} />
+                                            {item.items && item.items.length<=1 &&
+                                                <div>
+                                                    {item.name}
+                                                </div>
+                                            }
+                                            {item.items && item.items.length>1 &&
+                                                <div className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} `}>
+                                                    <span>
+                                                        關於我們
+                                                    </span>
+                                                    <MdKeyboardArrowDown className={"ml-[5px]"} />
+                                                </div>
+                                            }
+                                            
+                                            {item.items && item.items[0] && item.items[0].__component == "main-menu.main-menu-item" && 
+                                                <div className={`${item.items[0].url === pathname ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
+                                            }
+
                                         </li>
                             })
                         }
