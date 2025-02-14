@@ -4,18 +4,28 @@
   "info": {
     "singularName": "index-page",
     "pluralName": "index-pages",
-    "displayName": "Index Page"
+    "displayName": "Index Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "hero": {
-      "type": "dynamiczone",
-      "components": [
-        "hero.images"
-      ]
+      "displayName": "hero",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "hero.hero"
     }
   }
 }

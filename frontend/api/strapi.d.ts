@@ -1287,7 +1287,7 @@ export interface components {
         };
         IndexPageRequest: {
             data: {
-                hero?: components["schemas"]["HeroImagesComponent"][];
+                hero?: components["schemas"]["HeroHeroComponent"];
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1306,7 +1306,7 @@ export interface components {
         IndexPage: {
             id?: number;
             documentId?: string;
-            hero?: components["schemas"]["HeroImagesComponent"][];
+            hero?: components["schemas"]["HeroHeroComponent"];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1325,7 +1325,7 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
-                hero?: components["schemas"]["HeroImagesComponent"][];
+                hero?: components["schemas"]["HeroHeroComponent"];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1351,10 +1351,8 @@ export interface components {
             data?: components["schemas"]["IndexPage"];
             meta?: Record<string, never>;
         };
-        HeroImagesComponent: {
+        HeroHeroComponent: {
             id?: number;
-            /** @enum {string} */
-            __component?: "hero.images";
             images?: {
                 id?: number;
                 documentId?: string;

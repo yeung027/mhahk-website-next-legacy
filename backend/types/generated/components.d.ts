@@ -1,9 +1,10 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface HeroImages extends Struct.ComponentSchema {
-  collectionName: 'components_hero_images';
+export interface HeroHero extends Struct.ComponentSchema {
+  collectionName: 'components_hero_heroes';
   info: {
-    displayName: 'images';
+    description: '';
+    displayName: 'index-hero';
   };
   attributes: {
     images: Schema.Attribute.Media<
@@ -16,7 +17,7 @@ export interface HeroImages extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      'hero.images': HeroImages;
+      'hero.hero': HeroHero;
     }
   }
 }

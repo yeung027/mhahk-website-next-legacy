@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-02-14T01:09:36.015Z"
+    "x-generation-date": "2025-02-14T01:43:41.091Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -1823,20 +1823,7 @@
             "type": "object",
             "properties": {
               "hero": {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/HeroImagesComponent"
-                    }
-                  ]
-                },
-                "discriminator": {
-                  "propertyName": "__component",
-                  "mapping": {
-                    "hero.images": "#/components/schemas/HeroImagesComponent"
-                  }
-                }
+                "$ref": "#/components/schemas/HeroHeroComponent"
               },
               "locale": {
                 "type": "string"
@@ -1904,20 +1891,7 @@
             "type": "string"
           },
           "hero": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/HeroImagesComponent"
-                }
-              ]
-            },
-            "discriminator": {
-              "propertyName": "__component",
-              "mapping": {
-                "hero.images": "#/components/schemas/HeroImagesComponent"
-              }
-            }
+            "$ref": "#/components/schemas/HeroHeroComponent"
           },
           "createdAt": {
             "type": "string",
@@ -1968,20 +1942,7 @@
                   "type": "string"
                 },
                 "hero": {
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/HeroImagesComponent"
-                      }
-                    ]
-                  },
-                  "discriminator": {
-                    "propertyName": "__component",
-                    "mapping": {
-                      "hero.images": "#/components/schemas/HeroImagesComponent"
-                    }
-                  }
+                  "$ref": "#/components/schemas/HeroHeroComponent"
                 },
                 "createdAt": {
                   "type": "string",
@@ -2050,17 +2011,11 @@
           }
         }
       },
-      "HeroImagesComponent": {
+      "HeroHeroComponent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number"
-          },
-          "__component": {
-            "type": "string",
-            "enum": [
-              "hero.images"
-            ]
           },
           "images": {
             "type": "array",

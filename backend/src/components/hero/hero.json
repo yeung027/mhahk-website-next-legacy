@@ -1,7 +1,8 @@
 {
-  "collectionName": "components_hero_images",
+  "collectionName": "components_hero_heroes",
   "info": {
-    "displayName": "images"
+    "displayName": "index-hero",
+    "description": ""
   },
   "options": {},
   "attributes": {
