@@ -5,14 +5,15 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
+import { components } from "@/api/strapi";
 
 interface PageHeaderProps {
-    pathname: string
+    pathname: string,
+    items:components["schemas"]["MainMenu"][] | undefined
   }
 
-export default function MainMenu({ pathname } : PageHeaderProps) {
+export default function MainMenu({ pathname, items } : PageHeaderProps) {
 
-    
     const sep_classname = "border-t-[1px] border-[#4db093]"
     const item_classname = "text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
@@ -48,7 +49,23 @@ export default function MainMenu({ pathname } : PageHeaderProps) {
                             </div>
                         </li>
                         <li className={`${sep_classname} xl:hidden`} />
-                        
+                        {items &&
+                            items.map((item) => {
+                                return <li className={`${item_classname} ${xl_menuitem}`}>
+                                            <div>
+                                                {item.items?.map((sub:any) =>{
+                                                    return  <>
+                                                                {sub &&
+                                                                    <div>{sub.__component == "main-menu.main-menu-item" ? "o" : "x"}</div>
+                                                                }
+                                                            </>
+                                                }
+                                                )}
+                                            </div>
+                                            <div className={"hidden xl:flex absolute w-full bottom-[-8px] h-[2px] bg-black"} />
+                                        </li>
+                            })
+                        }
 
 
                     </ul>

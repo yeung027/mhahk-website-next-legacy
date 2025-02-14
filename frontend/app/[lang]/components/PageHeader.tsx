@@ -4,6 +4,7 @@ import { LiaSearchSolid } from "react-icons/lia";
 import MainMenu from "./MainMenu";
 import { client } from "@/api";
 import {StrapiLocale, Locale} from "@/models/util";
+import { components } from '@/api/strapi';
 
 interface PageHeaderProps {
     pathname: string,
@@ -12,7 +13,7 @@ interface PageHeaderProps {
 
 export default async function PageHeader({ pathname, locale } : PageHeaderProps) {
     
-    const menuItems = await client.GET("/main-menus", {
+    const menuItemsFetch = await client.GET("/main-menus", {
         params:{
           query:{
             populate:"items",
@@ -24,7 +25,8 @@ export default async function PageHeader({ pathname, locale } : PageHeaderProps)
         }
       });
 
-      console.log(menuItems)
+      console.log(menuItemsFetch.data)
+      const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
 
     return (
         <header className={"flex flex-col"}>
@@ -102,7 +104,7 @@ export default async function PageHeader({ pathname, locale } : PageHeaderProps)
                     </div>
                 </div>
                 
-                <MainMenu pathname={pathname} />
+                <MainMenu pathname={pathname} items={menuItems} />
 
                
             </div>
