@@ -14,7 +14,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
     const sep_classname = "border-t-[1px] border-[#4db093]"
     const item_classname = "text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
-    const inner_classname   = "flex flex-col gap-[3vw] absolute w-[calc(100%+8vw)] ml-[-4vw] font-['Istok Web', Helvetica] text-[0.875rem] bg-mainGreen w-full mt-[3px] py-[10vw] px-[8vw]"
+    const inner_classname   = "flex flex-col gap-[3vw] absolute w-[calc(100%+8vw)] font-['Istok Web', Helvetica] text-[0.875rem] bg-mainGreen w-full mt-[3px] py-[10vw] px-[8vw]"
     const [show, setShow]             = useState<boolean>(false);
     
     const menuBtnClick = () => {
@@ -22,7 +22,7 @@ export default function PageHeader({ pathname } : PageHeaderProps) {
     }
 
     return (
-            <div className={"xl:hidden"}>
+            <div className={"border-rose-300 xl:hidden"}>
                 <div className={"absolute text-[1.5rem] text-black h-[17vw] w-[10vw] top-[2vw] right-[4vw] flex items-center justify-end transition duration-700 ease-in-out "}>
                     <FiMenu className={`${show? "scale-[0] opacity-0" : "scale-[1] opacity-100"} absolute cursor-pointer`} onClick={menuBtnClick} />
                     <IoMdClose className={`${show? "scale-[1] opacity-100" : "scale-[0] opacity-0"} absolute cursor-pointer`} onClick={menuBtnClick} />
