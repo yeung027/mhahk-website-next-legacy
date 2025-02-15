@@ -15,18 +15,20 @@ interface PageHeaderProps {
 export default function MainMenu({ pathname, items } : PageHeaderProps) {
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "text-green2"
+    const item_classname = "ext-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
     const inner_classname   = "flex flex-col gap-[3vw] absolute font-Istok_Web text-[0.875rem] bg-mainGreen w-full mt-[3px] py-[10vw] px-[8vw]"
+    const submenu_classname = "scale-[1] opacity-100 static pl-[30px]"
+    const submenu_sep_classname = "border-[#4db093]"
+    const submenuitem_classname = ""
     const [mobileShow, setMobileShow]             = useState<boolean>(false);
 
     const xl_inner_classname= "xl:bg-white xl:static xl:font-Noto_Sans xl:px-[10px] xl:flex-row xl:gap-[30px] xl:mb-[10px] xl:py-0 xl:mt-0"
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
-    const xl_menuitem_has_submenu = "xl:group xl:relative xl:text-[#000000e3] xl:flex"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
-    const xl_submenu_classname = "flex transition duration-300 ease-in-out group opacity-0 group-hover:opacity-100 scale-[0] group-hover:scale-[1] origin-top cursor-pointer absolute shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full ml-[-15px] mt-[7px] min-w-[230px] flex-col px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
+    const xl_submenu_classname = "flex transition duration-300 ease-in-out group opacity-0 group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] origin-top cursor-pointer xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full xl:ml-[-15px] mt-[7px] min-w-[230px] flex-col xl:px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
-    const xl_submenu_sep_classname = "border-t-[1px] border-[#4a9b7e]" 
+    const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
     
     const menuBtnClick = () => {
         setMobileShow(!mobileShow)
@@ -71,17 +73,18 @@ export default function MainMenu({ pathname, items } : PageHeaderProps) {
                                                     <div className={`${item.items[0].url === pathname ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
                                                 }
                                                 {item.items && item.items.length>1 &&
-                                                    <ul className={`${xl_submenu_classname}`}>
+                                                    <ul className={`${submenu_classname} ${xl_submenu_classname}`}>
+                                                        <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} xl:hidden`} />
                                                         {item.items.map((subitem)=>{
                                                             return  <>
-                                                                        <li className={`${xl_submenuitem_classname}`}>
+                                                                        <li className={`${submenuitem_classname} ${xl_submenuitem_classname}`}>
                                                                             <span>
                                                                                 {subitem.__component == "main-menu.main-menu-item" &&
                                                                                     subitem.name
                                                                                 }
                                                                             </span>
                                                                         </li>
-                                                                        <li className={`${xl_submenu_sep_classname} last:hidden`} />
+                                                                        <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} last:hidden`} />
                                                                     </>
                                                         })}
                                                     </ul>
