@@ -3,15 +3,16 @@ import Image from 'next/image'
 import { LiaSearchSolid } from "react-icons/lia";
 import MainMenu from "./MainMenu";
 import { client } from "@/api";
-import {StrapiLocale, Locale} from "@/models/util";
+import {StrapiLocale, Locale, PageCategory} from "@/models/util";
 import { components } from '@/api/strapi';
 
 interface PageHeaderProps {
     pathname: string,
-    locale: Locale
+    locale: Locale,
+    category: PageCategory
   }
 
-export default async function PageHeader({ pathname, locale } : PageHeaderProps) {
+export default async function PageHeader({ pathname, locale, category } : PageHeaderProps) {
     
     const menuItemsFetch = await client.GET("/main-menus", {
         params:{
@@ -104,7 +105,7 @@ export default async function PageHeader({ pathname, locale } : PageHeaderProps)
                     </div>
                 </div>
                 
-                <MainMenu pathname={pathname} items={menuItems} />
+                <MainMenu pathname={pathname} items={menuItems} category={category} />
 
                
             </div>

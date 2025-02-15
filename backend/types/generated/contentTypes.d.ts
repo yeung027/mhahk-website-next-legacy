@@ -424,6 +424,23 @@ export interface ApiMainMenuMainMenu extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    category: Schema.Attribute.Enumeration<
+      [
+        'index',
+        'about',
+        'service',
+        'news',
+        'publish',
+        'share',
+        'volunteer',
+        'recruitment',
+      ]
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

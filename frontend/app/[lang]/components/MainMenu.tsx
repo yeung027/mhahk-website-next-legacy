@@ -6,16 +6,18 @@ import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { components } from "@/api/strapi";
+import {PageCategory} from "@/models/util";
 
 interface PageHeaderProps {
     pathname: string,
-    items:components["schemas"]["MainMenu"][] | undefined
+    items:components["schemas"]["MainMenu"][] | undefined,
+    category: PageCategory
   }
 
-export default function MainMenu({ pathname, items } : PageHeaderProps) {
+export default function MainMenu({ pathname, items, category } : PageHeaderProps) {
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "ext-green2"
+    const item_classname = "text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
     const inner_classname   = "flex flex-col gap-[3vw] absolute font-Istok_Web text-[0.875rem] bg-mainGreen w-full mt-[3px] py-[10vw] px-[8vw]"
     const submenu_classname = "scale-[1] opacity-100 static pl-[30px]"
@@ -56,12 +58,12 @@ export default function MainMenu({ pathname, items } : PageHeaderProps) {
                                             <li className={`${sep_classname} xl:hidden`} />
                                             <li className={`${item_classname} ${xl_menuitem}`}>
                                                 {item.items && item.items.length<=1 &&
-                                                    <div>
+                                                    <div className={`${item.category===category ? "text-black xl:text-[#000000e3]" : ""}`}>
                                                         {item.name}
                                                     </div>
                                                 }
                                                 {item.items && item.items.length>1 &&
-                                                    <div className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} `}>
+                                                    <div className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} ${item.category===category ? "text-black" : ""}`}>
                                                         <span>
                                                             {item.name}
                                                         </span>
@@ -69,8 +71,8 @@ export default function MainMenu({ pathname, items } : PageHeaderProps) {
                                                     </div>
                                                 }
                                                 
-                                                {item.items && item.items[0] && item.items[0].__component == "main-menu.main-menu-item" && 
-                                                    <div className={`${item.items[0].url === pathname ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
+                                                {
+                                                    <div className={`${item.category===category ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
                                                 }
                                                 {item.items && item.items.length>1 &&
                                                     <ul className={`${submenu_classname} ${xl_submenu_classname}`}>

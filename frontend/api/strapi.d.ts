@@ -1438,6 +1438,8 @@ export interface components {
                 items?: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[];
                 name?: string;
                 root: boolean;
+                /** @enum {string} */
+                category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1459,6 +1461,8 @@ export interface components {
             items?: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[];
             name?: string;
             root: boolean;
+            /** @enum {string} */
+            category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1500,6 +1504,8 @@ export interface components {
                 items?: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[];
                 name?: string;
                 root?: boolean;
+                /** @enum {string} */
+                category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */

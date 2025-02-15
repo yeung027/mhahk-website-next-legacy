@@ -45,6 +45,24 @@
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "category": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "index",
+        "about",
+        "service",
+        "news",
+        "publish",
+        "share",
+        "volunteer",
+        "recruitment"
+      ]
     }
   }
 }
