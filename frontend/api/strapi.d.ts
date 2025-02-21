@@ -1486,6 +1486,7 @@ export interface components {
                 }[];
             };
             title?: string;
+            title2?: string;
         };
         MainMenuRequest: {
             data: {
