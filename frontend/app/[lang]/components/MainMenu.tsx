@@ -8,13 +8,13 @@ import { useState } from "react";
 import { components } from "@/api/strapi";
 import {PageCategory} from "@/models/util";
 
-interface PageHeaderProps {
+interface MainMenuProps {
     pathname: string,
     items:components["schemas"]["MainMenu"][] | undefined,
     category: PageCategory
-  }
+}
 
-export default function MainMenu({ pathname, items, category } : PageHeaderProps) {
+export default function MainMenu({ pathname, items, category } : MainMenuProps) {
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
     const item_classname = "text-green2"

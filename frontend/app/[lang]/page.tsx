@@ -2,6 +2,8 @@ import { client } from "@/api";
 import { components } from "@/api/strapi";
 import { getDictionary } from './dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
+import IndexGridCategoryList from "@/app/[lang]/components/index/grid-category-list";
+
 
 export default async function Profile({
   params,
@@ -11,7 +13,8 @@ export default async function Profile({
   const lang = (await params).lang;
   const dict = await getDictionary(lang);
 
-  const section1 = await client.GET("/index-page", {
+
+  const section1Data = await client.GET("/index-page", {
     params:{
       query:{
         populate:"hero.images",
@@ -20,9 +23,8 @@ export default async function Profile({
     }
   });
 
-  const section1Data = section1;
 
-  const section2 = await client.GET("/index-page", {
+  const section2Data = await client.GET("/index-page", {
     params:{
       query:{
         populate:"grid_category_list.bg_image",
@@ -30,8 +32,9 @@ export default async function Profile({
       }
     }
   });
-  const section2Data = section2;
-  console.log(section2Data)
+  // console.log(section2Data)
+
+  
 
   
   return (
@@ -43,22 +46,7 @@ export default async function Profile({
             })
          }
       </section>
-      <section className={"w-full mt-[20px] grid grid-cols-3 gap-4"}>
-        {section2Data.data && section2Data.data.data && section2Data.data.data.grid_category_list &&
-          section2Data.data.data.grid_category_list.map((item) => {
-            return  <div 
-                      style={{ backgroundImage: `url("${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.bg_image?.url}")`}} 
-                      className={`h-[170px] flex text-[#00a0e9] font-Noto_Sans_HK font-[400] text-[36px]`}
-                    >
-                      <div className={"self-end mb-[12px] ml-[30px] h-[80px] w-[60%] flex"}>
-                        <span className={" transition duration-300 ease-in-out flex self-center"}>
-                        {item.title}
-                        </span>
-                      </div>
-                    </div>
-          })
-        }
-      </section>
+      <IndexGridCategoryList pathname={"/"} items={section2Data.data?.data?.grid_category_list} />
       {/* <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
     */}
     </div>
