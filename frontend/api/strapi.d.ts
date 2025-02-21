@@ -1319,7 +1319,8 @@ export interface components {
         };
         IndexPageRequest: {
             data: {
-                hero?: components["schemas"]["HeroHeroComponent"];
+                hero?: components["schemas"]["IndexIndexHeroComponent"];
+                grid_category_list?: components["schemas"]["IndexIndexGridCategoryListerComponent"][];
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1338,7 +1339,8 @@ export interface components {
         IndexPage: {
             id?: number;
             documentId?: string;
-            hero?: components["schemas"]["HeroHeroComponent"];
+            hero?: components["schemas"]["IndexIndexHeroComponent"];
+            grid_category_list?: components["schemas"]["IndexIndexGridCategoryListerComponent"][];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1357,7 +1359,8 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
-                hero?: components["schemas"]["HeroHeroComponent"];
+                hero?: components["schemas"]["IndexIndexHeroComponent"];
+                grid_category_list?: components["schemas"]["IndexIndexGridCategoryListerComponent"][];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1383,7 +1386,7 @@ export interface components {
             data?: components["schemas"]["IndexPage"];
             meta?: Record<string, never>;
         };
-        HeroHeroComponent: {
+        IndexIndexHeroComponent: {
             id?: number;
             images?: {
                 id?: number;
@@ -1432,6 +1435,57 @@ export interface components {
                     documentId?: string;
                 }[];
             }[];
+        };
+        IndexIndexGridCategoryListerComponent: {
+            id?: number;
+            bg_image?: {
+                id?: number;
+                documentId?: string;
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+                folder?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                folderPath?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+            };
+            title?: string;
         };
         MainMenuRequest: {
             data: {

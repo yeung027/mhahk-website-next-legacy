@@ -73,7 +73,7 @@ export default function MainMenu({ pathname, items, category } : PageHeaderProps
                                                 
                                                 {
                                                     <div className={`${item.category===category ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
-                                                }
+                                                }                                           
                                                 {item.items && item.items.length>1 &&
                                                     <ul className={`${submenu_classname} ${xl_submenu_classname}`}>
                                                         <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} xl:hidden`} />

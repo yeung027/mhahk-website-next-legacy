@@ -389,7 +389,16 @@ export interface ApiIndexPageIndexPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    hero: Schema.Attribute.Component<'hero.hero', false> &
+    grid_category_list: Schema.Attribute.Component<
+      'index.index-grid-category-lister',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Schema.Attribute.Component<'index.index-hero', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

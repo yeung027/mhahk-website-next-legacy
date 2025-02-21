@@ -10,7 +10,8 @@ export default {
   theme: {
     fontFamily: {
       Istok_Web: ['"Istok Web"', 'Helvetica'],
-      Noto_Sans: ['"Noto Sans"', 'Helvetica']
+      Noto_Sans: ['"Noto Sans"', 'Helvetica'],
+      Noto_Sans_HK: ['"Noto Sans HK"', 'serif'],
     },
     extend: {
       colors: {

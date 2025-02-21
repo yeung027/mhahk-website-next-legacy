@@ -17,7 +17,7 @@
   },
   "attributes": {
     "hero": {
-      "displayName": "hero",
+      "displayName": "index hero",
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -25,7 +25,17 @@
           "localized": true
         }
       },
-      "component": "hero.hero"
+      "component": "index.index-hero"
+    },
+    "grid_category_list": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "index.index-grid-category-lister"
     }
   }
 }

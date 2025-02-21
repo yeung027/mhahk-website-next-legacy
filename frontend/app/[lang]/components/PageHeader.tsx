@@ -26,7 +26,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
         }
       });
 
-      console.log(menuItemsFetch.data)
+    //   console.log(menuItemsFetch.data)
       const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
 
     return (

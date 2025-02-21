@@ -1,10 +1,23 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface HeroHero extends Struct.ComponentSchema {
-  collectionName: 'components_hero_heroes';
+export interface IndexIndexGridCategoryLister extends Struct.ComponentSchema {
+  collectionName: 'components_index_index_grid_category_listers';
   info: {
     description: '';
-    displayName: 'index-hero';
+    displayName: 'index grid category lister item';
+    icon: 'apps';
+  };
+  attributes: {
+    bg_image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface IndexIndexHero extends Struct.ComponentSchema {
+  collectionName: 'components_index_index_heroes';
+  info: {
+    displayName: 'index hero';
+    icon: 'picture';
   };
   attributes: {
     images: Schema.Attribute.Media<
@@ -42,7 +55,8 @@ export interface MainMenuMainmenuSubmenu extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      'hero.hero': HeroHero;
+      'index.index-grid-category-lister': IndexIndexGridCategoryLister;
+      'index.index-hero': IndexIndexHero;
       'main-menu.main-menu-item': MainMenuMainMenuItem;
       'main-menu.mainmenu-submenu': MainMenuMainmenuSubmenu;
     }
