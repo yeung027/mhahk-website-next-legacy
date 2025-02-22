@@ -23,6 +23,16 @@
     },
     "title2": {
       "type": "string"
+    },
+    "bg_image_mobile": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

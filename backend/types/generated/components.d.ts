@@ -9,6 +9,9 @@ export interface IndexIndexGridCategoryLister extends Struct.ComponentSchema {
   };
   attributes: {
     bg_image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    bg_image_mobile: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     title: Schema.Attribute.String;
     title2: Schema.Attribute.String;
   };

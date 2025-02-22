@@ -3,7 +3,7 @@ import { components } from "@/api/strapi";
 import { getDictionary } from './dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import IndexGridCategoryList from "@/app/[lang]/components/index/grid-category-list";
-
+import qs from "qs";
 
 export default async function Profile({
   params,
@@ -25,15 +25,19 @@ export default async function Profile({
 
 
   const section2Data = await client.GET("/index-page", {
-    params:{
-      query:{
-        populate:"grid_category_list.bg_image",
-        locale: lang== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk,
+    params: {
+      query: {
+        // @ts-ignore
+        populate: {
+          grid_category_list: {
+            populate: ['bg_image','bg_image_mobile']
+          }
+        },
+        locale: lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
       }
     }
   });
-  // console.log(section2Data)
-
+  console.log(section2Data);
   
 
   
