@@ -23,7 +23,7 @@ const client = createClient<paths>({
     Authorization:`Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
   },
   querySerializer(params) {
-    console.log("querySerializer", params, qs.stringify(params));
+    //console.log("querySerializer", params, qs.stringify(params));
     return qs.stringify(params, {
       encodeValuesOnly: true, // prettify URL
     });
