@@ -19,11 +19,12 @@ export default function IndexGridCategoryList({ pathname, items } : IndexGridCat
       }, [items]);
     
     const handleVisibilityChange = (index: number, visible: boolean) => {
-        setIsVisible((prev) => {
-          const updated = [...prev];
-          updated[index] = visible;
-          return updated;
-        });
+        if(visible && !isVisible[index])
+            setIsVisible((prev) => {
+            const updated = [...prev];
+            updated[index] = visible;
+            return updated;
+            });
     };
 
     return (
