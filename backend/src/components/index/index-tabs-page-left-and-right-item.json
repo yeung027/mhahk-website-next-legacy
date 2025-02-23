@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_index_index_tabs_page_left_and_right_items",
+  "info": {
+    "displayName": "index tabs item left and right",
+    "icon": "file",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right"
+      ],
+      "default": "right",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "short_content": {
+      "type": "string"
+    }
+  }
+}

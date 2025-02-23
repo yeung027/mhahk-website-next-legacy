@@ -30,8 +30,35 @@ export default async function Profile({
       }
     }
   });
+
+  //populate: "tabs_section.index.index-tabs-layout-left-and-right.*",
+  const tabSectionData = await client.GET("/index-page", {
+    params: {
+      query: {
+        // @ts-ignore
+      populate: {
+        tabs_section: {
+          on: {
+            "index.index-tabs-layout-left-and-right": {
+              populate: {
+                pages: {
+                  populate: {
+                    items: {
+                      populate: "image" // 取得items中的image
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+        locale: lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
+      }
+    }
+  });
   
-  
+  console.log(tabSectionData)
 
   
   return (
@@ -46,8 +73,8 @@ export default async function Profile({
       {/* <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
     */}
       <IndexGridCategoryList pathname={"/"} items={pageData.data?.data?.grid_category_list} />
-      <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
-   
+      {/* <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
+    */}
     </div>
     
   );

@@ -36,6 +36,17 @@
         }
       },
       "component": "index.index-grid-category-lister"
+    },
+    "tabs_section": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "index.index-tabs-layout-left-and-right"
+      ]
     }
   }
 }

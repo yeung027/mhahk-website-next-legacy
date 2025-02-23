@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_index_index_tabs_page_left_and_rights",
+  "info": {
+    "displayName": "index tabs page left and right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "displayName": "index tabs page left and right item",
+      "type": "component",
+      "repeatable": true,
+      "component": "index.index-tabs-page-left-and-right-item"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "green",
+        "cyan",
+        "orange",
+        "purple"
+      ],
+      "required": true
+    }
+  }
+}

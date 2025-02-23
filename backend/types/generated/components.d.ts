@@ -31,6 +31,56 @@ export interface IndexIndexHero extends Struct.ComponentSchema {
   };
 }
 
+export interface IndexIndexTabsLayoutLeftAndRight
+  extends Struct.ComponentSchema {
+  collectionName: 'components_index_index_tabs_layout_left_and_rights';
+  info: {
+    description: '';
+    displayName: 'index tabs layout left and right';
+  };
+  attributes: {
+    pages: Schema.Attribute.Component<
+      'index.index-tabs-page-left-and-right',
+      true
+    >;
+  };
+}
+
+export interface IndexIndexTabsPageLeftAndRight extends Struct.ComponentSchema {
+  collectionName: 'components_index_index_tabs_page_left_and_rights';
+  info: {
+    description: '';
+    displayName: 'index tabs page left and right';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<['green', 'cyan', 'orange', 'purple']> &
+      Schema.Attribute.Required;
+    items: Schema.Attribute.Component<
+      'index.index-tabs-page-left-and-right-item',
+      true
+    >;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface IndexIndexTabsPageLeftAndRightItem
+  extends Struct.ComponentSchema {
+  collectionName: 'components_index_index_tabs_page_left_and_right_items';
+  info: {
+    description: '';
+    displayName: 'index tabs item left and right';
+    icon: 'file';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    position: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'right'>;
+    short_content: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface MainMenuMainMenuItem extends Struct.ComponentSchema {
   collectionName: 'components_main_menu_main_menu_items';
   info: {
@@ -61,6 +111,9 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'index.index-grid-category-lister': IndexIndexGridCategoryLister;
       'index.index-hero': IndexIndexHero;
+      'index.index-tabs-layout-left-and-right': IndexIndexTabsLayoutLeftAndRight;
+      'index.index-tabs-page-left-and-right': IndexIndexTabsPageLeftAndRight;
+      'index.index-tabs-page-left-and-right-item': IndexIndexTabsPageLeftAndRightItem;
       'main-menu.main-menu-item': MainMenuMainMenuItem;
       'main-menu.mainmenu-submenu': MainMenuMainmenuSubmenu;
     }

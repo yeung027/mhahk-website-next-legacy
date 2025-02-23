@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_index_index_tabs_layout_left_and_rights",
+  "info": {
+    "displayName": "index tabs layout left and right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "pages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "index.index-tabs-page-left-and-right"
+    }
+  }
+}

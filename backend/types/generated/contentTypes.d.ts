@@ -410,6 +410,14 @@ export interface ApiIndexPageIndexPage extends Struct.SingleTypeSchema {
       'api::index-page.index-page'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    tabs_section: Schema.Attribute.DynamicZone<
+      ['index.index-tabs-layout-left-and-right']
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
