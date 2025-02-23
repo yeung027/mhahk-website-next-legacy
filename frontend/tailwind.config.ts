@@ -26,6 +26,9 @@ export default {
       aspectRatio: {
         '7_69_1': '7.69 / 1',
       },
+      zIndex: {
+        'nav': '96',
+      },
     },
   },
   plugins: [],
