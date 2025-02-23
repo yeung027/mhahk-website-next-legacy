@@ -2,8 +2,8 @@ import { client } from "@/api";
 import { components } from "@/api/strapi";
 import { getDictionary } from './dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
-import IndexGridCategoryList from "@/app/[lang]/components/index/grid-category-list";
-import qs from "qs";
+import IndexGridCategoryList from "@/app/[lang]/components/index/index-grid-category-list";
+import IndexTabsSection from "./components/index/index-tabs-section";
 
 export default async function Profile({
   params,
@@ -36,23 +36,23 @@ export default async function Profile({
     params: {
       query: {
         // @ts-ignore
-      populate: {
-        tabs_section: {
-          on: {
-            "index.index-tabs-layout-left-and-right": {
-              populate: {
-                pages: {
-                  populate: {
-                    items: {
-                      populate: "image" // 取得items中的image
+        populate: {
+          tabs_section: {
+            on: {
+              "index.index-tabs-layout-left-and-right": {
+                populate: {
+                  pages: {
+                    populate: {
+                      items: {
+                        populate: "image" // 取得items中的image
+                      }
                     }
                   }
                 }
               }
             }
           }
-        }
-      },
+        },
         locale: lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
       }
     }
@@ -73,6 +73,7 @@ export default async function Profile({
       {/* <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
     */}
       <IndexGridCategoryList pathname={"/"} items={pageData.data?.data?.grid_category_list} />
+      <IndexTabsSection pathname={"/"} items={tabSectionData.data?.data?.tabs_section} />
       {/* <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
     */}
     </div>

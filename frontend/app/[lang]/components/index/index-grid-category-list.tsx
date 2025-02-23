@@ -20,11 +20,10 @@ export default function IndexGridCategoryList({ pathname, items } : IndexGridCat
 
     const [isVisible, setIsVisible] = useState<boolean[]>([]);
     
-
     useEffect(() => {
         if(items) setIsVisible(new Array(items.length).fill(false));
       }, [items]);
-    
+
     const handleVisibilityChange = (index: number, visible: boolean) => {
         if(visible && !isVisible[index])
             setIsVisible((prev) => {
