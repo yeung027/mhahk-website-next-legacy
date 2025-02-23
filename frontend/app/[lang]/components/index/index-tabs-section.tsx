@@ -46,13 +46,15 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
 
     return (
         <section className={"mt-[20px] w-full"}>
-            <ul className={'flex flex-row flex-wrap border-b-[1px]'}>
+            <ul className={'flex flex-row flex-wrap border-b-[1px] bg-[#f8fafd] xl:bg-transparent'}>
             {items && items.length>0 && items[0].pages &&
                 items[0].pages.map((page, index) => {
                     const { color, bg } = getpageColorClasses(page, selected, index);
 
-                    return  <li className={`h-[41px] shadow-[3px_-2px_10px_-2px_rgba(0,0,0,0.15)] rounded-tl-[3px] rounded-tr-[3px] relative ${selected==index? "bg-white" : "bg-[#f5f8fc]"} ${notoSansHK.className} flex justify-center content-center border-[#e0e3e6] border-r-[1px] last:border-r-[0px]`}>
-                                <div className={`rounded-tl-[3px] rounded-tr-[3px] absolute w-full h-[7px] ${selected==index? bg : "hidden"}`}>
+                    return  <li className={`h-[41px] xl:shadow-[3px_-2px_10px_-2px_rgba(0,0,0,0.15)] rounded-tl-[7px] rounded-tr-[7px] xl:rounded-tl-[3px] xl:rounded-tr-[3px] relative 
+                            ${selected==index? "bg-white" : "bg-[#f5f8fc]"} ${notoSansHK.className} flex 
+                            justify-center content-center border-[#e0e3e6] border-t-[1px] xl:border-t-[0px] border-l-[1px] xl:border-l-[0px] border-r-[1px] border-l-[1px] xl:border-l-[1px] last:xl:border-r-[0px]`}>
+                                <div className={`rounded-tl-[3px] rounded-tr-[3px] absolute w-full h-[7px] hidden ${selected==index? `xl:flex ${bg}` : "hidden"}`}>
 
                                 </div>
                                 <span className={`leading-[44px] whitespace-nowrap mx-[20px] font-[500] ${color} tracking-[0.1em]`}>
