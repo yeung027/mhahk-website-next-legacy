@@ -15,12 +15,13 @@ const notoSansHK = Noto_Sans_HK({
 })
 
 export default function IndexTabsSection({ pathname, items } : IndexTabsSectionProps) {
-    const [selected, setSelected] = useState<number>(0);
+    const [selected, setSelected]       = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState<number>(0);
 
 
     return (
         <section className={"mt-[20px] w-full"}>
-            <ul className={'flex flex-row border-b-[1px] '}>
+            <ul className={'flex flex-row flex-wrap border-b-[1px]'}>
             {items && items.length>0 && items[0].pages &&
                 items[0].pages.map((page, index) => {
                     let color = "text-[#00000080]";
@@ -46,19 +47,28 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
                         bg = "bg-[#8E6ECF]"
                     }
 
-                    return  <li className={`shadow-[3px_-2px_10px_-2px_rgba(0,0,0,0.15)] rounded-tl-[3px] rounded-tr-[3px] relative ${selected==index? "bg-white" : "bg-[#f5f8fc]"} ${notoSansHK.className} flex justify-center content-center border-[#e0e3e6] border-r-[1px] last:border-r-[0px]`}>
+                    return  <li className={`h-[41px] shadow-[3px_-2px_10px_-2px_rgba(0,0,0,0.15)] rounded-tl-[3px] rounded-tr-[3px] relative ${selected==index? "bg-white" : "bg-[#f5f8fc]"} ${notoSansHK.className} flex justify-center content-center border-[#e0e3e6] border-r-[1px] last:border-r-[0px]`}>
                                 <div className={`rounded-tl-[3px] rounded-tr-[3px] absolute w-full h-[7px] bg-black ${selected==index? bg : "hidden"}`}>
 
                                 </div>
-                                <span className={`my-[7px] mx-[20px] font-[500] ${color} tracking-[0.1em]`}>
+                                <span className={`leading-[44px] whitespace-nowrap mx-[20px] font-[500] ${color} tracking-[0.1em]`}>
                                     {page.name}
                                 </span>
                             </li>
                 })
             }
             </ul>
-            <div className={'border-emerald-300 shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]'}>
-                content
+            <div className={'flex flex-col xl:grid xl:grid-cols-2 border-emerald-300 shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]'}>
+                <div className={`border-2`}>
+                {items && items.length>0 && items[0].pages && items[0].pages.length > 0 && items[0].pages[0].items &&
+                    items[0].pages[0].items.filter((u) => u.position=="left").map((item, index) => {
+                        return <div className="border-2">{item.title}</div>
+                    })
+                }
+                </div>
+                <div className={`border-2 border-rose-300`}>
+                    2
+                </div>
             </div>
         </section>
     )
