@@ -28,3 +28,19 @@ body {
   font-size: 16px;
 }
 
+
+
+/* UNSUPPORTED CSS FIX aspect */
+@supports not (aspect-ratio: 7.69/1) {
+  .aspect-7_69_1::before {
+    content: "";
+    float: left;
+    padding-top: 13%;
+  }
+
+  .aspect-7_69_1::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}

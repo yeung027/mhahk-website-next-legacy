@@ -35,16 +35,16 @@ export default function IndexGridCategoryList({ pathname, items } : IndexGridCat
     };
 
     return (
-            <section className={"w-full mt-[20px] grid grid-cols-3 gap-4"}>
+            <section className={"flex flex-col w-full mt-[20px] xl:grid xl:grid-cols-3 gap-[3vw] xl:gap-4"}>
 
                 {items &&
                 items.map((item, index) => {
                     const isDivVisible = useIsVisible({ current: divsRef.current[index] }, 0.5);
-                    const outter_class      = `bg-[image:var(--bgm)] `
-                    const inner_class       = ``
+                    const outter_class      = `bg-cover bg-[image:var(--bgm)] w-full aspect-7_69_1 font-[500] text-[20px]`
+                    const inner_class       = `px-[6vw]`
                     const span_class        = ``
-                    const xl_outter_class   = `xl:bg-[image:var(--bg)] ${notoSansHK.className} ${isVisible[index] ? "opacity-100 scale-[1]" : "opacity-0 scale-[0.9]"} delay-[0] transition duration-[0.8s] ease-in-out h-[170px] flex text-[#00a0e9] font-[500] text-[36px]`
-                    const xl_inner_class    = `self-end mb-[12px] ml-[30px] h-[80px] w-[60%] flex`
+                    const xl_outter_class   = `xl:bg-[image:var(--bg)] ${notoSansHK.className} ${isVisible[index] ? "opacity-100 scale-[1]" : "opacity-0 scale-[0.9]"} delay-[0] transition duration-[0.8s] ease-in-out xl:h-[170px] flex text-[#00a0e9] xl:font-[500] xl:text-[36px]`
+                    const xl_inner_class    = `xl:px-0 xl:self-end xl:mb-[12px] xl:ml-[30px] xl:h-[80px] xl:w-[60%] flex`
                     const xl_span_class     = `delay-[0.6s] transition duration-[1.5s] ease-in-out flex self-center ${isVisible[index] ? "opacity-100 translate-x-[0]" : "opacity-0 -translate-x-[20px]"}`
 
                     useEffect(() => {

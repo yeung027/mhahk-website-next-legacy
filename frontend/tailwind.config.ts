@@ -22,7 +22,10 @@ export default {
       padding: {
         'pageX':'7vw',
         'pageXLX':'40px'
-      }
+      },
+      aspectRatio: {
+        '7_69_1': '7.69 / 1',
+      },
     },
   },
   plugins: [],
