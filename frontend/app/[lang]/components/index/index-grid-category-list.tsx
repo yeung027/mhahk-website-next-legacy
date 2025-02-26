@@ -59,6 +59,7 @@ export default function IndexGridCategoryList({ pathname, items } : IndexGridCat
                                     '--bg': `url(${item.bg_image? `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.bg_image.url}` : ""})`,
                                     '--bgm': `url(${item.bg_image_mobile? `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.bg_image_mobile.url}` : ""})`,
                                   }}
+                                key={`grid-category-item-${index}`}
                             >
                             <div className={`${inner_class} ${xl_inner_class}`}>
                                 <span className={`${span_class} ${xl_span_class}`}>

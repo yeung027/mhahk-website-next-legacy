@@ -7,6 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { components } from "@/api/strapi";
 import {PageCategory} from "@/models/util";
+import React from "react";
 
 interface MainMenuProps {
     pathname: string,
@@ -53,8 +54,8 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                             </div>
                         </li>
                         {items &&
-                            items.map((item) => {
-                                return  <>
+                            items.map((item, index) => {
+                                return  <React.Fragment key={index}>
                                             <li className={`${sep_classname} xl:hidden`} />
                                             <li className={`${item_classname} ${xl_menuitem}`}>
                                                 {item.items && item.items.length<=1 &&
@@ -77,8 +78,8 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                                                 {item.items && item.items.length>1 &&
                                                     <ul className={`${submenu_classname} ${xl_submenu_classname}`}>
                                                         <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} xl:hidden`} />
-                                                        {item.items.map((subitem)=>{
-                                                            return  <>
+                                                        {item.items.map((subitem, j_index)=>{
+                                                            return  <React.Fragment key={j_index}>
                                                                         <li className={`${submenuitem_classname} ${xl_submenuitem_classname}`}>
                                                                             <span>
                                                                                 {subitem.__component == "main-menu.main-menu-item" &&
@@ -87,13 +88,13 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                                                                             </span>
                                                                         </li>
                                                                         <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} last:hidden`} />
-                                                                    </>
+                                                                    </React.Fragment>    
                                                         })}
                                                     </ul>
                                                 }
 
                                             </li>
-                                        </>      
+                                        </React.Fragment>    
                             })
                         }
 

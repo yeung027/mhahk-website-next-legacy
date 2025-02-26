@@ -32,6 +32,16 @@ export default async function Profile({
     }
   });
 
+  const services = await client.GET("/services", {
+    params: {
+      query: {
+        // @ts-ignore
+        populate: "index_cover"
+        },
+        locale: lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
+    }
+  });
+
   //populate: "tabs_section.index.index-tabs-layout-left-and-right.*",
   const tabSectionData = await client.GET("/index-page", {
     params: {
@@ -59,7 +69,7 @@ export default async function Profile({
     }
   });
   
-  console.log(tabSectionData)
+  console.log(services)
 
   
   return (

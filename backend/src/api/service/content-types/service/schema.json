@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Service",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "index_cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {}
+    }
+  }
+}

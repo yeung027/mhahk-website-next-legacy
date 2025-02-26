@@ -64,8 +64,8 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
 
 
     return (
-        <section className={"mt-[20px] w-full"}>
-            <ul className={'flex flex-row flex-wrap border-b-[1px] bg-[#f8fafd] xl:bg-transparent'}>
+        <section className={"mt-[20px] w-full"} key={`tabs-section-section`}>
+            <ul className={'flex flex-row flex-wrap border-b-[1px] bg-[#f8fafd] xl:bg-transparent'} key={`tabs-section-ul`}>
             {items && items.length>0 && items[0].pages &&
                 items[0].pages.map((page, index) => {
                     const { color, bg, hover_text } = getpageColorClasses(page, selected, index);
@@ -75,6 +75,7 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
                                 ${selected==index? "bg-white" : "bg-[#f5f8fc]"} ${notoSansHK.className} flex 
                                 justify-center content-center border-[#e0e3e6] border-t-[1px] xl:border-t-[0px] border-l-[1px] xl:border-l-[0px] border-r-[1px] border-l-[1px] xl:border-l-[1px] last:xl:border-r-[0px]`}
                                 onClick={()=>{setSelected(index)}}
+                                key={`${index}`}
                             >
                                 <div className={`rounded-tl-[3px] rounded-tr-[3px] absolute w-full h-[7px] hidden ${selected==index? `xl:flex ${bg}` : "hidden"}`}>
 
@@ -88,7 +89,7 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
             </ul>
             {items && items.length>0 && items[0].pages && items[0].pages &&
                 items[0].pages.map((page, index) => {
-                    return  <div className={`shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]`}>
+                    return  <div className={`shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]`} key={`tabs-section-ul-page-${index}`}>
                                 <div className={`transition-opacity transition-discrete duration-300 ease-in-out 
                                     ${index == selected ? "opacity-100 flex xl:grid" : "opacity-0 invisible absolute pointer-events-none"} 
                                     flex-col xl:grid-cols-2 auto-rows-[1fr]`}>
@@ -98,16 +99,16 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
                                     }
                                     <div className={`border-[#e0e3e6] border-r-[1px]`}>
                                     {page.items &&
-                                        page.items.filter((u) => u.position=="left").map((item, index) => {
-                                            if(index>0) return <></>
+                                        page.items.filter((u) => u.position=="left").map((item, index_j) => {
+                                            if(index_j>0) return <></>
 
                                             //@ts-ignore
                                             const { color, bg } = getpageColorClasses(items[0].pages[selected], selected, index);
 
-                                            return  <div className="flex flex-col items-start py-[20px] px-[12px]">
+                                            return  <div className="flex flex-col items-start py-[20px] px-[12px]" key={`tabs-section-ul-page-left-${index_j}`}>
                                                         <div className={`w-full flex justify-center`}>
                                                             {item.image &&
-                                                                <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} key={`index-tabs-section-page-${index}-left-item`} />
+                                                                <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} />
                                                             }
                                                         </div>
                                                         <div className={`w-fit pt-[10px]`}>
@@ -130,14 +131,19 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
                                     </div>
                                     <div className={`flex flex-col xl:grid xl:grid-rows-4`}>
                                     {page.items &&
-                                        page.items.filter((u) => u.position=="right").map((item, index) => {
-                                            if(index>3) return <></>
+                                        page.items.filter((u) => u.position=="right").map((item, index_j) => {
+                                            if(index_j>3) return <></>
 
 
-                                            return  <div className={`border-[#e0e3e6] first:border-t-[1px] first:xl:border-t-[0px] py-[12px] last:py-[20px] last:xl:py-[0px] xl:py-[0px] px-[12px] border-[#e0e3e6] border-b-[1px] grid grid-cols-[minmax(auto,16%)_1fr] content-center`}>
+                                            return  <div 
+                                                        className={`border-[#e0e3e6] first:border-t-[1px] first:xl:border-t-[0px] py-[12px]
+                                                         last:py-[20px] last:xl:py-[0px] xl:py-[0px] px-[12px] border-[#e0e3e6] border-b-[1px]
+                                                          grid grid-cols-[minmax(auto,16%)_1fr] content-center`}
+                                                        key={`tabs-section-ul-page-right-${index_j}`}
+                                                    >
                                                         <div className={``}>
                                                             {item.image &&
-                                                                <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} key={`index-tabs-section-page-${index}-right-item-${index}`} />
+                                                                <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} />
                                                             }
                                                         </div>
                                                         <div className={`self-center pl-[7px]`}>

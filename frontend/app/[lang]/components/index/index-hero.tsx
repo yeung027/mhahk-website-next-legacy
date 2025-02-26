@@ -46,7 +46,7 @@ export default function IndexHero({ pathname, data } : IndexHeroProps) {
                 >
                 {data && data.images &&
                     data.images.map((image, index) => {
-                        return  <SwiperSlide className="">
+                        return  <SwiperSlide className="" key={`SwiperSlide-${index}`}>
                                     <img 
                                         src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} 
                                         key={`index-hero-image-${index}`} 
