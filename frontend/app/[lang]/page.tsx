@@ -4,6 +4,7 @@ import { getDictionary } from './dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import IndexGridCategoryList from "@/app/[lang]/components/index/index-grid-category-list";
 import IndexTabsSection from "./components/index/index-tabs-section";
+import IndexHero from "./components/index/index-hero";
 
 export default async function Profile({
   params,
@@ -63,15 +64,7 @@ export default async function Profile({
   
   return (
     <div className={"w-full flex flex-col items-center"}>
-      <section>
-         {pageData.data && pageData.data.data && pageData.data.data.hero && pageData.data.data.hero.images &&
-            pageData.data.data.hero.images.map((image) => {
-              return <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} key={`index-hero`} />     
-            })
-         }
-      </section>
-      {/* <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
-    */}
+      <IndexHero pathname={"/"} data={pageData.data?.data?.hero} />
       <IndexGridCategoryList pathname={"/"} items={pageData.data?.data?.grid_category_list} />
       <IndexTabsSection pathname={"/"} items={tabSectionData.data?.data?.tabs_section} />
       <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
