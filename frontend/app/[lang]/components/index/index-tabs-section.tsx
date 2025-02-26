@@ -102,7 +102,7 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
             </ul>
             {items && items.length>0 && items[0].pages && items[0].pages &&
                 items[0].pages.map((page, index) => {
-                    return  <div className={`shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]`} key={`tabs-section-ul-page-${index}`}>
+                    return  <div className={`shadow-[0px_0px_9px_-1px_rgba(0,0,0,0.2)]`} key={`tabs-section-ul-page-${index}`}>
                                 <div className={`transition-opacity transition-discrete duration-300 ease-in-out 
                                     ${index == selected ? "opacity-100 flex xl:grid" : "opacity-0 invisible absolute pointer-events-none"} 
                                     flex-col xl:grid-cols-2 auto-rows-[1fr]`}>
