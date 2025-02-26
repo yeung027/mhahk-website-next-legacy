@@ -133,7 +133,7 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
                                                         </div>
                                                         <div className={`w-full pt-[3px]`}>
                                                             {item.short_content && (
-                                                                <p className={`text-black ${notoSansHK.className} font-[300] tracking-[0.1em] max-h-[50px] overflow-hidden text-ellipsis line-clamp-2`}>
+                                                                <p className={`text-[0.93rem] text-black ${notoSansHK.className} font-[300] tracking-[0.1em] max-h-[50px] overflow-hidden text-ellipsis line-clamp-2`}>
                                                                 {item.short_content}
                                                                 </p>
                                                             )}
