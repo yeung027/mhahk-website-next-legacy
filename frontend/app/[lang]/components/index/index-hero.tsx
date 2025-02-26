@@ -42,17 +42,16 @@ export default function IndexHero({ pathname, data } : IndexHeroProps) {
                         disableOnInteraction: false,
                     }}
                     modules={[Autoplay]}
+                    className=""
                 >
                 {data && data.images &&
                     data.images.map((image, index) => {
-                        return  <SwiperSlide>
-                                    <div className={`flex justify-center`}>
-                                        <img 
-                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} 
-                                            key={`index-hero-image-${index}`} 
-                                            className={``}
-                                        />
-                                    </div>
+                        return  <SwiperSlide className="">
+                                    <img 
+                                        src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} 
+                                        key={`index-hero-image-${index}`} 
+                                        className={``}
+                                    />
                                 </SwiperSlide>
                     })
                 }
