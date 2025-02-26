@@ -79,7 +79,7 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
                                 <div className={`rounded-tl-[3px] rounded-tr-[3px] absolute w-full h-[7px] hidden ${selected==index? `xl:flex ${bg}` : "hidden"}`}>
 
                                 </div>
-                                <span className={`leading-[44px] whitespace-nowrap mx-[20px] font-[500] ${color} ${hover_text} tracking-[0.1em]`}>
+                                <span className={`z-20 leading-[44px] whitespace-nowrap mx-[20px] font-[500] ${color} ${hover_text} tracking-[0.1em]`}>
                                     {page.name}
                                 </span>
                             </li>
@@ -88,61 +88,70 @@ export default function IndexTabsSection({ pathname, items } : IndexTabsSectionP
             </ul>
             {items && items.length>0 && items[0].pages && items[0].pages &&
                 items[0].pages.map((page, index) => {
-                    return  <div className={`${index==selected? "flex xl:grid" : "hidden"} flex-col xl:grid-cols-2 auto-rows-[1fr] border-emerald-300 shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]`}>
-                                <div className={`border-[#e0e3e6] border-r-[1px]`}>
-                                {page.items &&
-                                    page.items.filter((u) => u.position=="left").map((item, index) => {
-                                        if(index>0) return <></>
+                    return  <div className={`shadow-[0px_0px_10px_-1px_rgba(0,0,0,0.2)]`}>
+                                <div className={`transition-opacity transition-discrete duration-300 ease-in-out 
+                                    ${index == selected ? "opacity-100 flex xl:grid" : "opacity-0 invisible absolute pointer-events-none"} 
+                                    flex-col xl:grid-cols-2 auto-rows-[1fr]`}>
 
-                                        //@ts-ignore
-                                        const { color, bg } = getpageColorClasses(items[0].pages[selected], selected, index);
+                                    {page.items && page.items.length<=0 &&
+                                        <div className={"h-[20px]"}> </div>
+                                    }
+                                    <div className={`border-[#e0e3e6] border-r-[1px]`}>
+                                    {page.items &&
+                                        page.items.filter((u) => u.position=="left").map((item, index) => {
+                                            if(index>0) return <></>
 
-                                        return  <div className="flex flex-col items-start py-[20px] px-[12px]">
-                                                    <div className={`w-full flex justify-center`}>
-                                                        {item.image &&
-                                                            <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} key={`index-tabs-section-page-${index}-left-item`} />
-                                                        }
+                                            //@ts-ignore
+                                            const { color, bg } = getpageColorClasses(items[0].pages[selected], selected, index);
+
+                                            return  <div className="flex flex-col items-start py-[20px] px-[12px]">
+                                                        <div className={`w-full flex justify-center`}>
+                                                            {item.image &&
+                                                                <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} key={`index-tabs-section-page-${index}-left-item`} />
+                                                            }
+                                                        </div>
+                                                        <div className={`w-fit pt-[10px]`}>
+                                                            {item.title &&
+                                                                <h3 className={`${color} ${notoSansHK.className} font-[500] tracking-[0.1em]`}>
+                                                                    {item.title}
+                                                                </h3>
+                                                            }
+                                                        </div>
+                                                        <div className={`w-full pt-[3px]`}>
+                                                            {item.short_content && (
+                                                                <p className={`text-black ${notoSansHK.className} font-[300] tracking-[0.1em] max-h-[50px] overflow-hidden text-ellipsis line-clamp-2`}>
+                                                                {item.short_content}
+                                                                </p>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <div className={`w-fit pt-[10px]`}>
-                                                        {item.title &&
-                                                            <h3 className={`${color} ${notoSansHK.className} font-[500] tracking-[0.1em]`}>
-                                                                {item.title}
-                                                            </h3>
-                                                        }
+                                        })
+                                    }
+                                    </div>
+                                    <div className={`flex flex-col xl:grid xl:grid-rows-4`}>
+                                    {page.items &&
+                                        page.items.filter((u) => u.position=="right").map((item, index) => {
+                                            if(index>3) return <></>
+
+
+                                            return  <div className={`border-[#e0e3e6] first:border-t-[1px] first:xl:border-t-[0px] py-[12px] last:py-[20px] last:xl:py-[0px] xl:py-[0px] px-[12px] border-[#e0e3e6] border-b-[1px] grid grid-cols-[minmax(auto,16%)_1fr] content-center`}>
+                                                        <div className={``}>
+                                                            {item.image &&
+                                                                <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} key={`index-tabs-section-page-${index}-right-item-${index}`} />
+                                                            }
+                                                        </div>
+                                                        <div className={`self-center pl-[7px]`}>
+                                                            {item.title &&
+                                                                <h3 className={`${notoSansHK.className} font-[500] tracking-[0.1em] text-[1rem]`}>
+                                                                    {item.title}
+                                                                </h3>
+                                                            }
+                                                        </div>
                                                     </div>
-                                                    <div className={`w-full pt-[3px]`}>
-                                                        {item.short_content && (
-                                                            <p className={`text-black ${notoSansHK.className} font-[300] tracking-[0.1em] max-h-[50px] overflow-hidden text-ellipsis line-clamp-2`}>
-                                                            {item.short_content}
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                </div>
                                     })
-                                }
-                                </div>
-                                <div className={`flex flex-col xl:grid xl:grid-rows-4`}>
-                                {page.items &&
-                                    page.items.filter((u) => u.position=="right").map((item, index) => {
-                                        if(index>3) return <></>
-
-
-                                        return  <div className={`border-[#e0e3e6] first:border-t-[1px] first:xl:border-t-[0px] py-[12px] last:py-[20px] last:xl:py-[0px] xl:py-[0px] px-[12px] border-[#e0e3e6] border-b-[1px] grid grid-cols-[minmax(auto,16%)_1fr] content-center`}>
-                                                    <div className={``}>
-                                                        {item.image &&
-                                                            <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} key={`index-tabs-section-page-${index}-right-item-${index}`} />
-                                                        }
-                                                    </div>
-                                                    <div className={`self-center pl-[7px]`}>
-                                                        {item.title &&
-                                                            <h3 className={`${notoSansHK.className} font-[500] tracking-[0.1em] text-[1rem]`}>
-                                                                {item.title}
-                                                            </h3>
-                                                        }
-                                                    </div>
-                                                </div>
-                                })
-                                }
+                                    }
+                                    
+                                    </div>
                                 </div>
                             </div>
                 
