@@ -61,10 +61,23 @@ const getpageColorClasses = (page:components["schemas"]["IndexIndexTabsPageLeftA
 
 export default function IndexTabsSection({ pathname, items } : IndexTabsSectionProps) {
     const [selected, setSelected]       = useState<number>(0);
+    const sectionRef = useRef<HTMLElement | null>(null);
+    const isVisibleNow = useIsVisible(sectionRef, 0.3);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
-
+    useEffect(() => {
+        if (isVisibleNow && !isVisible) {
+            setIsVisible(true); // 只更新一次
+        }
+    }, [isVisibleNow, isVisible]);
+    
     return (
-        <section className={"mt-[20px] w-full"} key={`tabs-section-section`}>
+        <section 
+            className={`mt-[20px] w-full ${isVisible ? "opacity-100 translate-y-[0]" : "opacity-0 translate-y-[3vw] xl:translate-y-[20px]"}
+             delay-[0.1s] transition duration-[1s] ease-in-out `} 
+            key={`tabs-section-section`} 
+            ref={sectionRef}
+        >
             <ul className={'flex flex-row flex-wrap border-b-[1px] bg-[#f8fafd] xl:bg-transparent'} key={`tabs-section-ul`}>
             {items && items.length>0 && items[0].pages &&
                 items[0].pages.map((page, index) => {

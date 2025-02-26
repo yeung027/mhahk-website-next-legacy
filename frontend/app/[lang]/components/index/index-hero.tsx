@@ -17,7 +17,7 @@ export default function IndexHero({ pathname, data } : IndexHeroProps) {
   
     
     const sectionRef = useRef<HTMLElement | null>(null);
-    const isVisibleNow = useIsVisible(sectionRef, 0.3); // 監測 30% 可見度
+    const isVisibleNow = useIsVisible(sectionRef, 0.3);
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     useEffect(() => {
@@ -27,7 +27,10 @@ export default function IndexHero({ pathname, data } : IndexHeroProps) {
     }, [isVisibleNow, isVisible]);
 
     return (
-            <section className={`w-full ${isVisible ? "opacity-100 translate-y-[0]" : "opacity-0 translate-y-[3vw] xl:translate-y-[20px]"} delay-[0.1s] transition duration-[1s] ease-in-out `} ref={sectionRef}>
+            <section className={`w-full ${isVisible ? "opacity-100 translate-y-[0]" : "opacity-0 translate-y-[3vw] xl:translate-y-[20px]"}
+                 delay-[0.1s] transition duration-[1s] ease-in-out `} 
+                ref={sectionRef}
+            >
                 <Swiper 
                     slidesPerView={1}
                     loop={true}
