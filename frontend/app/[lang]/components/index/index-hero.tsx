@@ -2,6 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
 import { useIsVisible } from "@/app/util";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules"; 
+import "swiper/css";
+
 
 interface IndexHeroProps {
     pathname: string,
@@ -29,12 +33,30 @@ export default function IndexHero({ pathname, data } : IndexHeroProps) {
     };
 
     return (
-            <section>
+            <section className={`w-full`}>
+                <Swiper 
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    }}
+                    modules={[Autoplay]}
+                >
                 {data && data.images &&
-                    data.images.map((image) => {
-                        return <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} key={`index-hero`} />     
+                    data.images.map((image, index) => {
+                        return  <SwiperSlide>
+                                    <div className={`flex justify-center`}>
+                                        <img 
+                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} 
+                                            key={`index-hero-image-${index}`} 
+                                            className={``}
+                                        />
+                                    </div>
+                                </SwiperSlide>
                     })
                 }
+                </Swiper>
             </section>
     
     );
