@@ -15,25 +15,19 @@ interface IndexHeroProps {
 
 export default function IndexHero({ pathname, data } : IndexHeroProps) {
   
-    const imgsRef = useRef<HTMLDivElement[]>([]);
-
-    const [isVisible, setIsVisible] = useState<boolean[]>([]);
     
-    // useEffect(() => {
-    //     if(items) setIsVisible(new Array(items.length).fill(false));
-    //   }, [items]);
+    const sectionRef = useRef<HTMLElement | null>(null);
+    const isVisibleNow = useIsVisible(sectionRef, 0.3); // 監測 30% 可見度
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    const handleVisibilityChange = (index: number, visible: boolean) => {
-        if(visible && !isVisible[index])
-            setIsVisible((prev) => {
-            const updated = [...prev];
-            updated[index] = visible;
-            return updated;
-        });
-    };
+    useEffect(() => {
+        if (isVisibleNow && !isVisible) {
+            setIsVisible(true); // 只更新一次
+        }
+    }, [isVisibleNow, isVisible]);
 
     return (
-            <section className={`w-full`}>
+            <section className={`w-full ${isVisible ? "opacity-100 translate-y-[0]" : "opacity-0 translate-y-[3vw] xl:translate-y-[20px]"} delay-[0.1s] transition duration-[1s] ease-in-out `} ref={sectionRef}>
                 <Swiper 
                     slidesPerView={1}
                     loop={true}

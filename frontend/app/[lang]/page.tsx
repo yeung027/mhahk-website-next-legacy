@@ -5,6 +5,7 @@ import {StrapiLocale, Locale} from "@/models/util";
 import IndexGridCategoryList from "@/app/[lang]/components/index/index-grid-category-list";
 import IndexTabsSection from "./components/index/index-tabs-section";
 import IndexHero from "./components/index/index-hero";
+import IndexServicesList from "./components/index/index-services-list";
 
 export default async function Profile({
   params,
@@ -69,7 +70,7 @@ export default async function Profile({
     }
   });
   
-  console.log(services)
+  console.log(services.data?.data)
 
   
   return (
@@ -77,6 +78,7 @@ export default async function Profile({
       <IndexHero pathname={"/"} data={pageData.data?.data?.hero} />
       <IndexGridCategoryList pathname={"/"} items={pageData.data?.data?.grid_category_list} />
       <IndexTabsSection pathname={"/"} items={tabSectionData.data?.data?.tabs_section} />
+      <IndexServicesList pathname={"/"} services={services.data?.data} />
       <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
    
     </div>
