@@ -89,7 +89,7 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                     }
                 </nav>
             </div>
-            <div className="bg-[#a2d6c7] flex flex-col gap-[16px] py-[20px] px-pageX xl:px-pageXLX ">
+            <div className="bg-[#a2d6c7] hidden xl:flex flex-wrap xl:flex-col gap-[16px] py-[20px] px-pageX xl:px-pageXLX ">
             {data?.data?.data?.icon_groups?.map((group, index) => (
                 <div key={`group-${index}`} className="flex justify-center items-center gap-[7px] flex-wrap">
                 {group.icons?.map((icon, iconIndex) => (
@@ -106,6 +106,25 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                 </div>
             ))}
             </div>
+
+            <div className="bg-[#a2d6c7] flex xl:hidden flex-wrap justify-center items-center xl:flex-col gap-[16px] py-[20px] px-pageX xl:px-pageXLX ">
+            {data?.data?.data?.icon_groups?.map((group, index) => (
+                <>
+                {group.icons?.map((icon, iconIndex) => (
+                    <div key={`icon-${index}-${iconIndex}`} className="w-[120px] h-[80px] flex justify-center items-center">
+                    {icon.image && icon.image.length > 0 && (
+                        <img 
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image[0].url}`} 
+                        className="max-w-full max-h-full w-auto h-auto object-contain"
+                        alt={`icon-${index}-${iconIndex}`}
+                        />
+                    )}
+                    </div>
+                ))}
+                </>
+            ))}
+            </div>
+
         </footer>
     )
 }
