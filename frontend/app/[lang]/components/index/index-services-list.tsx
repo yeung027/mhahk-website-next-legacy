@@ -33,6 +33,18 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
     const swiperRef = useRef<SwiperClass | null>(null);
 
     useEffect(() => {
+        if (swiperRef.current) {
+            const swiper = swiperRef.current;
+            if (swiper.params.autoplay && typeof swiper.params.autoplay !== "boolean") {
+                if(!isVisibleNow)
+                    swiper.autoplay.stop(); 
+                else
+                    swiper.autoplay.start(); 
+            }
+        }
+    }, [swiperRef, isVisibleNow]);
+
+    useEffect(() => {
         if (isVisibleNow && !isVisible) {
             setIsVisible(true); // 只更新一次
         }
@@ -120,13 +132,14 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
                         spaceBetween={"2.5%"}
                         loop={true}
                         speed={1000} // 平滑動畫
+                        onSwiper={(swiper) => (swiperRef.current = swiper)}
                         autoplay={{
-                            delay: 3000,
+                            delay: 3000, 
                             disableOnInteraction: false,
                         }}
-                        onSwiper={(swiper) => (swiperRef.current = swiper)}
                         modules={[Autoplay]}
-                        className="w-full h-[85%] xl:h-[70%] pb-2 overflow-hidden"
+                        className={`w-full h-[85%] xl:h-[70%] pb-2 overflow-hidden 
+                            ${isVisible ? "opacity-100 translate-y-[0]" : "opacity-0 -translate-y-[3vw] xl:-translate-y-[12px]"} delay-[1s] transition duration-[1s] ease-in-out`}
                         onSlideChange={handleSlideChange}
                     >
                         {services &&
