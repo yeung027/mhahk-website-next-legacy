@@ -38,34 +38,34 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
             {/* 標題 */}
             <h3 className={`${notoSansHK.className} text-[1.8rem] font-[400] text-[#0fa479] pl-2`}>服務</h3>
             
-            <div className="relative w-full flex flex-col h-[250px] justify-center">
+            <div className="relative w-full flex flex-col h-[66vw] xl:h-[250px] justify-center">
                 {/* 背景色塊 */}
-                <div className="absolute bg-[#0fa479] h-full w-[42%] z-0 rounded-r-lg" />
+                <div className="hidden xl:flex absolute bg-[#0fa479] h-full w-[42%] z-0 rounded-r-lg" />
                 
                 {/* Swiper + 按鈕 */}
-                <div className="grid grid-cols-[12%_88%] h-full flex items-center">
+                <div className="grid grid-rows-[24vw_auto] xl:grid-rows-1 xl:grid-cols-[12%_88%] h-full flex items-center">
                     
                     {/* 左側按鈕區 */}
-                    <div className="h-full z-20 grid grid-rows-[60%_40%]">
-                        <div className="flex flex-col justify-end items-center gap-4">
+                    <div className="h-full z-20 grid grid-cols-2 xl:grid-cols-1 xl:grid-rows-[60%_40%] bg-[#0fa479] xl:transparent gap-[4vw] xl:gap-0 pb-[4vw] xl:pb-[0px]">
+                        <div className="flex flex-row xl:flex-col justify-end items-end xl:items-center gap-[4vw] xl:gap-4">
                             {/* 上一頁 */}
                             <button 
-                                className="w-11 h-11 rounded-full border border-white flex justify-center 
-                                items-center text-white text-2xl transition-all duration-200 hover:bg-white hover:text-[#0fa479]"
+                                className="w-[7.7vw] h-[7.7vw] xl:w-11 xl:h-11 rounded-full border border-white flex justify-center 
+                                items-center text-white text-[1.2rem] xl:text-2xl transition-all duration-200 hover:bg-white hover:text-[#0fa479]"
                                 onClick={() => swiperRef.current?.slidePrev()}
                             >
                                 <MdOutlineArrowBackIos />
                             </button>
                             {/* 下一頁 */}
                             <button 
-                                className="w-11 h-11 rounded-full border border-white flex justify-center items-center 
-                                text-white text-2xl transition-all duration-200 hover:bg-white hover:text-[#0fa479]"
+                                className="w-[7.7vw] h-[7.7vw] xl:w-11 xl:h-11 rounded-full border border-white flex justify-center items-center 
+                                text-white text-[1.2rem] xl:text-2xl transition-all duration-200 hover:bg-white hover:text-[#0fa479]"
                                 onClick={() => swiperRef.current?.slideNext()}
                             >
                                 <MdOutlineArrowForwardIos />
                             </button>
                         </div>
-                        <div className={`text-white text-center flex justify-center items-end pb-[16%] gap-[5px] ${notoSerifHK.className}`}>
+                        <div className={`text-white text-center flex justify-start xl:justify-center items-end xl:pb-[16%] gap-[5px] ${notoSerifHK.className}`}>
                             {/* 讓這個 div 控制對齊 */}
                             <div className="flex items-end">
                                 <span className="text-[2rem] leading-none">{String(activeIndex).padStart(2, "0")} {/* ✅ 自動補 0 */}</span>
@@ -86,7 +86,10 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
 
                     {/* Swiper 輪播 */}
                     <Swiper 
-                        slidesPerView={2.5}
+                         breakpoints={{
+                            1280: { slidesPerView: 2.5 }, // xl 以上
+                            0: { slidesPerView: 1.1 } // xl 以下 (預設)
+                        }}
                         spaceBetween={"2.5%"}
                         loop={true}
                         speed={1000} // 平滑動畫
@@ -96,7 +99,7 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
                         }}
                         onSwiper={(swiper) => (swiperRef.current = swiper)}
                         modules={[Autoplay]}
-                        className="w-full h-[70%] pb-2 overflow-hidden"
+                        className="w-full h-[85%] xl:h-[70%] pb-2 overflow-hidden"
                         onSlideChange={handleSlideChange}
                     >
                         {services &&
