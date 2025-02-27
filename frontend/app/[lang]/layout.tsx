@@ -1,5 +1,6 @@
 import PageHeader  from '@/app/[lang]/components/PageHeader'
 import {Locale, PageCategory} from "@/models/util";
+import PageFooter from './components/PageFooter';
 
 export default async function IndexLayout({
     children,
@@ -17,6 +18,7 @@ export default async function IndexLayout({
       <div className={"px-pageX xl:px-pageXLX mt-[10px]"}>
         {children}
       </div>
+      <PageFooter locale={lang} />
       </div>
     );
   }

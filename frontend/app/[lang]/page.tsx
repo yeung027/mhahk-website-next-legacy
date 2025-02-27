@@ -70,7 +70,7 @@ export default async function Profile({
     }
   });
   
-  console.log(services.data?.data)
+  // console.log(services.data?.data)
 
   
   return (
@@ -79,8 +79,6 @@ export default async function Profile({
       <IndexGridCategoryList pathname={"/"} items={pageData.data?.data?.grid_category_list} />
       <IndexTabsSection pathname={"/"} items={tabSectionData.data?.data?.tabs_section} />
       <IndexServicesList pathname={"/"} services={services.data?.data} />
-      <section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section><section>section2</section>
-   
     </div>
     
   );
