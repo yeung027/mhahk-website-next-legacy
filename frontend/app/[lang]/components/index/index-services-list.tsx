@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules"; 
@@ -24,7 +24,7 @@ interface IndexGridCategoryListProps {
 }
 
 export default function IndexServicesList({ pathname, services } : IndexGridCategoryListProps) {
-
+    const [swiperKey, setSwiperKey] = useState(0); // 🔥 用來強制重新渲染 Swiper
     const [activeIndex, setActiveIndex] = useState<number>(1); // ✅ TypeScript 指定數字類型
     const swiperRef = useRef<SwiperClass | null>(null);
 
@@ -33,6 +33,15 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
         setActiveIndex(swiper.realIndex + 1); // Swiper Index 從 0 開始，+1 變成人類習慣
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            setSwiperKey(prevKey => prevKey + 1); // 🔥 重新設定 key 讓 Swiper 重新渲染
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    
     return (
         <section className="mt-[20px]">
             {/* 標題 */}
@@ -68,15 +77,15 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
                         <div className={`text-white text-center flex justify-start xl:justify-center items-end xl:pb-[16%] gap-[5px] ${notoSerifHK.className}`}>
                             {/* 讓這個 div 控制對齊 */}
                             <div className="flex items-end">
-                                <span className="text-[2rem] leading-none">{String(activeIndex).padStart(2, "0")} {/* ✅ 自動補 0 */}</span>
+                                <span className="text-[1.6rem] xl:text-[2rem] leading-none">{String(activeIndex).padStart(2, "0")} {/* ✅ 自動補 0 */}</span>
                             </div>
                             
                             <div className="flex items-end">
-                                <span className="text-[1.3rem] leading-none">/</span>
+                                <span className="text-[1rem] xl:text-[1.3rem] leading-none">/</span>
                             </div>
                             
                             <div className="flex items-end">
-                                <span className="text-[1.3rem] leading-none">{services? String(services.length).padStart(2, "0") : 0}</span>
+                                <span className="text-[1rem] xl:text-[1.3rem] leading-none">{services? String(services.length).padStart(2, "0") : 0}</span>
                             </div>
                         </div>
 
@@ -86,7 +95,8 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
 
                     {/* Swiper 輪播 */}
                     <Swiper 
-                         breakpoints={{
+                        key={swiperKey} // 🔥 每次 `setSwiperKey` 變更時，Swiper 會重新載入
+                        breakpoints={{
                             1280: { slidesPerView: 2.5 }, // xl 以上
                             0: { slidesPerView: 1.1 } // xl 以下 (預設)
                         }}
@@ -108,7 +118,7 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
                                     className="flex transition-all duration-300 hover:scale-105" 
                                     key={`SwiperSlide-${index}`}
                                 >
-                                    <div className="w-full h-[calc(100%-7px)] shadow-lg bg-white flex flex-col justify-center p-4 relative overflow-hidden">
+                                    <div className="w-full h-[calc(100%-7px)] shadow-md bg-white flex flex-col justify-center p-4 relative overflow-hidden">
                                         {/* 上方裝飾圖 */}
                                         <Image
                                             src="/index/services/item_top.png"
