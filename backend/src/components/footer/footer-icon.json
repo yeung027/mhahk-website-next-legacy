@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_footer_footer_icons",
+  "info": {
+    "displayName": "Footer Icon",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    },
+    "url": {
+      "type": "string"
+    },
+    "external_url": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_footer_footer_bottom_paragraphs",
+  "info": {
+    "displayName": "Footer Bottom Paragraph",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "blocks"
+    }
+  }
+}

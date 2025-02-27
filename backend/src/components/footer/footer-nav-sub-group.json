@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_footer_footer_nav_sub_groups",
+  "info": {
+    "displayName": "Footer Nav Sub-Group",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.footer-nav-item"
+    }
+  }
+}

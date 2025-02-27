@@ -1,5 +1,92 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface FooterFooterBottomParagraph extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_bottom_paragraphs';
+  info: {
+    description: '';
+    displayName: 'Footer Bottom Paragraph';
+  };
+  attributes: {
+    content: Schema.Attribute.Blocks;
+  };
+}
+
+export interface FooterFooterIcon extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_icons';
+  info: {
+    description: '';
+    displayName: 'Footer Icon';
+  };
+  attributes: {
+    external_url: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    > &
+      Schema.Attribute.Required;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface FooterFooterIconGroup extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_icon_groups';
+  info: {
+    displayName: 'Footer Icon Group';
+  };
+  attributes: {
+    icons: Schema.Attribute.Component<'footer.footer-icon', true>;
+  };
+}
+
+export interface FooterFooterNavGroup extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_nav_groups';
+  info: {
+    displayName: 'Footer Nav Group';
+  };
+  attributes: {
+    subgroup: Schema.Attribute.Component<'footer.footer-nav-sub-group', true>;
+  };
+}
+
+export interface FooterFooterNavItem extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_nav_items';
+  info: {
+    description: '';
+    displayName: 'Footer Nav Item';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface FooterFooterNavSubGroup extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_nav_sub_groups';
+  info: {
+    description: '';
+    displayName: 'Footer Nav Sub-Group';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'footer.footer-nav-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface FooterFooterXlOnlyNavIcon extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_xl_only_nav_icons';
+  info: {
+    description: '';
+    displayName: 'Footer XL Only Nav Icon';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface IndexIndexGridCategoryLister extends Struct.ComponentSchema {
   collectionName: 'components_index_index_grid_category_listers';
   info: {
@@ -109,6 +196,13 @@ export interface MainMenuMainmenuSubmenu extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'footer.footer-bottom-paragraph': FooterFooterBottomParagraph;
+      'footer.footer-icon': FooterFooterIcon;
+      'footer.footer-icon-group': FooterFooterIconGroup;
+      'footer.footer-nav-group': FooterFooterNavGroup;
+      'footer.footer-nav-item': FooterFooterNavItem;
+      'footer.footer-nav-sub-group': FooterFooterNavSubGroup;
+      'footer.footer-xl-only-nav-icon': FooterFooterXlOnlyNavIcon;
       'index.index-grid-category-lister': IndexIndexGridCategoryLister;
       'index.index-hero': IndexIndexHero;
       'index.index-tabs-layout-left-and-right': IndexIndexTabsLayoutLeftAndRight;

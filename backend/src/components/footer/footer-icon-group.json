@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_footer_footer_icon_groups",
+  "info": {
+    "displayName": "Footer Icon Group"
+  },
+  "options": {},
+  "attributes": {
+    "icons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.footer-icon"
+    }
+  }
+}

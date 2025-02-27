@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_footer_footer_xl_only_nav_icons",
+  "info": {
+    "displayName": "Footer XL Only Nav Icon",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}
