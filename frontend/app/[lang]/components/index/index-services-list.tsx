@@ -7,6 +7,7 @@ import "swiper/css";
 import Image from 'next/image'
 import { Noto_Sans_HK, Noto_Serif_HK } from 'next/font/google'
 import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from "react-icons/md";
+import { useIsVisible } from "@/app/util";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -24,9 +25,18 @@ interface IndexGridCategoryListProps {
 }
 
 export default function IndexServicesList({ pathname, services } : IndexGridCategoryListProps) {
+    const sectionRef = useRef<HTMLElement | null>(null);
+    const isVisibleNow = useIsVisible(sectionRef, 0.3);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
     const [swiperKey, setSwiperKey] = useState(0); // 🔥 用來強制重新渲染 Swiper
     const [activeIndex, setActiveIndex] = useState<number>(1); // ✅ TypeScript 指定數字類型
     const swiperRef = useRef<SwiperClass | null>(null);
+
+    useEffect(() => {
+        if (isVisibleNow && !isVisible) {
+            setIsVisible(true); // 只更新一次
+        }
+    }, [isVisibleNow, isVisible]);
 
     // ✅ 監聽 Swiper 事件，確保類型安全
     const handleSlideChange = (swiper: SwiperClass) => {
@@ -43,13 +53,20 @@ export default function IndexServicesList({ pathname, services } : IndexGridCate
     }, []);
     
     return (
-        <section className="mt-[20px]">
+        <section 
+            className={`mt-[20px] ${isVisible ? "opacity-100 translate-x-[0]" : "opacity-0 -translate-x-[3vw] xl:-translate-x-[0]"} 
+             delay-[0.1s] transition duration-[1s] ease-in-out`}
+             ref={sectionRef}
+        >
             {/* 標題 */}
             <h3 className={`${notoSansHK.className} text-[1.8rem] font-[400] text-[#0fa479] pl-2`}>服務</h3>
             
             <div className="relative w-full flex flex-col h-[66vw] xl:h-[250px] justify-center">
                 {/* 背景色塊 */}
-                <div className="hidden xl:flex absolute bg-[#0fa479] h-full w-[42%] z-0 rounded-r-lg" />
+                <div 
+                    className={`${isVisible ? "translate-x-[0]" : "-translate-x-[20px]"} 
+                     hidden xl:flex absolute bg-[#0fa479] h-full w-[42%] z-0 rounded-r-lg transition duration-[1s] ease-in-out`} 
+                />
                 
                 {/* Swiper + 按鈕 */}
                 <div className="grid grid-rows-[24vw_auto] xl:grid-rows-1 xl:grid-cols-[12%_88%] h-full flex items-center">

@@ -28,7 +28,7 @@ export default function IndexHero({ pathname, data } : IndexHeroProps) {
 
     return (
             <section className={`w-full ${isVisible ? "opacity-100 translate-y-[0]" : "opacity-0 translate-y-[3vw] xl:translate-y-[20px]"}
-                 delay-[0.1s] transition duration-[1s] ease-in-out `} 
+                 delay-[0.1s] transition duration-[1s] ease-in-out`} 
                 ref={sectionRef}
             >
                 <Swiper 
