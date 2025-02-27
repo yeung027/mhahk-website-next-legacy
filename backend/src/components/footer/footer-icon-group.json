@@ -1,7 +1,8 @@
 {
   "collectionName": "components_footer_footer_icon_groups",
   "info": {
-    "displayName": "Footer Icon Group"
+    "displayName": "Footer Icon Group",
+    "description": ""
   },
   "options": {},
   "attributes": {

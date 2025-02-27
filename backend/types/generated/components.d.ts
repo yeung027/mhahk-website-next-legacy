@@ -33,6 +33,7 @@ export interface FooterFooterIcon extends Struct.ComponentSchema {
 export interface FooterFooterIconGroup extends Struct.ComponentSchema {
   collectionName: 'components_footer_footer_icon_groups';
   info: {
+    description: '';
     displayName: 'Footer Icon Group';
   };
   attributes: {
