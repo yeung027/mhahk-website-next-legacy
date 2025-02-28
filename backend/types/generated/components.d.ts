@@ -184,6 +184,7 @@ export interface MainMenuMainMenuItem extends Struct.ComponentSchema {
 export interface MainMenuMainmenuSubmenu extends Struct.ComponentSchema {
   collectionName: 'components_main_menu_mainmenu_submenus';
   info: {
+    description: '';
     displayName: 'Mainmenu-submenu';
   };
   attributes: {
@@ -191,6 +192,7 @@ export interface MainMenuMainmenuSubmenu extends Struct.ComponentSchema {
       'oneToMany',
       'api::main-menu.main-menu'
     >;
+    url: Schema.Attribute.String;
   };
 }
 

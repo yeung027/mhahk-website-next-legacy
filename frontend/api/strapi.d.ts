@@ -2037,6 +2037,7 @@ export interface components {
                     documentId?: string;
                 }[];
             }[];
+            url?: string;
         };
         ServiceRequest: {
             data: {

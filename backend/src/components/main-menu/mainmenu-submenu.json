@@ -1,7 +1,8 @@
 {
   "collectionName": "components_main_menu_mainmenu_submenus",
   "info": {
-    "displayName": "Mainmenu-submenu"
+    "displayName": "Mainmenu-submenu",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -9,6 +10,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::main-menu.main-menu"
+    },
+    "url": {
+      "type": "string"
     }
   }
 }
