@@ -1913,6 +1913,53 @@ export interface components {
             __component?: "main-menu.main-menu-item";
             url?: string;
             name?: string;
+            image?: {
+                id?: number;
+                documentId?: string;
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+                folder?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                folderPath?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+            };
         };
         MainMenuMainmenuSubmenuComponent: {
             id?: number;
@@ -1935,97 +1982,6 @@ export interface components {
                 createdBy?: {
                     id?: number;
                     documentId?: string;
-                    firstname?: string;
-                    lastname?: string;
-                    username?: string;
-                    /** Format: email */
-                    email?: string;
-                    resetPasswordToken?: string;
-                    registrationToken?: string;
-                    isActive?: boolean;
-                    roles?: {
-                        id?: number;
-                        documentId?: string;
-                        name?: string;
-                        code?: string;
-                        description?: string;
-                        users?: {
-                            id?: number;
-                            documentId?: string;
-                        }[];
-                        permissions?: {
-                            id?: number;
-                            documentId?: string;
-                            action?: string;
-                            actionParameters?: unknown;
-                            subject?: string;
-                            properties?: unknown;
-                            conditions?: unknown;
-                            role?: {
-                                id?: number;
-                                documentId?: string;
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            /** Format: date-time */
-                            publishedAt?: string;
-                            createdBy?: {
-                                id?: number;
-                                documentId?: string;
-                            };
-                            updatedBy?: {
-                                id?: number;
-                                documentId?: string;
-                            };
-                            locale?: string;
-                            localizations?: {
-                                id?: number;
-                                documentId?: string;
-                            }[];
-                        }[];
-                        /** Format: date-time */
-                        createdAt?: string;
-                        /** Format: date-time */
-                        updatedAt?: string;
-                        /** Format: date-time */
-                        publishedAt?: string;
-                        createdBy?: {
-                            id?: number;
-                            documentId?: string;
-                        };
-                        updatedBy?: {
-                            id?: number;
-                            documentId?: string;
-                        };
-                        locale?: string;
-                        localizations?: {
-                            id?: number;
-                            documentId?: string;
-                        }[];
-                    }[];
-                    blocked?: boolean;
-                    preferedLanguage?: string;
-                    /** Format: date-time */
-                    createdAt?: string;
-                    /** Format: date-time */
-                    updatedAt?: string;
-                    /** Format: date-time */
-                    publishedAt?: string;
-                    createdBy?: {
-                        id?: number;
-                        documentId?: string;
-                    };
-                    updatedBy?: {
-                        id?: number;
-                        documentId?: string;
-                    };
-                    locale?: string;
-                    localizations?: {
-                        id?: number;
-                        documentId?: string;
-                    }[];
                 };
                 updatedBy?: {
                     id?: number;

@@ -17,7 +17,24 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
     const menuItemsFetch = await client.GET("/main-menus", {
         params:{
           query:{
-            populate:"items",
+            // @ts-ignore
+            populate:{
+                items:{
+                    on: {
+                        "main-menu.main-menu-item": {
+                            populate:"*"
+                        },
+                        "main-menu.mainmenu-submenu": {
+                            populate:{
+                                submenus:{
+                                    populate: "items.image"
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            },
             locale: locale== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk,
             filters:{
                 root:true
@@ -26,7 +43,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
         }
       });
 
-    //   console.log(menuItemsFetch.data)
+      console.log(menuItemsFetch.data)
       const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
 
     return (

@@ -176,6 +176,7 @@ export interface MainMenuMainMenuItem extends Struct.ComponentSchema {
     displayName: 'mainmenu-item';
   };
   attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String;
     url: Schema.Attribute.String;
   };

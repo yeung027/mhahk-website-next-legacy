@@ -48,20 +48,28 @@ const ItemsVender = (id:number | undefined, items: (components["schemas"]["MainM
                                 </React.Fragment>
                             );
                         } else {
-                            return SubSubMenuVender(item);
+                            return SubSubMenuVender(item.id, item);
                         }
                     })}
                 </ul>
-            }
-            {
-
             }
         </React.Fragment>
     );
 };
 
-const SubSubMenuVender = (subsubMenu:components["schemas"]["MainMenuMainmenuSubmenuComponent"]) => {
-    return <li key={`sub-sub-menu-${subsubMenu.id}`}>123</li>
+const SubSubMenuVender = (id:number | undefined, item:components["schemas"]["MainMenuMainmenuSubmenuComponent"]) => {
+    const ul_classname = ""
+    const xl_ul_classname = ``;
+    //console.log(item.submenus)
+    return  <li key={`sub-sub-menu-${item.id}`}>
+                {item.submenus &&
+                    item.submenus.map(() => {
+                        return  <ul className={`border-2 ${ul_classname} ${xl_ul_classname}`} key={`sub-sub-menu-ul-${id ?? 0}`}>
+                                    <li>f</li>
+                                </ul>
+                    })
+                }
+            </li>
 }
 
 export default function MainMenu({ pathname, items, category } : MainMenuProps) {
