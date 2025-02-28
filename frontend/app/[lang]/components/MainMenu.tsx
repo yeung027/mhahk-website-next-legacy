@@ -15,7 +15,13 @@ interface MainMenuProps {
     category: PageCategory
 }
 
-const ItemsVender = (items: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[] = []) => {
+const isMainMenuSubmenu = (
+    item: components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"]
+  ): item is components["schemas"]["MainMenuMainmenuSubmenuComponent"] => {
+    return item.__component === "main-menu.mainmenu-submenu";
+};
+
+const ItemsVender = (id:number | undefined, items: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[] = []) => {
     
     const submenu_classname = "scale-[1] opacity-100 static pl-[30px]"
     const submenu_sep_classname = "border-[#4db093]"
@@ -25,28 +31,38 @@ const ItemsVender = (items: (components["schemas"]["MainMenuMainMenuItemComponen
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
-    return  <>
-                {items.length>1 &&
-                    <ul className={`${submenu_classname} ${xl_submenu_classname}`}>
-                        <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} xl:hidden`} />
-                        {
-                            items.map((item, index)=>{
-                                return  <React.Fragment key={index}>
-                                            <li className={`${submenuitem_classname} ${xl_submenuitem_classname}`}>
-                                                <span>
-                                                    {item.__component == "main-menu.main-menu-item" &&
-                                                        item.name
-                                                    }
-                                                </span>
-                                            </li>
-                                            <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} last:hidden`} />
-                                        </React.Fragment>
-                            })}
-                    </ul>
-                }
-            </> 
-    
-})
+    return (
+        <React.Fragment key={`sub-menu-id-${id ?? 0}`}>
+
+            {!(items.length==1 && !isMainMenuSubmenu(items[0])) && 
+                <ul className={`${submenu_classname} ${xl_submenu_classname}`} key={`sub-menu-ul-${id ?? 0}`}>
+                    <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} xl:hidden`} key={`sep-${id ?? 0}`}  />
+                    {items.map((item, index) => {
+                        if (!isMainMenuSubmenu(item)) {
+                            return (
+                                <React.Fragment key={`menu-item-${index}`}>
+                                    <li className={`${submenuitem_classname} ${xl_submenuitem_classname}`} key={`submenu-item-${id}-${index}`}>
+                                        <span>{item.name}</span>
+                                    </li>
+                                    <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} last:hidden`} key={`submenu-sep-${id}-${index}`} />
+                                </React.Fragment>
+                            );
+                        } else {
+                            return SubSubMenuVender(item);
+                        }
+                    })}
+                </ul>
+            }
+            {
+
+            }
+        </React.Fragment>
+    );
+};
+
+const SubSubMenuVender = (subsubMenu:components["schemas"]["MainMenuMainmenuSubmenuComponent"]) => {
+    return <li key={`sub-sub-menu-${subsubMenu.id}`}>123</li>
+}
 
 export default function MainMenu({ pathname, items, category } : MainMenuProps) {
 
@@ -84,9 +100,9 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                         </li>
                         {items &&
                             items.map((item, index) => {
-                                return  <React.Fragment key={index}>
-                                            <li className={`${sep_classname} xl:hidden`} />
-                                            <li className={`${item_classname} ${xl_menuitem}`}>
+                                return  <React.Fragment key={`main-menu-${index}`}>
+                                            <li className={`${sep_classname} xl:hidden`} key={`sep-${index}`} />
+                                            <li className={`${item_classname} ${xl_menuitem}`} key={`menu-item-${index}`}>
                                                 {item.items && item.items.length<=1 &&
                                                     <div className={`${item.category===category ? "text-black xl:text-[#000000e3]" : ""}`}>
                                                         {item.name}
@@ -105,7 +121,7 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                                                     <div className={`${item.category===category ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
                                                 }                                           
                                                 
-                                                {ItemsVender(item.items)}
+                                                {ItemsVender(item.id, item.items)}
 
                                             </li>
                                         </React.Fragment>    
