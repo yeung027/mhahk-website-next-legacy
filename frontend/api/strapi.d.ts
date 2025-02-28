@@ -36,33 +36,17 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/main-menus": {
+    "/main-menu": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["get/main-menus"];
-        put?: never;
-        post: operations["post/main-menus"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/main-menus/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get/main-menus/{id}"];
-        put: operations["put/main-menus/{id}"];
+        get: operations["get/main-menu"];
+        put: operations["put/main-menu"];
         post?: never;
-        delete: operations["delete/main-menus/{id}"];
+        delete: operations["delete/main-menu"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1855,8 +1839,7 @@ export interface components {
         };
         MainMenuRequest: {
             data: {
-                items?: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[];
-                name?: string;
+                items?: (components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
                 root: boolean;
                 /** @enum {string} */
                 category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
@@ -1878,8 +1861,7 @@ export interface components {
         MainMenu: {
             id?: number;
             documentId?: string;
-            items?: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[];
-            name?: string;
+            items?: (components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
             root: boolean;
             /** @enum {string} */
             category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
@@ -1901,11 +1883,40 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
+                items?: (components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
+                root?: boolean;
+                /** @enum {string} */
+                category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
             }[];
         };
         MainMenuResponse: {
             data?: components["schemas"]["MainMenu"];
             meta?: Record<string, never>;
+        };
+        MainMenuMainmenuSubmenuComponent: {
+            id?: number;
+            /** @enum {string} */
+            __component?: "main-menu.mainmenu-submenu";
+            url?: string;
         };
         MainMenuMainMenuItemComponent: {
             id?: number;
@@ -1960,40 +1971,6 @@ export interface components {
                     documentId?: string;
                 }[];
             };
-        };
-        MainMenuMainmenuSubmenuComponent: {
-            id?: number;
-            /** @enum {string} */
-            __component?: "main-menu.mainmenu-submenu";
-            submenus?: {
-                id?: number;
-                documentId?: string;
-                items?: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[];
-                name?: string;
-                root?: boolean;
-                /** @enum {string} */
-                category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                /** Format: date-time */
-                publishedAt?: string;
-                createdBy?: {
-                    id?: number;
-                    documentId?: string;
-                };
-                updatedBy?: {
-                    id?: number;
-                    documentId?: string;
-                };
-                locale?: string;
-                localizations?: {
-                    id?: number;
-                    documentId?: string;
-                }[];
-            }[];
-            url?: string;
         };
         ServiceRequest: {
             data: {
@@ -2880,7 +2857,7 @@ export interface operations {
             };
         };
     };
-    "get/main-menus": {
+    "get/main-menu": {
         parameters: {
             query?: {
                 /** @description Sort by attributes ascending (asc) or descending (desc) */
@@ -2918,7 +2895,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MainMenuListResponse"];
+                    "application/json": components["schemas"]["MainMenuResponse"];
                 };
             };
             /** @description Bad Request */
@@ -2968,7 +2945,7 @@ export interface operations {
             };
         };
     };
-    "post/main-menus": {
+    "put/main-menu": {
         parameters: {
             query?: never;
             header?: never;
@@ -3037,151 +3014,11 @@ export interface operations {
             };
         };
     };
-    "get/main-menus/{id}": {
+    "delete/main-menu": {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MainMenuResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    "put/main-menus/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MainMenuRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MainMenuResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    "delete/main-menus/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;

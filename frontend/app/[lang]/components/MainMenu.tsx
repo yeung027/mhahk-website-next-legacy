@@ -148,7 +148,7 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                                             <li className={`${item_classname} ${xl_menuitem}`} key={`menu-item-${index}`}>
                                                 {item.items && item.items.length<=1 &&
                                                     <div className={`${item.category===category ? "text-black xl:text-[#000000e3]" : ""}`}>
-                                                        {item.name}
+                                                        {item.name}zzzz
                                                     </div>
                                                 }
                                                 {item.items && item.items.length>1 &&

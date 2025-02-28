@@ -14,29 +14,21 @@ interface PageHeaderProps {
 
 export default async function PageHeader({ pathname, locale, category } : PageHeaderProps) {
     
-    const menuItemsFetch = await client.GET("/main-menus", {
+    const menuItemsFetch = await client.GET("/main-menu", {
         params:{
           query:{
             // @ts-ignore
             populate:{
                 items:{
-                    on: {
+                    on: 
+                    {
                         "main-menu.main-menu-item": {
                             populate:"*"
                         },
                         "main-menu.mainmenu-submenu": {
-                            populate:{
-                                submenus:{
-                                    populate: {
-                                        items:{
-                                            populate:"*"
-                                        }
-                                    }
-                                }
-                            }
+                            populate:"*"
                         }
                     }
-                    
                 }
             },
             locale: locale== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk,
@@ -48,7 +40,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
       });
 
       console.log(menuItemsFetch.data)
-      const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
+    //   const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
 
     return (
         <header className={"flex flex-col"}>
@@ -126,7 +118,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                     </div>
                 </div>
                 
-                <MainMenu pathname={pathname} items={menuItems} category={category} />
+                {/* <MainMenu pathname={pathname} items={menuItems} category={category} /> */}
 
                
             </div>

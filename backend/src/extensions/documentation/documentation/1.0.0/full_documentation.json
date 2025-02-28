@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-02-28T03:04:40.218Z"
+    "x-generation-date": "2025-02-28T06:56:53.598Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -684,7 +684,7 @@
         "operationId": "delete/index-page"
       }
     },
-    "/main-menus": {
+    "/main-menu": {
       "get": {
         "responses": {
           "200": {
@@ -692,7 +692,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MainMenuListResponse"
+                  "$ref": "#/components/schemas/MainMenuResponse"
                 }
               }
             }
@@ -855,168 +855,7 @@
             }
           }
         ],
-        "operationId": "get/main-menus"
-      },
-      "post": {
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MainMenuResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Main-menu"
-        ],
-        "parameters": [],
-        "operationId": "post/main-menus",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MainMenuRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/main-menus/{id}": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MainMenuResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Main-menu"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
-        "operationId": "get/main-menus/{id}"
+        "operationId": "get/main-menu"
       },
       "put": {
         "responses": {
@@ -1084,19 +923,8 @@
         "tags": [
           "Main-menu"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
-        "operationId": "put/main-menus/{id}",
+        "parameters": [],
+        "operationId": "put/main-menu",
         "requestBody": {
           "required": true,
           "content": {
@@ -1175,19 +1003,8 @@
         "tags": [
           "Main-menu"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
-        "operationId": "delete/main-menus/{id}"
+        "parameters": [],
+        "operationId": "delete/main-menu"
       }
     },
     "/services": {
@@ -4652,23 +4469,20 @@
                 "items": {
                   "anyOf": [
                     {
-                      "$ref": "#/components/schemas/MainMenuMainMenuItemComponent"
+                      "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
                     },
                     {
-                      "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
+                      "$ref": "#/components/schemas/MainMenuMainMenuItemComponent"
                     }
                   ]
                 },
                 "discriminator": {
                   "propertyName": "__component",
                   "mapping": {
-                    "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent",
-                    "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
+                    "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent",
+                    "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent"
                   }
                 }
-              },
-              "name": {
-                "type": "string"
               },
               "root": {
                 "type": "boolean"
@@ -4759,23 +4573,20 @@
             "items": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/MainMenuMainMenuItemComponent"
+                  "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
                 },
                 {
-                  "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
+                  "$ref": "#/components/schemas/MainMenuMainMenuItemComponent"
                 }
               ]
             },
             "discriminator": {
               "propertyName": "__component",
               "mapping": {
-                "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent",
-                "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
+                "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent",
+                "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent"
               }
             }
-          },
-          "name": {
-            "type": "string"
           },
           "root": {
             "type": "boolean"
@@ -4840,6 +4651,93 @@
                 },
                 "documentId": {
                   "type": "string"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/MainMenuMainMenuItemComponent"
+                      }
+                    ]
+                  },
+                  "discriminator": {
+                    "propertyName": "__component",
+                    "mapping": {
+                      "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent",
+                      "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent"
+                    }
+                  }
+                },
+                "root": {
+                  "type": "boolean"
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "index",
+                    "about",
+                    "service",
+                    "news",
+                    "publish",
+                    "share",
+                    "volunteer",
+                    "recruitment"
+                  ]
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "createdBy": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "updatedBy": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "localizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "documentId": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -4854,6 +4752,23 @@
           },
           "meta": {
             "type": "object"
+          }
+        }
+      },
+      "MainMenuMainmenuSubmenuComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "main-menu.mainmenu-submenu"
+            ]
+          },
+          "url": {
+            "type": "string"
           }
         }
       },
@@ -5003,127 +4918,6 @@
                 }
               }
             }
-          }
-        }
-      },
-      "MainMenuMainmenuSubmenuComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "__component": {
-            "type": "string",
-            "enum": [
-              "main-menu.mainmenu-submenu"
-            ]
-          },
-          "submenus": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "documentId": {
-                  "type": "string"
-                },
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/MainMenuMainMenuItemComponent"
-                      },
-                      {
-                        "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
-                      }
-                    ]
-                  },
-                  "discriminator": {
-                    "propertyName": "__component",
-                    "mapping": {
-                      "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent",
-                      "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
-                    }
-                  }
-                },
-                "name": {
-                  "type": "string"
-                },
-                "root": {
-                  "type": "boolean"
-                },
-                "category": {
-                  "type": "string",
-                  "enum": [
-                    "index",
-                    "about",
-                    "service",
-                    "news",
-                    "publish",
-                    "share",
-                    "volunteer",
-                    "recruitment"
-                  ]
-                },
-                "createdAt": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "publishedAt": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "createdBy": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "documentId": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "updatedBy": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "documentId": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "documentId": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "url": {
-            "type": "string"
           }
         }
       },

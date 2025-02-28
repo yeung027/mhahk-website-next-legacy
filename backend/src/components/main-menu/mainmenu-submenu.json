@@ -6,11 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "submenus": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::main-menu.main-menu"
-    },
     "url": {
       "type": "string"
     }

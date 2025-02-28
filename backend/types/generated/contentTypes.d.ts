@@ -483,7 +483,7 @@ export interface ApiIndexPageIndexPage extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiMainMenuMainMenu extends Struct.CollectionTypeSchema {
+export interface ApiMainMenuMainMenu extends Struct.SingleTypeSchema {
   collectionName: 'main_menus';
   info: {
     description: '';
@@ -521,7 +521,7 @@ export interface ApiMainMenuMainMenu extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     items: Schema.Attribute.DynamicZone<
-      ['main-menu.main-menu-item', 'main-menu.mainmenu-submenu']
+      ['main-menu.mainmenu-submenu', 'main-menu.main-menu-item']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -533,12 +533,6 @@ export interface ApiMainMenuMainMenu extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::main-menu.main-menu'
     >;
-    name: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     publishedAt: Schema.Attribute.DateTime;
     root: Schema.Attribute.Boolean &
       Schema.Attribute.Required &

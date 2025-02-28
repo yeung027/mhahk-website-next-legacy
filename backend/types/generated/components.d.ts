@@ -189,10 +189,6 @@ export interface MainMenuMainmenuSubmenu extends Struct.ComponentSchema {
     displayName: 'Mainmenu-submenu';
   };
   attributes: {
-    submenus: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::main-menu.main-menu'
-    >;
     url: Schema.Attribute.String;
   };
 }
