@@ -44,8 +44,6 @@ export default async function PageFooter({ locale } : PageFooterProps) {
         }
       });
 
-    console.log(data)
-
     return (
         <footer className={"flex flex-col mt-[50px]"}>
             <div className={`px-pageX xl:px-pageXLX pt-[30px] flex flex-col xl:grid xl:grid-cols-[25%_75%] bg-[#d3fac7] rounded-tl-[25px] rounded-tr-[25px] pb-[5vw] xl:pb-[20px]`}>
@@ -126,10 +124,10 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                 ))}
                 </div>
 
-                <div className={`flex flex-col justify-center items-center px-pageX xl:px-pageXLX ${notoSansHK.className} pb-[5vw] xl:pb-[23px]`}>
+                <div className={`flex flex-col justify-center items-center px-pageX xl:px-pageXLX ${notoSansHK.className} pb-[5vw] xl:pb-[23px] tracking-widest gap-[3vw] xl:gap-[0]`}>
                     {data?.data?.data?.bottom_paragraphs &&
                         data?.data?.data?.bottom_paragraphs.map((paragraph, index) => {
-                            return  <p className="text-[0.625rem] leading-[2rem]">
+                            return  <p className="text-[0.625rem] leading-[1.2rem] xl:leading-[2rem] text-center">
                                         {Array.isArray(paragraph.content) &&
                                             paragraph.content.map((content) => {
                                                 return  <>
@@ -144,9 +142,6 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                                                                                         ${children.strikethrough? 'line-through' : ''} 
                                                                                     `}
                                                                                 >
-                                                                                    {children.text && 
-                                                                                        console.log(children.text)
-                                                                                    }
                                                                                     {children.text && 
                                                                                         children.text
                                                                                     }
