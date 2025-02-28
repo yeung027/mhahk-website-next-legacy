@@ -21,13 +21,20 @@ const isMainMenuSubmenu = (
     return item.__component === "main-menu.mainmenu-submenu";
 };
 
+const isContainSubmenu = (items: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[] = []) => {
+    return items.filter((u) => u.__component === "main-menu.mainmenu-submenu").length > 0
+};
+
 const ItemsVender = (id:number | undefined, items: (components["schemas"]["MainMenuMainMenuItemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"])[] = []) => {
     
     const submenu_classname = "scale-[1] opacity-100 static pl-[30px]"
     const submenu_sep_classname = "border-[#4db093]"
-    const submenuitem_classname = ""
+    const submenuitem_classname = "max-w-[200px] min-w-[160px]"
 
-    const xl_submenu_classname = "flex transition duration-300 ease-in-out group opacity-0 group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] origin-top cursor-pointer xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen w-full xl:ml-[-15px] mt-[7px] min-w-[230px] flex-col xl:px-[30px] py-[15px] text-green2 font-['Noto Sans', Helvetica]";
+    const xl_submenu_classname = `transition duration-300 ease-in-out 
+        group opacity-0 group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] origin-top cursor-pointer 
+        xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen mt-[7px] px-[20px] py-[15px] 
+        text-green2 font-['Noto Sans', Helvetica] gap-4`;
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
@@ -35,7 +42,11 @@ const ItemsVender = (id:number | undefined, items: (components["schemas"]["MainM
         <React.Fragment key={`sub-menu-id-${id ?? 0}`}>
 
             {!(items.length==1 && !isMainMenuSubmenu(items[0])) && 
-                <ul className={`${submenu_classname} ${xl_submenu_classname}`} key={`sub-menu-ul-${id ?? 0}`}>
+                <ul 
+                    className={`${submenu_classname} ${xl_submenu_classname} 
+                        ${isContainSubmenu(items)? 'flex flex-row' : ''}`} 
+                    key={`sub-menu-ul-${id ?? 0}`}
+                >
                     <li className={`${submenu_sep_classname} ${xl_submenu_sep_classname} xl:hidden`} key={`sep-${id ?? 0}`}  />
                     {items.map((item, index) => {
                         if (!isMainMenuSubmenu(item)) {
@@ -63,13 +74,16 @@ const SubSubMenuVender = (id:number | undefined, item:components["schemas"]["Mai
     const item_classname = ""
     const sep_classname = "border-[#4db093]"
 
-    const xl_ul_classname = ``
+    const xl_ul_classname = ` `
     const submenuitem_classname = ""
     const xl_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
     //console.log(item.submenus)
-    return  <li key={`sub-sub-menu-${item.id}`}>
+    return  <li 
+                key={`sub-sub-menu-${item.id}`}
+                className={`w-fit inline-block`}
+            >
                 {item.submenus &&
                     item.submenus.map((menu, index) => {
                         return  <ul className={`${ul_classname} ${xl_ul_classname}`} key={`sub-sub-menu-ul-${id ?? 0}`}>
@@ -117,7 +131,8 @@ export default function MainMenu({ pathname, items, category } : MainMenuProps) 
                     <IoMdClose className={`${mobileShow? "scale-[1] opacity-100" : "scale-[0] opacity-0"} absolute cursor-pointer`} onClick={menuBtnClick} />
                 </div>
                 <div className={"relative"}>
-                    <ul className={`${mobileShow? "scale-y-[1] opacity-100" : "scale-y-[0] opacity-0 xl:scale-y-[1] xl:opacity-100"} transition duration-300 ease-in-out origin-top ${inner_classname} ${xl_inner_classname}`}>
+                    <ul className={`${mobileShow? "scale-y-[1] opacity-100" : "scale-y-[0] opacity-0 xl:scale-y-[1] xl:opacity-100"} 
+                        transition duration-300 ease-in-out origin-top ${inner_classname} ${xl_inner_classname}`}>
                         <li className={"flex xl:hidden"}>
                             <div className="flex flex-row-reverse pb-[4vw]">
                                 <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px] placeholder-white" type='search' placeholder="搜尋" />
