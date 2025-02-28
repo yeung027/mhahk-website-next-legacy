@@ -27,7 +27,11 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                         "main-menu.mainmenu-submenu": {
                             populate:{
                                 submenus:{
-                                    populate: "items.image"
+                                    populate: {
+                                        items:{
+                                            populate:"*"
+                                        }
+                                    }
                                 }
                             }
                         }

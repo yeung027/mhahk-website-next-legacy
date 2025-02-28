@@ -58,14 +58,34 @@ const ItemsVender = (id:number | undefined, items: (components["schemas"]["MainM
 };
 
 const SubSubMenuVender = (id:number | undefined, item:components["schemas"]["MainMenuMainmenuSubmenuComponent"]) => {
+    const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
     const ul_classname = ""
-    const xl_ul_classname = ``;
+    const item_classname = ""
+    const sep_classname = "border-[#4db093]"
+
+    const xl_ul_classname = ``
+    const submenuitem_classname = ""
+    const xl_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
+    const xl_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
+
     //console.log(item.submenus)
     return  <li key={`sub-sub-menu-${item.id}`}>
                 {item.submenus &&
-                    item.submenus.map(() => {
-                        return  <ul className={`border-2 ${ul_classname} ${xl_ul_classname}`} key={`sub-sub-menu-ul-${id ?? 0}`}>
-                                    <li>f</li>
+                    item.submenus.map((menu, index) => {
+                        return  <ul className={`${ul_classname} ${xl_ul_classname}`} key={`sub-sub-menu-ul-${id ?? 0}`}>
+                                    <li className={`${item_classname} ${xl_item_classname} ${title_classname}`}>
+                                        {menu.name}
+                                    </li>
+                                    {menu.items &&
+                                        menu.items.map((item, y) => {
+                                            return  <React.Fragment key={`subsubmenu-item-${index}-${y}`}>
+                                                        <li className={`${sep_classname} ${xl_sep_classname} last:hidden`} key={`subsubmenu-sep-${id}-${index}`} />
+                                                        <li className={`${item_classname} ${xl_item_classname}`}>
+                                                            {!isMainMenuSubmenu(item)&& item.name}
+                                                        </li>
+                                                    </React.Fragment>
+                                        })
+                                    }
                                 </ul>
                     })
                 }
