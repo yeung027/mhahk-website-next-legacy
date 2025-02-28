@@ -6,8 +6,18 @@
   },
   "options": {},
   "attributes": {
-    "url": {
+    "title": {
       "type": "string"
+    },
+    "category": {
+      "type": "component",
+      "repeatable": false,
+      "component": "main-menu.mainmenu-category"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "main-menu.mainmenu-subitem"
     }
   }
 }

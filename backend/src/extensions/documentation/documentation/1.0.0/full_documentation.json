@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-02-28T06:56:53.598Z"
+    "x-generation-date": "2025-02-28T12:25:09.295Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -4459,15 +4459,15 @@
         ],
         "properties": {
           "data": {
-            "required": [
-              "root"
-            ],
             "type": "object",
             "properties": {
               "items": {
                 "type": "array",
                 "items": {
                   "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/MainMenuMainmenuSubsubmenuComponent"
+                    },
                     {
                       "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
                     },
@@ -4479,26 +4479,11 @@
                 "discriminator": {
                   "propertyName": "__component",
                   "mapping": {
+                    "main-menu.mainmenu-subsubmenu": "#/components/schemas/MainMenuMainmenuSubsubmenuComponent",
                     "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent",
                     "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent"
                   }
                 }
-              },
-              "root": {
-                "type": "boolean"
-              },
-              "category": {
-                "type": "string",
-                "enum": [
-                  "index",
-                  "about",
-                  "service",
-                  "news",
-                  "publish",
-                  "share",
-                  "volunteer",
-                  "recruitment"
-                ]
               },
               "locale": {
                 "type": "string"
@@ -4558,9 +4543,6 @@
       },
       "MainMenu": {
         "type": "object",
-        "required": [
-          "root"
-        ],
         "properties": {
           "id": {
             "type": "number"
@@ -4573,6 +4555,9 @@
             "items": {
               "anyOf": [
                 {
+                  "$ref": "#/components/schemas/MainMenuMainmenuSubsubmenuComponent"
+                },
+                {
                   "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
                 },
                 {
@@ -4583,26 +4568,11 @@
             "discriminator": {
               "propertyName": "__component",
               "mapping": {
+                "main-menu.mainmenu-subsubmenu": "#/components/schemas/MainMenuMainmenuSubsubmenuComponent",
                 "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent",
                 "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent"
               }
             }
-          },
-          "root": {
-            "type": "boolean"
-          },
-          "category": {
-            "type": "string",
-            "enum": [
-              "index",
-              "about",
-              "service",
-              "news",
-              "publish",
-              "share",
-              "volunteer",
-              "recruitment"
-            ]
           },
           "createdAt": {
             "type": "string",
@@ -4657,6 +4627,9 @@
                   "items": {
                     "anyOf": [
                       {
+                        "$ref": "#/components/schemas/MainMenuMainmenuSubsubmenuComponent"
+                      },
+                      {
                         "$ref": "#/components/schemas/MainMenuMainmenuSubmenuComponent"
                       },
                       {
@@ -4667,26 +4640,11 @@
                   "discriminator": {
                     "propertyName": "__component",
                     "mapping": {
+                      "main-menu.mainmenu-subsubmenu": "#/components/schemas/MainMenuMainmenuSubsubmenuComponent",
                       "main-menu.mainmenu-submenu": "#/components/schemas/MainMenuMainmenuSubmenuComponent",
                       "main-menu.main-menu-item": "#/components/schemas/MainMenuMainMenuItemComponent"
                     }
                   }
-                },
-                "root": {
-                  "type": "boolean"
-                },
-                "category": {
-                  "type": "string",
-                  "enum": [
-                    "index",
-                    "about",
-                    "service",
-                    "news",
-                    "publish",
-                    "share",
-                    "volunteer",
-                    "recruitment"
-                  ]
                 },
                 "createdAt": {
                   "type": "string",
@@ -4755,39 +4713,16 @@
           }
         }
       },
-      "MainMenuMainmenuSubmenuComponent": {
+      "MainMenuMainmenuSubsubitemComponent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number"
           },
-          "__component": {
-            "type": "string",
-            "enum": [
-              "main-menu.mainmenu-submenu"
-            ]
-          },
-          "url": {
-            "type": "string"
-          }
-        }
-      },
-      "MainMenuMainMenuItemComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "__component": {
-            "type": "string",
-            "enum": [
-              "main-menu.main-menu-item"
-            ]
-          },
-          "url": {
+          "title": {
             "type": "string"
           },
-          "name": {
+          "url": {
             "type": "string"
           },
           "image": {
@@ -4918,6 +4853,133 @@
                 }
               }
             }
+          }
+        }
+      },
+      "MainMenuMainmenuSubsubmenuMenuComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MainMenuMainmenuSubsubitemComponent"
+            }
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "MainMenuMainmenuSubsubmenuComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "main-menu.mainmenu-subsubmenu"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "menus": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MainMenuMainmenuSubsubmenuMenuComponent"
+            }
+          }
+        }
+      },
+      "MainMenuMainmenuCategoryComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "index",
+              "about",
+              "service",
+              "news",
+              "publish",
+              "share",
+              "volunteer",
+              "recruitment"
+            ]
+          }
+        }
+      },
+      "MainMenuMainmenuSubitemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "MainMenuMainmenuSubmenuComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "main-menu.mainmenu-submenu"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/MainMenuMainmenuCategoryComponent"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MainMenuMainmenuSubitemComponent"
+            }
+          }
+        }
+      },
+      "MainMenuMainMenuItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "main-menu.main-menu-item"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/MainMenuMainmenuCategoryComponent"
           }
         }
       },

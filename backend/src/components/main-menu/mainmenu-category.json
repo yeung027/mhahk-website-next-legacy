@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_main_menu_mainmenu_categories",
+  "info": {
+    "displayName": "Mainmenu-category"
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "index",
+        "about",
+        "service",
+        "news",
+        "publish",
+        "share",
+        "volunteer",
+        "recruitment"
+      ]
+    }
+  }
+}

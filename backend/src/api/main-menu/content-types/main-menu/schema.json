@@ -24,36 +24,9 @@
       },
       "type": "dynamiczone",
       "components": [
+        "main-menu.mainmenu-subsubmenu",
         "main-menu.mainmenu-submenu",
         "main-menu.main-menu-item"
-      ]
-    },
-    "root": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
-    "category": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "index",
-        "about",
-        "service",
-        "news",
-        "publish",
-        "share",
-        "volunteer",
-        "recruitment"
       ]
     }
   }

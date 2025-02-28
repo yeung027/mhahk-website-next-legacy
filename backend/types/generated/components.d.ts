@@ -173,11 +173,44 @@ export interface MainMenuMainMenuItem extends Struct.ComponentSchema {
   collectionName: 'components_main_menu_main_menu_items';
   info: {
     description: '';
-    displayName: 'mainmenu-item';
+    displayName: 'mainmenu-root-item';
   };
   attributes: {
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    name: Schema.Attribute.String;
+    category: Schema.Attribute.Component<'main-menu.mainmenu-category', false>;
+    title: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface MainMenuMainmenuCategory extends Struct.ComponentSchema {
+  collectionName: 'components_main_menu_mainmenu_categories';
+  info: {
+    displayName: 'Mainmenu-category';
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      [
+        'index',
+        'about',
+        'service',
+        'news',
+        'publish',
+        'share',
+        'volunteer',
+        'recruitment',
+      ]
+    >;
+  };
+}
+
+export interface MainMenuMainmenuSubitem extends Struct.ComponentSchema {
+  collectionName: 'components_main_menu_mainmenu_subitems';
+  info: {
+    description: '';
+    displayName: 'Mainmenu-subitem';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
     url: Schema.Attribute.String;
   };
 }
@@ -189,6 +222,49 @@ export interface MainMenuMainmenuSubmenu extends Struct.ComponentSchema {
     displayName: 'Mainmenu-submenu';
   };
   attributes: {
+    category: Schema.Attribute.Component<'main-menu.mainmenu-category', false>;
+    items: Schema.Attribute.Component<'main-menu.mainmenu-subitem', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface MainMenuMainmenuSubsubitem extends Struct.ComponentSchema {
+  collectionName: 'components_main_menu_mainmenu_subsubitems';
+  info: {
+    description: '';
+    displayName: 'Mainmenu-subsubitem';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface MainMenuMainmenuSubsubmenu extends Struct.ComponentSchema {
+  collectionName: 'components_main_menu_mainmenu_subsubmenus';
+  info: {
+    description: '';
+    displayName: 'Mainmenu-subsubmenu';
+  };
+  attributes: {
+    menus: Schema.Attribute.Component<
+      'main-menu.mainmenu-subsubmenu-menu',
+      true
+    >;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface MainMenuMainmenuSubsubmenuMenu extends Struct.ComponentSchema {
+  collectionName: 'components_main_menu_mainmenu_subsubmenu_menus';
+  info: {
+    description: '';
+    displayName: 'Mainmenu-subsubmenu-menu';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'main-menu.mainmenu-subsubitem', true>;
+    title: Schema.Attribute.String;
     url: Schema.Attribute.String;
   };
 }
@@ -209,7 +285,12 @@ declare module '@strapi/strapi' {
       'index.index-tabs-page-left-and-right': IndexIndexTabsPageLeftAndRight;
       'index.index-tabs-page-left-and-right-item': IndexIndexTabsPageLeftAndRightItem;
       'main-menu.main-menu-item': MainMenuMainMenuItem;
+      'main-menu.mainmenu-category': MainMenuMainmenuCategory;
+      'main-menu.mainmenu-subitem': MainMenuMainmenuSubitem;
       'main-menu.mainmenu-submenu': MainMenuMainmenuSubmenu;
+      'main-menu.mainmenu-subsubitem': MainMenuMainmenuSubsubitem;
+      'main-menu.mainmenu-subsubmenu': MainMenuMainmenuSubsubmenu;
+      'main-menu.mainmenu-subsubmenu-menu': MainMenuMainmenuSubsubmenuMenu;
     }
   }
 }

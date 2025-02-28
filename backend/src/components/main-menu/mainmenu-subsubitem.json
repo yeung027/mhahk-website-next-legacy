@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_main_menu_mainmenu_subsubitems",
+  "info": {
+    "displayName": "Mainmenu-subsubitem",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

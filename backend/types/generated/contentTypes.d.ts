@@ -500,28 +500,15 @@ export interface ApiMainMenuMainMenu extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    category: Schema.Attribute.Enumeration<
-      [
-        'index',
-        'about',
-        'service',
-        'news',
-        'publish',
-        'share',
-        'volunteer',
-        'recruitment',
-      ]
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     items: Schema.Attribute.DynamicZone<
-      ['main-menu.mainmenu-submenu', 'main-menu.main-menu-item']
+      [
+        'main-menu.mainmenu-subsubmenu',
+        'main-menu.mainmenu-submenu',
+        'main-menu.main-menu-item',
+      ]
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -534,14 +521,6 @@ export interface ApiMainMenuMainMenu extends Struct.SingleTypeSchema {
       'api::main-menu.main-menu'
     >;
     publishedAt: Schema.Attribute.DateTime;
-    root: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

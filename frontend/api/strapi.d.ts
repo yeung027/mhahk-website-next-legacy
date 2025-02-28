@@ -1839,10 +1839,7 @@ export interface components {
         };
         MainMenuRequest: {
             data: {
-                items?: (components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
-                root: boolean;
-                /** @enum {string} */
-                category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+                items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1861,10 +1858,7 @@ export interface components {
         MainMenu: {
             id?: number;
             documentId?: string;
-            items?: (components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
-            root: boolean;
-            /** @enum {string} */
-            category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+            items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1883,10 +1877,7 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
-                items?: (components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
-                root?: boolean;
-                /** @enum {string} */
-                category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+                items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1912,18 +1903,10 @@ export interface components {
             data?: components["schemas"]["MainMenu"];
             meta?: Record<string, never>;
         };
-        MainMenuMainmenuSubmenuComponent: {
+        MainMenuMainmenuSubsubitemComponent: {
             id?: number;
-            /** @enum {string} */
-            __component?: "main-menu.mainmenu-submenu";
+            title?: string;
             url?: string;
-        };
-        MainMenuMainMenuItemComponent: {
-            id?: number;
-            /** @enum {string} */
-            __component?: "main-menu.main-menu-item";
-            url?: string;
-            name?: string;
             image?: {
                 id?: number;
                 documentId?: string;
@@ -1971,6 +1954,45 @@ export interface components {
                     documentId?: string;
                 }[];
             };
+        };
+        MainMenuMainmenuSubsubmenuMenuComponent: {
+            id?: number;
+            title?: string;
+            items?: components["schemas"]["MainMenuMainmenuSubsubitemComponent"][];
+            url?: string;
+        };
+        MainMenuMainmenuSubsubmenuComponent: {
+            id?: number;
+            /** @enum {string} */
+            __component?: "main-menu.mainmenu-subsubmenu";
+            title?: string;
+            menus?: components["schemas"]["MainMenuMainmenuSubsubmenuMenuComponent"][];
+        };
+        MainMenuMainmenuCategoryComponent: {
+            id?: number;
+            /** @enum {string} */
+            category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+        };
+        MainMenuMainmenuSubitemComponent: {
+            id?: number;
+            title?: string;
+            url?: string;
+        };
+        MainMenuMainmenuSubmenuComponent: {
+            id?: number;
+            /** @enum {string} */
+            __component?: "main-menu.mainmenu-submenu";
+            title?: string;
+            category?: components["schemas"]["MainMenuMainmenuCategoryComponent"];
+            items?: components["schemas"]["MainMenuMainmenuSubitemComponent"][];
+        };
+        MainMenuMainMenuItemComponent: {
+            id?: number;
+            /** @enum {string} */
+            __component?: "main-menu.main-menu-item";
+            url?: string;
+            title?: string;
+            category?: components["schemas"]["MainMenuMainmenuCategoryComponent"];
         };
         ServiceRequest: {
             data: {

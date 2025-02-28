@@ -1,7 +1,7 @@
 {
   "collectionName": "components_main_menu_main_menu_items",
   "info": {
-    "displayName": "mainmenu-item",
+    "displayName": "mainmenu-root-item",
     "description": ""
   },
   "options": {},
@@ -9,18 +9,13 @@
     "url": {
       "type": "string"
     },
-    "name": {
+    "title": {
       "type": "string"
     },
-    "image": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": false
+    "category": {
+      "type": "component",
+      "repeatable": false,
+      "component": "main-menu.mainmenu-category"
     }
   }
 }

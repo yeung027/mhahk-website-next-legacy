@@ -28,13 +28,22 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                         "main-menu.mainmenu-submenu": {
                             populate:"*"
                         }
+                        ,
+                        "main-menu.mainmenu-subsubmenu": {
+                            populate:{
+                                menus:{
+                                    populate:{
+                                        items:{
+                                            populate:"*"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
-            locale: locale== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk,
-            filters:{
-                root:true
-            }
+            locale: locale== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk
           }
         }
       });

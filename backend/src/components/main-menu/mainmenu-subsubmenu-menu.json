@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_main_menu_mainmenu_subsubmenu_menus",
+  "info": {
+    "displayName": "Mainmenu-subsubmenu-menu",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "main-menu.mainmenu-subsubitem"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}
