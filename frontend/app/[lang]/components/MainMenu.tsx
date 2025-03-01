@@ -213,14 +213,14 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-
-    const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-300
-                                 ${isCollapse ? 'max-h-[0]' : `max-h-[${maxHeight_m}px]`}
+// ${isCollapse ? 'max-h-[0px]' : `max-h-[${400}px]`}
+    const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-[1s] xl:duration-300 origin-top 
+                                 
                                   transition transition-all ease-in-out`
     const subsubmenu_classname =    `max-h-none pl-[30px] flex flex-col`
 
-    const xl_outter_classname = `xl:max-h-none xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)] transition duration-300 ease-in-out 
-                                 opacity-0 xl:scale-[0] origin-top 
+    const xl_outter_classname = `xl:max-h-none xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)]
+                                 opacity-0 xl:scale-[0]
                                  peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
                                  hover:xl:opacity-100 hover:xl:scale-[1]
                                  xl:absolute`
@@ -261,6 +261,7 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                 <li 
                     ref={menuLIRef} 
                     className={`${outter_classname} ${xl_outter_classname}`} 
+                    style={{ maxHeight: isCollapse ? '0px' : `${maxHeight_m}px` }}
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >  
                     <div className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
@@ -288,14 +289,13 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
 
     const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
 
-    const menu_wrapper_classname = `transition duration-300 ease-in-out overflow-hidden
-                                     ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`} 
+    const menu_wrapper_classname = `transition transition-all duration-300 ease-in-out overflow-hidden
                                      xl:max-h-none`
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
 
 
-    const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
+    const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[2vw] pb-[2vw] xl:pt-[15px] xl:pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
     const xl_subsub_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
     const subsubmenu_wrapper = ``
@@ -319,6 +319,7 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
                     <ul 
                         ref={menuLIRef}
                         className={`${menu_wrapper_classname}`}
+                        style={{ maxHeight: isCollapse ? '0px' : `${maxHeight_m}px` }}
                     >
                         {items.map((item, y) => {
                             return  <li  className={``} key={`subsubmenu-item-${index}-${y}`}>
