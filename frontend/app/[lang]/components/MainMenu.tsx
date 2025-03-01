@@ -101,20 +101,23 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
         index:number,
         menu: components["schemas"]["MainMenuMainmenuSubsubmenuComponent"]
     ) => {
-        const submenu_classname = "scale-[1] opacity-100 static pl-[30px]"
+        const outter_classname = "scale-[1] opacity-100 static"
+        const submenu_classname = "bg-mainGreen  pl-[30px]"
         const submenu_sep_classname = "border-[#4db093]"
         const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
         const ul_classname = ""
         const item_classname = ""
         const sep_classname = "border-[#4db093]"
 
-        const xl_submenu_classname = `flex flex-row transition duration-300 ease-in-out 
-             opacity-0 xl:scale-[0] xl:mt-[30px]
+        const xl_outter_classname = ` xl:mx-negative_pageXLX w-[calc(100%+60px)] transition duration-300 ease-in-out 
+             opacity-0 xl:scale-[0] 
              peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
              hover:xl:opacity-100 hover:xl:scale-[1]
+             xl:absolute`
+        const xl_submenu_classname = `border xl:mt-[1.7rem]
+             flex flex-row
              origin-top cursor-pointer 
-            xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen px-[20px] py-[15px] xl:mx-negative_pageXLX w-[calc(100%+60px)]
-            text-green2 font-['Noto Sans', Helvetica] gap-4`;
+            text-green2 font-['Noto Sans', Helvetica] gap-4 xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] px-[20px] py-[15px]`;
         const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
         const xl_ul_classname = ` `
         const submenuitem_classname = ""
@@ -123,9 +126,10 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
 
 
         return  <li 
-                    className={`${submenu_classname} ${xl_submenu_classname}`} 
+                    className={`${outter_classname} ${xl_outter_classname}`} 
                     key={`sub-sub-menu-ul-${menu.id}`}
-                >
+                >   
+                    <div className={`${submenu_classname} ${xl_submenu_classname}`}>
                     {menu.menus &&
                         menu.menus.map((subsubmenu) => {
                             return <ul className="">
@@ -153,7 +157,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                         })
                         
                     }
-                    
+                    </div>
                 </li>
     };
 
