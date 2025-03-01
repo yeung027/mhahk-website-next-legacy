@@ -14,7 +14,7 @@ interface PageHeaderProps {
 
 export default async function PageHeader({ pathname, locale, category } : PageHeaderProps) {
     
-    const menuItemsFetch = await client.GET("/main-menu", {
+    const mainMenuFetch = await client.GET("/main-menu", {
         params:{
           query:{
             // @ts-ignore
@@ -22,7 +22,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                 items:{
                     on: 
                     {
-                        "main-menu.main-menu-item": {
+                        "main-menu.mainmenu-rootitem": {
                             populate:"*"
                         },
                         "main-menu.mainmenu-submenu": {
@@ -48,7 +48,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
         }
       });
 
-      console.log(menuItemsFetch.data)
+      console.log(mainMenuFetch.data)
     //   const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
 
     return (
@@ -127,7 +127,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                     </div>
                 </div>
                 
-                {/* <MainMenu pathname={pathname} items={menuItems} category={category} /> */}
+                <MainMenu pathname={pathname} mainmenu={mainMenuFetch.data?.data} category={category} />
 
                
             </div>

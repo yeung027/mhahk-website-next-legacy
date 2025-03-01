@@ -23,6 +23,10 @@ export default {
         'pageX':'7vw',
         'pageXLX':'40px'
       },
+      margin:{
+        'negative_pageX':'-7vw',
+        'negative_pageXLX':'-40px'
+      },
       aspectRatio: {
         '7_69_1': '7.69 / 1',
       },

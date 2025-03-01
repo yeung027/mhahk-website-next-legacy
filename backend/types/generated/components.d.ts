@@ -169,19 +169,6 @@ export interface IndexIndexTabsPageLeftAndRightItem
   };
 }
 
-export interface MainMenuMainMenuItem extends Struct.ComponentSchema {
-  collectionName: 'components_main_menu_main_menu_items';
-  info: {
-    description: '';
-    displayName: 'mainmenu-root-item';
-  };
-  attributes: {
-    category: Schema.Attribute.Component<'main-menu.mainmenu-category', false>;
-    title: Schema.Attribute.String;
-    url: Schema.Attribute.String;
-  };
-}
-
 export interface MainMenuMainmenuCategory extends Struct.ComponentSchema {
   collectionName: 'components_main_menu_mainmenu_categories';
   info: {
@@ -200,6 +187,18 @@ export interface MainMenuMainmenuCategory extends Struct.ComponentSchema {
         'recruitment',
       ]
     >;
+  };
+}
+
+export interface MainMenuMainmenuRootitem extends Struct.ComponentSchema {
+  collectionName: 'components_main_menu_mainmenu_rootitems';
+  info: {
+    displayName: 'Mainmenu-rootitem';
+  };
+  attributes: {
+    category: Schema.Attribute.Component<'main-menu.mainmenu-category', false>;
+    title: Schema.Attribute.String;
+    url: Schema.Attribute.String;
   };
 }
 
@@ -248,6 +247,7 @@ export interface MainMenuMainmenuSubsubmenu extends Struct.ComponentSchema {
     displayName: 'Mainmenu-subsubmenu';
   };
   attributes: {
+    category: Schema.Attribute.Component<'main-menu.mainmenu-category', false>;
     menus: Schema.Attribute.Component<
       'main-menu.mainmenu-subsubmenu-menu',
       true
@@ -284,8 +284,8 @@ declare module '@strapi/strapi' {
       'index.index-tabs-layout-left-and-right': IndexIndexTabsLayoutLeftAndRight;
       'index.index-tabs-page-left-and-right': IndexIndexTabsPageLeftAndRight;
       'index.index-tabs-page-left-and-right-item': IndexIndexTabsPageLeftAndRightItem;
-      'main-menu.main-menu-item': MainMenuMainMenuItem;
       'main-menu.mainmenu-category': MainMenuMainmenuCategory;
+      'main-menu.mainmenu-rootitem': MainMenuMainmenuRootitem;
       'main-menu.mainmenu-subitem': MainMenuMainmenuSubitem;
       'main-menu.mainmenu-submenu': MainMenuMainmenuSubmenu;
       'main-menu.mainmenu-subsubitem': MainMenuMainmenuSubsubitem;

@@ -26,7 +26,7 @@
       "components": [
         "main-menu.mainmenu-subsubmenu",
         "main-menu.mainmenu-submenu",
-        "main-menu.main-menu-item"
+        "main-menu.mainmenu-rootitem"
       ]
     }
   }

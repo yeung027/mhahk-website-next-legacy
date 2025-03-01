@@ -1,15 +1,14 @@
 {
-  "collectionName": "components_main_menu_main_menu_items",
+  "collectionName": "components_main_menu_mainmenu_rootitems",
   "info": {
-    "displayName": "mainmenu-root-item",
-    "description": ""
+    "displayName": "Mainmenu-rootitem"
   },
   "options": {},
   "attributes": {
-    "url": {
+    "title": {
       "type": "string"
     },
-    "title": {
+    "url": {
       "type": "string"
     },
     "category": {

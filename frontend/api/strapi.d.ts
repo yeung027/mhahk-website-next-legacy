@@ -1839,7 +1839,7 @@ export interface components {
         };
         MainMenuRequest: {
             data: {
-                items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
+                items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuRootitemComponent"])[];
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1858,7 +1858,7 @@ export interface components {
         MainMenu: {
             id?: number;
             documentId?: string;
-            items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
+            items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuRootitemComponent"])[];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1877,7 +1877,7 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
-                items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainMenuItemComponent"])[];
+                items?: (components["schemas"]["MainMenuMainmenuSubsubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuRootitemComponent"])[];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1961,17 +1961,18 @@ export interface components {
             items?: components["schemas"]["MainMenuMainmenuSubsubitemComponent"][];
             url?: string;
         };
+        MainMenuMainmenuCategoryComponent: {
+            id?: number;
+            /** @enum {string} */
+            category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+        };
         MainMenuMainmenuSubsubmenuComponent: {
             id?: number;
             /** @enum {string} */
             __component?: "main-menu.mainmenu-subsubmenu";
             title?: string;
             menus?: components["schemas"]["MainMenuMainmenuSubsubmenuMenuComponent"][];
-        };
-        MainMenuMainmenuCategoryComponent: {
-            id?: number;
-            /** @enum {string} */
-            category?: "index" | "about" | "service" | "news" | "publish" | "share" | "volunteer" | "recruitment";
+            category?: components["schemas"]["MainMenuMainmenuCategoryComponent"];
         };
         MainMenuMainmenuSubitemComponent: {
             id?: number;
@@ -1986,12 +1987,12 @@ export interface components {
             category?: components["schemas"]["MainMenuMainmenuCategoryComponent"];
             items?: components["schemas"]["MainMenuMainmenuSubitemComponent"][];
         };
-        MainMenuMainMenuItemComponent: {
+        MainMenuMainmenuRootitemComponent: {
             id?: number;
             /** @enum {string} */
-            __component?: "main-menu.main-menu-item";
-            url?: string;
+            __component?: "main-menu.mainmenu-rootitem";
             title?: string;
+            url?: string;
             category?: components["schemas"]["MainMenuMainmenuCategoryComponent"];
         };
         ServiceRequest: {

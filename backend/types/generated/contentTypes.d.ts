@@ -507,7 +507,7 @@ export interface ApiMainMenuMainMenu extends Struct.SingleTypeSchema {
       [
         'main-menu.mainmenu-subsubmenu',
         'main-menu.mainmenu-submenu',
-        'main-menu.main-menu-item',
+        'main-menu.mainmenu-rootitem',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
