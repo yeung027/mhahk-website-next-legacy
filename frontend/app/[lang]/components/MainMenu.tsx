@@ -123,13 +123,13 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
     const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "text-green2"
+    const item_classname = " text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
 
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-    const submenu_classname =   `mt-[2vw] scale-[1] overflow-hidden opacity-100 
+    const submenu_classname =   `mt-[0] pt-[2vw] scale-[1] overflow-hidden opacity-100 
                                  ${isCollapse ? 'max-h-[0px]' : `max-h-[${String(maxHeight_m)}px]`}
                                  static pl-[3vw]
                                  duration-300 
@@ -142,7 +142,7 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
                                     group group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] 
                                     origin-top cursor-pointer 
                                     xl:duration-300 
-                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen xl:mt-[0px] px-[20px] xl:pt-[7px] xl:pb-[15px] 
+                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen xl:mt-[0px] px-[20px] xl:pt-[7px] xl:pb-[15px]  xl:pt-0
                                     text-green2 font-['Noto Sans', Helvetica] gap-4`;
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
@@ -218,14 +218,14 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-300 origin-top 
                                   xl:!h-auto
                                   transition transition-all ease-in-out`
-    const subsubmenu_classname =    `max-h-none pl-[30px] flex flex-col`
+    const subsubmenu_classname =    `max-h-none pl-[20px] flex flex-col pt-[4vw]`
 
     const xl_outter_classname = `xl:max-h-none xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)]
                                  opacity-0 xl:scale-[0]
                                  peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
                                  hover:xl:opacity-100 hover:xl:scale-[1]
                                  xl:absolute`
-    const xl_subsubmenu_classname = `xl:bg-mainGreen xl:mt-[0.7rem]
+    const xl_subsubmenu_classname = `xl:bg-mainGreen xl:mt-[0.7rem] xl:pt-[15px]
                                      xl:max-h-none 
                                      xl:flex-row
                                      cursor-pointer 
@@ -292,6 +292,7 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                     style={{ height }}
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >  
+                    <li className={`w-full border-t-[1px] border-[#4db093] xl:hidden`} key={`subsubmenu-sep-${index}-top`} />
                     <div ref={menuInnerRef} className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
                     {menu.menus &&
                         menu.menus.map((subsubmenu) => {
@@ -321,11 +322,12 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
     const menu_wrapper_classname = `transition transition-all duration-300 ease-in-out overflow-hidden
                                      xl:!h-auto
                                      ml-[4vw] xl:ml-0`
+    const subsub_m_classname = ""
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
 
-
-    const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[2vw] pb-[2vw] xl:pt-[15px] xl:pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
+    const xl_subsub_m_classname = "transition duration-300 ease-in-out pt-[0vw] pb-[2vw] xl:pt-[12px] xl:pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
+    const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[3vw] pb-[1vw] xl:pt-[15px] xl:pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
     const xl_subsub_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
     const subsubmenu_wrapper = ``
@@ -366,13 +368,14 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
 
     
 
-    return  <ul className="">
+    return  <ul className="mt-[0vw] xl:mt-0">
                 <li 
-                    className={`${subsub_item_classname} ${xl_subsub_item_classname} ${title_classname}`}
+                    className={`${subsub_m_classname} ${xl_subsub_m_classname} ${title_classname}`}
                     onClick={menuTitleClick}
                 >
                     {title}
                 </li>
+                <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname}`} key={`subsubmenu-sep-${index}-outter`} />
                 <li>
                     <ul 
                         ref={menuLIRef}
@@ -382,8 +385,8 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
                         {items.map((item, y) => {
                             return  <li className={``} key={`subsubmenu-item-${index}-${y}`}>
                                         <ul className={`${subsubmenu_wrapper}`}>
-                                            <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
-                                            <li className={`${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
+                                            
+                                            <li className={` ${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
                                                 {item.image &&
                                                     <img 
                                                     src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
@@ -393,11 +396,12 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
                                                 }
                                                 {!item.image && item.title}
                                             </li>
+                                            <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} ${y+1===items.length? 'hidden' : ''}`} key={`subsubmenu-sep-${index}-${y}`} />
                                         </ul>
                                     </li>
                         })}
                     </ul>
                 </li>
-                <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname}`} key={`subsubmenu-sep-${index}-last`} />
+                
             </ul>
 }
