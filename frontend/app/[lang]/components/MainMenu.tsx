@@ -306,7 +306,7 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                         <span>
                             {menu.title}
                         </span>
-                        <MdKeyboardArrowDown className={"ml-[5px]"} />
+                        <MdKeyboardArrowDown className={`ml-[5px] ${isCollapse? '' : 'rotate-180'} transition duration-300 ease-in-out`} />
                     </div>
 
                     <div className={`${menu.category && menu.category.category === category ? "hidden xl:flex" : "hidden"} xl:absolute w-full bottom-[-8px] h-[2px] bg-black`} />
