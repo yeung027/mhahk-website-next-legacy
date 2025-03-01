@@ -129,7 +129,7 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-    const submenu_classname =   `scale-[1] overflow-hidden opacity-100 
+    const submenu_classname =   `mt-[2vw] scale-[1] overflow-hidden opacity-100 
                                  ${isCollapse ? 'max-h-[0px]' : `max-h-[${String(maxHeight_m)}px]`}
                                  static pl-[3vw]
                                  duration-300 
@@ -142,7 +142,7 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
                                     group group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] 
                                     origin-top cursor-pointer 
                                     xl:duration-300 
-                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen mt-[0px] px-[20px] xl:pt-[7px] xl:pb-[15px] 
+                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen xl:mt-[0px] px-[20px] xl:pt-[7px] xl:pb-[15px] 
                                     text-green2 font-['Noto Sans', Helvetica] gap-4`;
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
@@ -215,7 +215,6 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-    // ${isCollapse ? 'max-h-[0px]' : animating? `max-h-[${maxHeight_m}px]` : `max-h-none`}
     const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-300 origin-top 
                                   xl:!h-auto
                                   transition transition-all ease-in-out`
@@ -262,7 +261,7 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     setHeight("0px");
-                    }, 300);
+                }, 300);
             });
             }
         }
@@ -314,13 +313,13 @@ interface SubSubMenuItemsProps {
 export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsProps) {
     const menuLIRef = useRef<HTMLUListElement | null>(null);
     const [isCollapse, setIsCollapse] = useState<boolean>(true);
-    const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
+    const [animating, setAnimating] = useState(false);
+    const [height, setHeight] = useState("0px");
 
     const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
 
-    const menu_wrapper_classname = `transition duration-300 ease-in-out overflow-hidden
-                                     ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`} 
-                                     xl:max-h-none
+    const menu_wrapper_classname = `transition transition-all duration-300 ease-in-out overflow-hidden
+                                     xl:!h-auto
                                      ml-[4vw] xl:ml-0`
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
@@ -332,12 +331,40 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
     const subsubmenu_wrapper = ``
 
     const menuTitleClick = () => {
-        setIsCollapse(!isCollapse)
-    }
-
+        setAnimating(true);
+        setIsCollapse(prev => !prev);
+    
+        setTimeout(() => {
+            setAnimating(false);
+        }, 300); // 與 Tailwind `duration-300` 一致
+    };
+    
     useEffect(() => {
-        setMaxHeight_m( (items.length+1) * 40);
-    }, [items]);
+        if (menuLIRef.current) {
+            if (!isCollapse) {
+            // 📌 開啟動畫：設置 `height = scrollHeight`
+            setHeight(`${menuLIRef.current.scrollHeight}px`);
+    
+            // 📌 動畫完成後，設置 `auto`
+            const timeout = setTimeout(() => {
+                setHeight("auto");
+            }, 300);
+            return () => clearTimeout(timeout);
+            } else {
+            // 📌 先設定 `height = scrollHeight`
+            setHeight(`${menuLIRef.current.scrollHeight}px`);
+    
+            // 📌 讓瀏覽器渲染後再設置 `height = 0px`
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    setHeight("0px");
+                }, 300);
+            });
+            }
+        }
+    }, [isCollapse]);
+
+    
 
     return  <ul className="">
                 <li 
@@ -350,6 +377,7 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
                     <ul 
                         ref={menuLIRef}
                         className={`${menu_wrapper_classname}`}
+                        style={{ height }}
                     >
                         {items.map((item, y) => {
                             return  <li className={``} key={`subsubmenu-item-${index}-${y}`}>
