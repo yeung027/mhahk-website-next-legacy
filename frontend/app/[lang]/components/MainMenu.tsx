@@ -204,6 +204,7 @@ interface SubSubMenuProps {
 export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const menuLIRef = useRef<HTMLLIElement | null>(null);
     const [isCollapse, setIsCollapse] = useState<boolean>(true);
+    const [animating, setAnimating] = useState<boolean>(false);
     const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
@@ -213,9 +214,9 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-// ${isCollapse ? 'max-h-[0px]' : `max-h-[${400}px]`}
+
     const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-[1s] xl:duration-300 origin-top 
-                                 
+                                 ${isCollapse ? 'max-h-[0px]' : animating? `max-h-[${maxHeight_m}px]` : `max-h-none`}
                                   transition transition-all ease-in-out`
     const subsubmenu_classname =    `max-h-none pl-[30px] flex flex-col`
 
@@ -237,9 +238,10 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     }
     
     useEffect(() => {
-        if (menuLIRef.current) {
-          setMaxHeight_m(prev => prev + (menuLIRef.current ? menuLIRef.current.scrollHeight : 0));
-        }
+        // if (menuLIRef.current) {
+        //   setMaxHeight_m(prev => prev + (menuLIRef.current ? menuLIRef.current.scrollHeight : 0));
+        // }
+        setMaxHeight_m(200)
       }, [menuLIRef.current]); 
       
     return  <React.Fragment key={`main-menu-sub-sub-wrapper-${index}`}>
@@ -261,7 +263,6 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                 <li 
                     ref={menuLIRef} 
                     className={`${outter_classname} ${xl_outter_classname}`} 
-                    style={{ maxHeight: isCollapse ? '0px' : `${maxHeight_m}px` }}
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >  
                     <div className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
@@ -289,8 +290,10 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
 
     const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
 
-    const menu_wrapper_classname = `transition transition-all duration-300 ease-in-out overflow-hidden
-                                     xl:max-h-none`
+    const menu_wrapper_classname = `transition duration-300 ease-in-out overflow-hidden
+                                     ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`} 
+                                     xl:max-h-none
+                                     ml-[4vw] xl:ml-0`
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
 
@@ -319,10 +322,9 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
                     <ul 
                         ref={menuLIRef}
                         className={`${menu_wrapper_classname}`}
-                        style={{ maxHeight: isCollapse ? '0px' : `${maxHeight_m}px` }}
                     >
                         {items.map((item, y) => {
-                            return  <li  className={``} key={`subsubmenu-item-${index}-${y}`}>
+                            return  <li className={``} key={`subsubmenu-item-${index}-${y}`}>
                                         <ul className={`${subsubmenu_wrapper}`}>
                                             <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
                                             <li className={`${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
@@ -340,5 +342,6 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
                         })}
                     </ul>
                 </li>
+                <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname}`} key={`subsubmenu-sep-${index}-last`} />
             </ul>
 }
