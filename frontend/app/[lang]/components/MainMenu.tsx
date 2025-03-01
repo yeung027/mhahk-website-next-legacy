@@ -61,7 +61,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                     <IoMdClose className={`${mobileShow? "scale-[1] opacity-100" : "scale-[0] opacity-0"} absolute cursor-pointer`} onClick={menuBtnClick} />
                 </div>
                 <div className={"relative"}>
-                    <ul className={`border-4 border-purple-300 ${mobileShow? "scale-y-[1] opacity-100" : "scale-y-[0] opacity-0 xl:scale-y-[1] xl:opacity-100"} 
+                    <ul className={`${mobileShow? "scale-y-[1] opacity-100" : "scale-y-[0] opacity-0 xl:scale-y-[1] xl:opacity-100"} 
                         transition duration-300 ease-in-out origin-top ${inner_classname} ${xl_inner_classname}`}>
                         <li className={"flex xl:hidden"}>
                             <div className="flex flex-row-reverse pb-[4vw]">
@@ -97,7 +97,7 @@ interface RootItemProps {
 }
 export function RootItem({ menu, index, category } : RootItemProps) {
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "border-0 border-purple-300 text-green2"
+    const item_classname = "text-green2"
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
 
     return  <React.Fragment key={`main-menu-item-wrapper-${index}`}>
@@ -123,17 +123,16 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
     const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "border-0 border-purple-300 text-green2"
+    const item_classname = "text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
 
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-    const submenu_classname =   `border-0 border-sky-300 
-                                 scale-[1] overflow-hidden opacity-100 
+    const submenu_classname =   `scale-[1] overflow-hidden opacity-100 
                                  ${isCollapse ? 'max-h-[0px]' : `max-h-[${String(maxHeight_m)}px]`}
                                  static pl-[3vw]
-                                 duration-800 
+                                 duration-300 
                                  transition transition-all ease-in-out`
     const submenu_sep_classname = "border-[#4db093]"
     const submenuitem_classname = "max-w-[200px] min-w-[160px]"
@@ -143,7 +142,7 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
                                     group group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] 
                                     origin-top cursor-pointer 
                                     xl:duration-300 
-                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen mt-[7px] px-[20px] xl:py-[15px] 
+                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen mt-[0px] px-[20px] xl:pt-[7px] xl:pb-[15px] 
                                     text-green2 font-['Noto Sans', Helvetica] gap-4`;
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
@@ -206,57 +205,46 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const menuLIRef = useRef<HTMLLIElement | null>(null);
     const [isCollapse, setIsCollapse] = useState<boolean>(true);
     const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
-    const [maxItemsLength, setMaxItemsLength] = useState<number>(0);
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "border-0 border-purple-300 text-green2"
+    const item_classname = "text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
 
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
 
-    const outter_classname =    `border-4 border-rose-600 
-                                 overflow-hidden scale-[1] opacity-100 
-                                 max-h-none ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`}`
+    const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-300
+                                 ${isCollapse ? 'max-h-[0]' : `max-h-[${maxHeight_m}px]`}
+                                  transition transition-all ease-in-out`
     const subsubmenu_classname =    `max-h-none pl-[30px] flex flex-col`
-    const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
-    const subsub_item_classname = ""
-    const subsub_sep_classname = "border-[#4db093]"
 
-    const xl_outter_classname = `xl:max-h-none xl:bg-mainGreen xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)] transition duration-300 ease-in-out 
+    const xl_outter_classname = `xl:max-h-none xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)] transition duration-300 ease-in-out 
                                  opacity-0 xl:scale-[0] origin-top 
                                  peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
                                  hover:xl:opacity-100 hover:xl:scale-[1]
                                  xl:absolute`
-    const xl_subsubmenu_classname = `xl:mt-[0.7rem]
+    const xl_subsubmenu_classname = `xl:bg-mainGreen xl:mt-[0.7rem]
                                      xl:max-h-none 
                                      xl:flex-row
                                      cursor-pointer 
                                      text-green2 font-['Noto Sans', Helvetica] gap-4 xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] px-[20px] xl:py-[15px]`;
-    const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
-    const xl_subsub_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
-    const subsubmenu_wrapper = `overflow-hidden`
 
-    useEffect(() => {
-        if(menu.menus)
-            menu.menus.map((m) => {
-                if(m.items && m.items.length > maxItemsLength) setMaxItemsLength(m.items.length)
-            })
-    }, [menu]);
-
-    useEffect(() => {
-        setMaxHeight_m( (maxItemsLength+1) * 60);
-      }, [maxItemsLength]);
 
     const menuTitleClick = () => {
         setIsCollapse(!isCollapse)
     }
     
+    useEffect(() => {
+        if (menuLIRef.current) {
+          setMaxHeight_m(prev => prev + (menuLIRef.current ? menuLIRef.current.scrollHeight : 0));
+        }
+      }, [menuLIRef.current]); 
+      
     return  <React.Fragment key={`main-menu-sub-sub-wrapper-${index}`}>
                 <li className={`${sep_classname} xl:hidden`} key={`sep-${index}`} />
-                <li className={`border-2 border-pink-500 ${isSubsubmenu(menu)? `peer/g${String(index + 1).padStart(3, "0")}` : ''} ${item_classname} ${xl_menuitem}`} key={`main-menu-item-${index}`}>
+                <li className={`${isSubsubmenu(menu)? `peer/g${String(index + 1).padStart(3, "0")}` : ''} ${item_classname} ${xl_menuitem}`} key={`main-menu-item-${index}`}>
                     <div 
                         className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} ${menu.category?.category===category ? "text-black" : ""}`}
                         onClick={menuTitleClick}
@@ -300,9 +288,8 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
 
     const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
 
-    const menu_wrapper_classname = `border-4 border-sky-300 
-                                     transition transition-all duration-[3s] ease-in-out overflow-hidden
-                                     max-h-none ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`} 
+    const menu_wrapper_classname = `transition duration-300 ease-in-out overflow-hidden
+                                     ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`} 
                                      xl:max-h-none`
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
@@ -317,7 +304,11 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
         setIsCollapse(!isCollapse)
     }
 
-    return  <ul className="border-4">
+    useEffect(() => {
+        setMaxHeight_m( (items.length+1) * 40);
+    }, [items]);
+
+    return  <ul className="">
                 <li 
                     className={`${subsub_item_classname} ${xl_subsub_item_classname} ${title_classname}`}
                     onClick={menuTitleClick}
