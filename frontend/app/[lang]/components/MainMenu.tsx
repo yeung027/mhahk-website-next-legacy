@@ -109,19 +109,19 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
         const item_classname = ""
         const sep_classname = "border-[#4db093]"
 
-        const xl_outter_classname = ` xl:mx-negative_pageXLX w-[calc(100%+60px)] transition duration-300 ease-in-out 
-             opacity-0 xl:scale-[0] 
+        const xl_outter_classname = `xl:mt-[1rem] xl:mx-negative_pageXLX w-[calc(100%+60px)] transition duration-300 ease-in-out 
+             opacity-0 xl:scale-[0] origin-top 
              peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
              hover:xl:opacity-100 hover:xl:scale-[1]
              xl:absolute`
-        const xl_submenu_classname = `border xl:mt-[1.7rem]
+        const xl_submenu_classname = `xl:mt-[0.7rem]
              flex flex-row
-             origin-top cursor-pointer 
+             cursor-pointer 
             text-green2 font-['Noto Sans', Helvetica] gap-4 xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] px-[20px] py-[15px]`;
         const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
         const xl_ul_classname = ` `
         const submenuitem_classname = ""
-        const xl_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
+        const xl_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
         const xl_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
 
