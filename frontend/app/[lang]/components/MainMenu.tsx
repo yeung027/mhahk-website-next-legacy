@@ -203,9 +203,10 @@ interface SubSubMenuProps {
 }
 export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const menuLIRef = useRef<HTMLLIElement | null>(null);
+    const menuInnerRef = useRef<HTMLDivElement | null>(null);
     const [isCollapse, setIsCollapse] = useState<boolean>(true);
-    const [animating, setAnimating] = useState<boolean>(false);
-    const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
+    const [animating, setAnimating] = useState(false);
+    const [height, setHeight] = useState("0px");
 
     const sep_classname = "border-t-[1px] border-[#4db093]"
     const item_classname = "text-green2"
@@ -214,9 +215,9 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-
-    const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-[1s] xl:duration-300 origin-top 
-                                 ${isCollapse ? 'max-h-[0px]' : animating? `max-h-[${maxHeight_m}px]` : `max-h-none`}
+    // ${isCollapse ? 'max-h-[0px]' : animating? `max-h-[${maxHeight_m}px]` : `max-h-none`}
+    const outter_classname =    `overflow-hidden scale-[1] opacity-100 duration-300 origin-top 
+                                  xl:!h-auto
                                   transition transition-all ease-in-out`
     const subsubmenu_classname =    `max-h-none pl-[30px] flex flex-col`
 
@@ -234,15 +235,41 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
 
 
     const menuTitleClick = () => {
-        setIsCollapse(!isCollapse)
-    }
+        setAnimating(true);
+        setIsCollapse(prev => !prev);
+    
+        setTimeout(() => {
+            setAnimating(false);
+        }, 300); // 與 Tailwind `duration-300` 一致
+    };
     
     useEffect(() => {
-        // if (menuLIRef.current) {
-        //   setMaxHeight_m(prev => prev + (menuLIRef.current ? menuLIRef.current.scrollHeight : 0));
-        // }
-        setMaxHeight_m(200)
-      }, [menuLIRef.current]); 
+        if (menuInnerRef.current) {
+            if (!isCollapse) {
+            // 📌 開啟動畫：設置 `height = scrollHeight`
+            setHeight(`${menuInnerRef.current.scrollHeight}px`);
+    
+            // 📌 動畫完成後，設置 `auto`
+            const timeout = setTimeout(() => {
+                setHeight("auto");
+            }, 300);
+            return () => clearTimeout(timeout);
+            } else {
+            // 📌 先設定 `height = scrollHeight`
+            setHeight(`${menuInnerRef.current.scrollHeight}px`);
+    
+            // 📌 讓瀏覽器渲染後再設置 `height = 0px`
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    setHeight("0px");
+                    }, 300);
+            });
+            }
+        }
+    }, [isCollapse]);
+    
+
+
       
     return  <React.Fragment key={`main-menu-sub-sub-wrapper-${index}`}>
                 <li className={`${sep_classname} xl:hidden`} key={`sep-${index}`} />
@@ -263,9 +290,10 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                 <li 
                     ref={menuLIRef} 
                     className={`${outter_classname} ${xl_outter_classname}`} 
+                    style={{ height }}
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >  
-                    <div className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
+                    <div ref={menuInnerRef} className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
                     {menu.menus &&
                         menu.menus.map((subsubmenu) => {
                             if(subsubmenu.items)
