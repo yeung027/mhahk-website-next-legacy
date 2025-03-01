@@ -224,7 +224,7 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
 
-    const xl_outter_classname = ` xl:bg-mainGreen xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)] transition duration-300 ease-in-out 
+    const xl_outter_classname = `xl:max-h-none xl:bg-mainGreen xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)] transition duration-300 ease-in-out 
                                  opacity-0 xl:scale-[0] origin-top 
                                  peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
                                  hover:xl:opacity-100 hover:xl:scale-[1]
@@ -278,34 +278,58 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                     <div className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
                     {menu.menus &&
                         menu.menus.map((subsubmenu) => {
-                            return <ul className="">
-                                        <li className={`${subsub_item_classname} ${xl_subsub_item_classname} ${title_classname}`}>
-                                            {subsubmenu.title}
-                                        </li>
-                                        {subsubmenu.items &&
-                                            subsubmenu.items.map((item, y) => {
-                                                return  <li key={`subsubmenu-item-${index}-${y}`}>
-                                                            <ul className={`${subsubmenu_wrapper}`}>
-                                                                <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
-                                                                <li className={`${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
-                                                                    {item.image &&
-                                                                        <img 
-                                                                        src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
-                                                                        key={`subsubmenu-item-image-${index}`} 
-                                                                        className={`max-h-[60px]`}
-                                                                    />
-                                                                    }
-                                                                    {item.title}
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                            })
-                                        }
-                                    </ul>
+                            if(subsubmenu.items)
+                                return <SubSubMainMenuItems title={subsubmenu.title ?? ''} items={subsubmenu.items} index={index} />
                         })
                         
                     }
                     </div>
                 </li>
             </React.Fragment>
+}
+
+interface SubSubMenuItemsProps {
+    items:components["schemas"]["MainMenuMainmenuSubsubitemComponent"][],
+    title:string,
+    index: number
+}
+export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsProps) {
+
+    const menuLIRef = useRef<HTMLLIElement | null>(null);
+    const [isCollapse, setIsCollapse] = useState<boolean>(true);
+    const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
+
+    const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
+
+    const subsub_item_classname = ""
+    const subsub_sep_classname = "border-[#4db093]"
+
+
+    const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
+    const xl_subsub_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
+
+    const subsubmenu_wrapper = `overflow-hidden`
+
+    return  <ul className="">
+                <li className={`${subsub_item_classname} ${xl_subsub_item_classname} ${title_classname}`}>
+                    {title}
+                </li>
+                {items.map((item, y) => {
+                    return  <li key={`subsubmenu-item-${index}-${y}`}>
+                                <ul className={`${subsubmenu_wrapper}`}>
+                                    <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
+                                    <li className={`${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
+                                        {item.image &&
+                                            <img 
+                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
+                                            key={`subsubmenu-item-image-${index}`} 
+                                            className={`max-h-[60px]`}
+                                        />
+                                        }
+                                        {!item.image && item.title}
+                                    </li>
+                                </ul>
+                            </li>
+                })}
+            </ul>
 }
