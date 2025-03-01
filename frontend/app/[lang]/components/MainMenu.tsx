@@ -98,6 +98,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
     };
 
     const subsubMenuRender = (
+        index:number,
         menu: components["schemas"]["MainMenuMainmenuSubsubmenuComponent"]
     ) => {
         const submenu_classname = "scale-[1] opacity-100 static pl-[30px]"
@@ -107,7 +108,8 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
         const item_classname = ""
         const sep_classname = "border-[#4db093]"
 
-        const xl_submenu_classname = `hidden transition duration-300 ease-in-out 
+        const xl_submenu_classname = `transition duration-300 ease-in-out 
+             opacity-0 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 xl:scale-[0] peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
              origin-top cursor-pointer 
             xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen px-[20px] py-[15px] bottom-[-55px] xl:mx-negative_pageXLX w-[calc(100%+60px)]
             text-green2 font-['Noto Sans', Helvetica] gap-4`;
@@ -122,7 +124,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                     className={`${submenu_classname} ${xl_submenu_classname}`} 
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >
-                    dsadsad
+                    {menu.title}
                 </li>
     };
 
@@ -148,7 +150,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                             mainmenu.items.map((item, index) => {
                                 return  <React.Fragment key={`main-menu-item-wrapper-${index}`}>
                                             <li className={`${sep_classname} xl:hidden`} key={`sep-${index}`} />
-                                            <li className={`${item_classname} ${xl_menuitem}`} key={`main-menu-item-${index}`}>
+                                            <li className={`${isSubsubmenu(item)? `peer/g${String(index + 1).padStart(3, "0")}` : ''} ${item_classname} ${xl_menuitem}`} key={`main-menu-item-${index}`}>
                                                 {isRootItem(item) &&
                                                     <div className={`${item.category?.category===category ? "text-black xl:text-[#000000e3]" : ""}`}>
                                                         {item.title}
@@ -166,7 +168,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                                                 {isSubmenu(item) && subMenuRender(item)}
                                                 
                                             </li>
-                                            {isSubsubmenu(item) && subsubMenuRender(item)}
+                                            {isSubsubmenu(item) && subsubMenuRender(index, item)}
                                         </React.Fragment>
                             })
                         }

@@ -7,6 +7,11 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    ...Array.from({ length: 50 }, (_, i) => `peer/g${String(i + 1).padStart(3, "0")}`),
+    ...Array.from({ length: 50 }, (_, i) => `peer-hover/g${String(i + 1).padStart(3, "0")}:xl:opacity-100`),
+    ...Array.from({ length: 50 }, (_, i) => `peer-hover/g${String(i + 1).padStart(3, "0")}:xl:scale-[1]`),
+  ],
   theme: {
     fontFamily: {
       Istok_Web: ['"Istok Web"', 'Helvetica'],
