@@ -4,7 +4,7 @@ import { LiaSearchSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
 import {PageCategory} from "@/models/util";
 import React from "react";
@@ -79,7 +79,7 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                                         </React.Fragment>
                             })
                         }
-                        
+
                     </ul>
                 </div>
             </nav>
@@ -93,23 +93,46 @@ interface SubMenuProps {
     category: PageCategory
 }
 export function SubMainMenu({ menu, index, category } : SubMenuProps) {
+    const rootULRef = useRef<HTMLUListElement | null>(null);
+    const [isCollapse, setIsCollapse] = useState<boolean>(true);
+    const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
+
     const sep_classname = "border-t-[1px] border-[#4db093]"
-    const item_classname = "text-green2"
+    const item_classname = "border-0 border-purple-300 text-green2"
     const has_subitem_classname = "items-center grid grid-cols-[auto_10vw]"
 
     const xl_menuitem = "group xl:relative xl:cursor-pointer xl:text-[#000000e3]"
     const xl_menuitem_has_submenu_inner = "cursor-pointer xl:flex flex-row items-center"
 
-    const submenu_classname = "border scale-[1] opacity-100 static pl-[30px]"
+    const submenu_classname =   `border-0 border-sky-300 
+                                 scale-[1] overflow-hidden opacity-100 
+                                 ${isCollapse ? 'max-h-[0px]' : `max-h-[${String(maxHeight_m)}px]`}
+                                 static pl-[3vw]
+                                 duration-800 
+                                 transition transition-all ease-in-out`
     const submenu_sep_classname = "border-[#4db093]"
     const submenuitem_classname = "max-w-[200px] min-w-[160px]"
 
     const xl_submenu_classname = `transition duration-300 ease-in-out 
-        group opacity-0 group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] origin-top cursor-pointer 
-        xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen mt-[7px] px-[20px] py-[15px] 
-        text-green2 font-['Noto Sans', Helvetica] gap-4`;
+                                    xl:max-h-none xl:pl-[20px]
+                                    group group-hover:xl:opacity-100 xl:scale-[0] group-hover:xl:scale-[1] 
+                                    origin-top cursor-pointer 
+                                    xl:duration-300 
+                                    xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen mt-[7px] px-[20px] xl:py-[15px] 
+                                    text-green2 font-['Noto Sans', Helvetica] gap-4`;
     const xl_submenuitem_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue"
     const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
+
+    useEffect(() => {
+        if(isSubmenu(menu) && menu.items)
+        {
+            setMaxHeight_m( (menu.items.length+1) * 40);
+        }
+      }, [menu]);
+
+    const menuTitleClick = () => {
+        setIsCollapse(!isCollapse)
+    }
 
     return  <React.Fragment key={`main-menu-item-wrapper-${index}`}>
                 <li className={`${sep_classname} xl:hidden`} key={`sep-${index}`} />
@@ -120,7 +143,10 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
                         </div>
                     }
                     {isSub_or_Subsubmenu(menu) &&
-                        <div className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} ${menu.category?.category===category ? "text-black" : ""}`}>
+                        <div 
+                            className={`${xl_menuitem_has_submenu_inner} ${has_subitem_classname} ${menu.category?.category===category ? "text-black" : ""}`}
+                            onClick={menuTitleClick}
+                        >
                             <span>
                                 {menu.title}
                             </span>
@@ -129,7 +155,8 @@ export function SubMainMenu({ menu, index, category } : SubMenuProps) {
                     }
                     <div className={`${menu.category && menu.category.category === category ? "hidden xl:flex" : "hidden"} absolute w-full bottom-[-8px] h-[2px] bg-black`} />
                     {isSubmenu(menu) && menu.items &&
-                        <ul 
+                        <ul
+                            ref={rootULRef} 
                             className={`${submenu_classname} ${xl_submenu_classname}`} 
                             key={`sub-menu-ul-${menu.id}`}
                         >
