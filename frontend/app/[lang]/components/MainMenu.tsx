@@ -292,12 +292,12 @@ export function SubSubMainMenu({ menu, index, category } : SubSubMenuProps) {
                     style={{ height }}
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >  
-                    <li className={`w-full border-t-[1px] border-[#4db093] xl:hidden`} key={`subsubmenu-sep-${index}-top`} />
+                    <div className={`w-full border-t-[1px] border-[#4db093] xl:hidden`} key={`subsubmenu-sep-${index}-top`} />
                     <div ref={menuInnerRef} className={`${subsubmenu_classname} ${xl_subsubmenu_classname}`}>
                     {menu.menus &&
-                        menu.menus.map((subsubmenu) => {
+                        menu.menus.map((subsubmenu, y) => {
                             if(subsubmenu.items)
-                                return <SubSubMainMenuItems title={subsubmenu.title ?? ''} items={subsubmenu.items} index={index} />
+                                return <SubSubMainMenuItems title={subsubmenu.title ?? ''} items={subsubmenu.items} index={index} key={`SubSubMainMenuItems-${y}`} />
                         })
                         
                     }

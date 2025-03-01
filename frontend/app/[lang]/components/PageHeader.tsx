@@ -48,9 +48,6 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
         }
       });
 
-      console.log(mainMenuFetch.data)
-    //   const menuItems:components["schemas"]["MainMenu"][] | undefined = menuItemsFetch.data? menuItemsFetch.data.data : undefined
-
     return (
         <header className={"flex flex-col"}>
             <div className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
