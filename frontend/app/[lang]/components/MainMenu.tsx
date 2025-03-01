@@ -108,10 +108,12 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
         const item_classname = ""
         const sep_classname = "border-[#4db093]"
 
-        const xl_submenu_classname = `transition duration-300 ease-in-out 
-             opacity-0 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 xl:scale-[0] peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
+        const xl_submenu_classname = `flex flex-row transition duration-300 ease-in-out 
+             opacity-0 xl:scale-[0] xl:mt-[30px]
+             peer-hover/g${String(index + 1).padStart(3, "0")}:xl:opacity-100 peer-hover/g${String(index + 1).padStart(3, "0")}:xl:scale-[1]
+             hover:xl:opacity-100 hover:xl:scale-[1]
              origin-top cursor-pointer 
-            xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen px-[20px] py-[15px] bottom-[-55px] xl:mx-negative_pageXLX w-[calc(100%+60px)]
+            xl:absolute xl:shadow-[0_2px_5px_rgba(0,0,0,0.1)] bg-mainGreen px-[20px] py-[15px] xl:mx-negative_pageXLX w-[calc(100%+60px)]
             text-green2 font-['Noto Sans', Helvetica] gap-4`;
         const xl_submenu_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
         const xl_ul_classname = ` `
@@ -124,7 +126,34 @@ export default function MainMenu({ pathname, mainmenu, category } : MainMenuProp
                     className={`${submenu_classname} ${xl_submenu_classname}`} 
                     key={`sub-sub-menu-ul-${menu.id}`}
                 >
-                    {menu.title}
+                    {menu.menus &&
+                        menu.menus.map((subsubmenu) => {
+                            return <ul className="">
+                                        <li className={`${item_classname} ${xl_item_classname} ${title_classname}`}>
+                                            {subsubmenu.title}
+                                        </li>
+                                        {subsubmenu.items &&
+                                            subsubmenu.items.map((item, y) => {
+                                                return  <React.Fragment key={`subsubmenu-item-${index}-${y}`}>
+                                                            <li className={`${sep_classname} ${xl_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
+                                                            <li className={`${item_classname} ${xl_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
+                                                                {item.image &&
+                                                                    <img 
+                                                                    src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
+                                                                    key={`subsubmenu-item-image-${index}`} 
+                                                                    className={`max-h-[60px]`}
+                                                                />
+                                                                }
+                                                                {item.title}
+                                                            </li>
+                                                        </React.Fragment>
+                                            })
+                                        }
+                                    </ul>
+                        })
+                        
+                    }
+                    
                 </li>
     };
 
