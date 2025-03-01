@@ -20,6 +20,9 @@ export default {
       Noto_Sans_HK: ['"Noto Sans HK"', 'serif'],
     },
     extend: {
+      transitionProperty: {
+        'max-height': 'max-height'
+      },
       colors: {
         mainGreen:'#39a787',
         green2:'#e8fccf',

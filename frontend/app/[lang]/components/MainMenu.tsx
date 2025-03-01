@@ -294,13 +294,16 @@ interface SubSubMenuItemsProps {
     index: number
 }
 export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsProps) {
-
-    const menuLIRef = useRef<HTMLLIElement | null>(null);
+    const menuLIRef = useRef<HTMLUListElement | null>(null);
     const [isCollapse, setIsCollapse] = useState<boolean>(true);
     const [maxHeight_m, setMaxHeight_m] = useState<number>(0);
 
     const title_classname = `text-[0.938rem] text-[#004ee2] font-[600]`
 
+    const menu_wrapper_classname = `border-4 border-sky-300 
+                                     transition transition-all duration-[3s] ease-in-out overflow-hidden
+                                     max-h-none ${isCollapse ? 'max-h-[0]' : `max-h-[${String(maxHeight_m)}px]`} 
+                                     xl:max-h-none`
     const subsub_item_classname = ""
     const subsub_sep_classname = "border-[#4db093]"
 
@@ -308,28 +311,42 @@ export function SubSubMainMenuItems({ items, title, index } : SubSubMenuItemsPro
     const xl_subsub_item_classname = "transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue xl:max-w-[140px]"
     const xl_subsub_sep_classname = "border-t-[1px] xl:border-[#4a9b7e]" 
 
-    const subsubmenu_wrapper = `overflow-hidden`
+    const subsubmenu_wrapper = ``
 
-    return  <ul className="">
-                <li className={`${subsub_item_classname} ${xl_subsub_item_classname} ${title_classname}`}>
+    const menuTitleClick = () => {
+        setIsCollapse(!isCollapse)
+    }
+
+    return  <ul className="border-4">
+                <li 
+                    className={`${subsub_item_classname} ${xl_subsub_item_classname} ${title_classname}`}
+                    onClick={menuTitleClick}
+                >
                     {title}
                 </li>
-                {items.map((item, y) => {
-                    return  <li key={`subsubmenu-item-${index}-${y}`}>
-                                <ul className={`${subsubmenu_wrapper}`}>
-                                    <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
-                                    <li className={`${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
-                                        {item.image &&
-                                            <img 
-                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
-                                            key={`subsubmenu-item-image-${index}`} 
-                                            className={`max-h-[60px]`}
-                                        />
-                                        }
-                                        {!item.image && item.title}
+                <li>
+                    <ul 
+                        ref={menuLIRef}
+                        className={`${menu_wrapper_classname}`}
+                    >
+                        {items.map((item, y) => {
+                            return  <li  className={``} key={`subsubmenu-item-${index}-${y}`}>
+                                        <ul className={`${subsubmenu_wrapper}`}>
+                                            <li className={`${subsub_sep_classname} ${xl_subsub_sep_classname} last:hidden`} key={`subsubmenu-sep-${index}-${y}`} />
+                                            <li className={`${subsub_item_classname} ${xl_subsub_item_classname}`} key={`subsubmenu-item-${index}-${y}`}>
+                                                {item.image &&
+                                                    <img 
+                                                    src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
+                                                    key={`subsubmenu-item-image-${index}`} 
+                                                    className={`max-h-[60px]`}
+                                                />
+                                                }
+                                                {!item.image && item.title}
+                                            </li>
+                                        </ul>
                                     </li>
-                                </ul>
-                            </li>
-                })}
+                        })}
+                    </ul>
+                </li>
             </ul>
 }
