@@ -110,7 +110,7 @@ export default async function PageHeader({ locale } : PageHeaderProps) {
                     </div>
                 </div>
                 
-                <MainMenu mainmenu={mainMenuFetch.data?.data} />
+                <MainMenu mainmenu={mainMenuFetch.data?.data} locale={locale} />
 
                
             </div>

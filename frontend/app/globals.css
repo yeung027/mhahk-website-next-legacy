@@ -28,6 +28,18 @@ body {
   font-size: 16px;
 }
 
+/* 全站統一 <a> 樣式 */
+a {
+  color: inherit !important; /* 繼承父層顏色，避免不同顏色 */
+  text-decoration: none !important; /* 移除底線 */
+  font-weight: normal !important; /* 避免部分 <a> 變粗 */
+}
+
+/* 如果 <a> 需要 hover 效果 */
+a:hover {
+  text-decoration: underline !important;
+  color: #0044cc !important; /* 你可以換成你的主色 */
+}
 
 
 /* UNSUPPORTED CSS FIX aspect */

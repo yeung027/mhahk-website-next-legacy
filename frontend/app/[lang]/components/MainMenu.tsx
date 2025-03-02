@@ -6,9 +6,9 @@ import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
-import {PageCategory} from "@/models/util";
+import {Locale, PageCategory} from "@/models/util";
 import React from "react";
-
+import { usePathname } from "next/navigation";
 
 const isRootItem = (
     item: components["schemas"]["MainMenuMainmenuRootitemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubsubmenuComponent"]
@@ -39,10 +39,11 @@ const isSubsubmenu = (
 };
 
 interface MainMenuProps {
+    locale:Locale,
     mainmenu:components["schemas"]["MainMenu"] | undefined
 }
 
-export default function MainMenu({ mainmenu }: MainMenuProps) {
+export default function MainMenu({ locale, mainmenu }: MainMenuProps) {
     const [mobileShow, setMobileShow] = useState<boolean>(false);
     
     const menuBtnClick = () => {
@@ -109,7 +110,7 @@ export default function MainMenu({ mainmenu }: MainMenuProps) {
                         mainmenu.items.map((item, index) => (
                             <React.Fragment key={`main-menu--item-wrapper-${index}`}>
                                 {isRootItem(item) && <RootItem menu={item} index={index} category={category} />}
-                                {isSubmenu(item) && <SubMainMenu menu={item} index={index} category={category} />}
+                                {isSubmenu(item) && <SubMainMenu menu={item} index={index} category={category} locale={locale} />}
                                 {isSubsubmenu(item) && <SubSubMainMenu menu={item} index={index} category={category} />}
                             </React.Fragment>
                         ))
@@ -166,15 +167,19 @@ export function RootItem({ menu, index, category }: RootItemProps) {
 
 
 interface SubMenuProps {
+    locale:Locale,
     menu:components["schemas"]["MainMenuMainmenuSubmenuComponent"],
     index: number,
     category: PageCategory
 }
-export function SubMainMenu({ menu, index, category }: SubMenuProps) {
+export function SubMainMenu({ locale, menu, index, category }: SubMenuProps) {
     const rootULRef = useRef<HTMLUListElement | null>(null);
     const [isCollapse, setIsCollapse] = useState<boolean>(true);
     const [animating, setAnimating] = useState(false);
     const [height, setHeight] = useState("0px");
+
+    const currentPathname = usePathname(); // ✅ 這裡宣告變數
+    const cleanPathname = currentPathname.replace(/^\/(zh-HK|zh-CN)/, "");
 
     const menuTitleClick = () => {
         setAnimating(true);
@@ -263,7 +268,12 @@ export function SubMainMenu({ menu, index, category }: SubMenuProps) {
                                     max-w-[200px] min-w-[160px]
                                     transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue
                                 " key={`submenu-item-${item.id}-${index}`}>
-                                    <span>{item.title}</span>
+                                    {item.url && (
+                                        <a href={`/${locale}${item.url.startsWith("/") ? item.url : `/${item.url}`}`} className="text-blue-500">
+                                            {item.title}
+                                        </a>
+                                    )}
+                                    {!item.url && <span>{item.title}</span>}
                                 </li>
                                 <li className="
                                     w-full border-t-[1px] border-[#4db093] xl:border-[#4a9b7e] last:hidden
