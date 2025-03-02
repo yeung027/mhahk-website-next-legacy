@@ -2,7 +2,7 @@
 
 import { Locale } from "@/models/util"
 import { components } from "@/api/strapi";
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Noto_Sans_HK } from 'next/font/google'
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -31,7 +31,7 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
                 className={``}
             >
                 <AboutDesktop locale={locale} slug={slug} dict={dict} about={about} list={list} />
-                <AboutMobile />
+                <AboutMobile locale={locale} slug={slug} dict={dict} about={about} list={list} />
             </div>
 
 }
@@ -114,6 +114,30 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
 
 
 
+export function footersVisible() {
+    const [isIntersecting, setIntersecting] = useState(false);
+    const selector = "footer";
+    useEffect(() => {
+        const target = document.querySelector(selector); // ✅ 直接選取 `layout.tsx` 內的 `footer`
+        if (!target) return;
+
+        const observer = new IntersectionObserver(
+        ([entry]) => {
+            setIntersecting(entry.isIntersecting);
+        },
+    
+        );
+
+        observer.observe(target);
+
+        return () => observer.disconnect();
+    }, [selector]);
+
+    return isIntersecting;
+}
+
+
+
 
 
 
@@ -126,52 +150,52 @@ const tabs = [
   { id: "report", label: "財務報告", content: "這是財務報告內容..." },
 ];
 
-export function AboutMobile() {
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
+interface AboutMobileProps {
+  locale: Locale;
+  dict: any;
+  slug: string;
+  about: components["schemas"]["About"] | undefined;
+  list: components["schemas"]["About"][];
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const footer = document.querySelector("footer");
-      if (!footer) return;
-
-      const footerTop = footer.getBoundingClientRect().top;
-      const viewportHeight = window.innerHeight;
-
-      setIsFooterVisible(footerTop <= viewportHeight);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <div className="relative w-full min-h-screen flex xl:hidden flex-col">
-      {/* 內容區 */}
-      <div className="flex-grow p-4 border rounded-lg bg-white shadow-md">
-        {tabs.find((tab) => tab.id === activeTab)?.content}
-      </div>
-
-      {/* 固定在底部的 `button`，如果 `footer` 出現則顯示全部 `tabs` */}
-      <div
-        className={`w-full bg-white shadow-lg transition-all ${
-          isFooterVisible ? "static bg-gray-100 py-4" : "fixed bottom-0 left-0"
-        }`}
-      >
-        <div className="flex flex-col w-full">
-          {tabs.slice(0, isFooterVisible ? tabs.length : 2).map((tab, index) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`w-full px-4 py-3 text-sm transition text-white ${
-                activeTab === tab.id ? "bg-blue-600" : "bg-green-500"
-              } ${index === 0 ? "rounded-t-md" : ""}`}
-            >
-              {tab.label}
-            </button>
-          ))}
+interface AboutMobileProps {
+    locale: Locale;
+    dict: any;
+    slug: string;
+    about: components["schemas"]["About"] | undefined;
+    list: components["schemas"]["About"][];
+  }
+  
+  export function AboutMobile({ locale, dict, slug, about, list }: AboutMobileProps) {
+    const isFooterVisible = footersVisible(); // ✅ 監測 `layout.tsx` 內的 `footer`
+    const [activeTab, setActiveTab] = useState(tabs[0].id);
+    return (
+      <div className="relative w-full min-h-screen flex xl:hidden flex-col">
+        {/* 內容區 */}
+        <div className="flex-grow p-4 border rounded-lg bg-white shadow-md">
+          {tabs.find((tab) => tab.id === activeTab)?.content}
+        </div>
+  
+        {/* 固定在底部的 `button`，如果 `footer` 出現則顯示全部 `tabs` */}
+        <div
+          className={`w-full bg-white shadow-lg transition-all ${
+            isFooterVisible ? "static bg-gray-100 py-4" : "fixed bottom-0 left-0"
+          }`}
+        >
+          <div className="flex flex-col w-full">
+            {tabs.slice(0, isFooterVisible ? tabs.length : 2).map((tab, index) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full px-4 py-3 text-sm transition text-white ${
+                  activeTab === tab.id ? "bg-blue-600" : "bg-green-500"
+                } ${index === 0 ? "rounded-t-md" : ""}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
