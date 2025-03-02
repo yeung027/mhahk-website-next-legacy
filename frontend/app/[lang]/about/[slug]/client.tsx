@@ -2,49 +2,98 @@
 
 import { Locale } from "@/models/util"
 import { components } from "@/api/strapi";
+import { useState, useEffect } from "react";
+import { Noto_Sans_HK } from 'next/font/google'
+import Link from "next/link";
 
+const notoSansHK = Noto_Sans_HK({
+    subsets: ['latin'],
+    display: 'swap',
+})
 
 interface AboutClientProps {
     locale:Locale,
     slug:string,
     dict:any,
-    about:components["schemas"]["About"]
+    about:components["schemas"]["About"],
+    list:components["schemas"]["About"][]
+    
 }
 
-export default function AboutPageClient({ locale, slug, dict, about }: AboutClientProps) 
+export default function AboutPageClient({ locale, slug, dict, about, list }: AboutClientProps) 
 {
 
 
-    // return  <div
-    //             className={`
-    //                         flex flex-col-reverse xl:grid xl:grid-cols-[220px_1fr]
-    //                         gap-0 xl:gap-[25px]
-    //                         `}
-    //         >
-    //             <div
-    //                 className={`border-4 border-sky-300`}
-    //             >
-    //                 1
-    //             </div>
-    //             <div
-    //                 className={`border-4 border-purple-300`}
-    //             >
-    //                 2
-    //             </div>
-    //         </div>
-    return <>
-    <Tabs />
-    </>
+    return  <div
+                className={``}
+            >
+                <AboutDesktop locale={locale} slug={slug} dict={dict} about={about} list={list} />
+                <AboutMobile />
+            </div>
+
 }
 
-interface SidebarProps {
+interface AboutDesktopProps {
+    locale:Locale,
     dict:any,
-    about:components["schemas"]["About"] | undefined
+    slug:string,
+    about:components["schemas"]["About"] | undefined,
+    list:components["schemas"]["About"][]
 }
 
-export function Sidebar({ dict, about }: SidebarProps) 
+export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopProps) 
 {
-    return <></>
+    return <div
+                className={`hidden xl:grid grid-cols-[220px_1fr] gap-[25px]
+                            ${notoSansHK.className}
+                          `}
+            >
+                <ul
+                    className={`
+                        w-[220px] 
+                        shadow-[0_1px_6px_rgba(0,0,0,0.1)] rounded-[5px]
+                        `}
+                >
+                    <li className={`bg-[#3e5062]
+                                        rounded-tl-[5px] rounded-tr-[5px]
+                                        px-[10px] py-[10px]
+                                        text-white text-[1rem] font-[500]
+                                    `}>
+                                    {dict && 
+                                        dict?.about?.title
+                                    }
+                    </li>
+                    <li className={`
+                                        
+                                        px-[10px] py-[10px]
+                                        text-[#3e5062] text-[0.875rem] font-[500]
+                                        
+                                    `}>
+                                    <ul className={``}>
+                                        {list &&
+                                            list.map((item, index) => {
+                                                return  <li
+                                                            className={`border-b last:border-0 border-[#e8e8e8] pt-[7px] first:pt-[0] pb-[7px] last:pb-[2px]
+                                                                ${item.slug===slug? 'text-[#bf4a23]' : ''}
+                                                            `}
+                                                        >
+                                                            <Link href={`/${locale}/about/${item.slug}`}>
+                                                                {item.title}
+                                                            </Link>
+                                                        </li>
+
+                                            })
+                                        }
+                                    </ul>
+                    </li>
+                </ul>
+
+                <div
+                    className={`border-4 border-purple-300`}
+                >
+                    2
+                </div>
+            </div>
 }
 
 
@@ -53,7 +102,8 @@ export function Sidebar({ dict, about }: SidebarProps)
 
 
 
-import { useState, useEffect } from "react";
+
+
 
 const tabs = [
   { id: "intro", label: "機構簡介", content: "這是機構簡介內容..." },
@@ -63,19 +113,18 @@ const tabs = [
   { id: "report", label: "財務報告", content: "這是財務報告內容..." },
 ];
 
-export function Tabs() {
+export function AboutMobile() {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const footer = document.querySelector("footer"); // ✅ 直接選擇 `layout.tsx` 內的 Footer
+      const footer = document.querySelector("footer");
       if (!footer) return;
 
-      const footerTop = footer.getBoundingClientRect().top; // Footer 距離視窗頂部的距離
-      const viewportHeight = window.innerHeight; // 視窗高度
+      const footerTop = footer.getBoundingClientRect().top;
+      const viewportHeight = window.innerHeight;
 
-      // ✅ 修正：當 Footer 任何部分進入視野時，讓 `button` 變 `static`
       setIsFooterVisible(footerTop <= viewportHeight);
     };
 
@@ -84,26 +133,26 @@ export function Tabs() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col">
+    <div className="relative w-full min-h-screen flex xl:hidden flex-col">
       {/* 內容區 */}
       <div className="flex-grow p-4 border rounded-lg bg-white shadow-md">
         {tabs.find((tab) => tab.id === activeTab)?.content}
       </div>
 
-      {/* 固定在底部的 `button`，如果 footer 出現則不固定 */}
+      {/* 固定在底部的 `button`，如果 `footer` 出現則顯示全部 `tabs` */}
       <div
-        className={`w-full bg-white p-2 shadow-lg transition-all ${
+        className={`w-full bg-white shadow-lg transition-all ${
           isFooterVisible ? "static bg-gray-100 py-4" : "fixed bottom-0 left-0"
         }`}
       >
-        <div className="flex justify-center space-x-2">
-          {tabs.slice(0, 2).map((tab) => (
+        <div className="flex flex-col w-full">
+          {tabs.slice(0, isFooterVisible ? tabs.length : 2).map((tab, index) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 text-sm rounded-md transition ${
-                activeTab === tab.id ? "bg-blue-600 text-white" : "bg-gray-200"
-              }`}
+              className={`w-full px-4 py-3 text-sm transition text-white ${
+                activeTab === tab.id ? "bg-blue-600" : "bg-green-500"
+              } ${index === 0 ? "rounded-t-md" : ""}`}
             >
               {tab.label}
             </button>
@@ -113,4 +162,3 @@ export function Tabs() {
     </div>
   );
 }
-

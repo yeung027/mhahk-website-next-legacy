@@ -43,7 +43,8 @@ export default async function AboutPage({ params }: AboutProps) {
 });
 
   const about = dataFetch.data?.data?.[0] || undefined;
-  console.log(listFetch)
+  const list = listFetch.data?.data || [];
+  console.log(list)
 
   if (!about) {
     return notFound();
@@ -52,7 +53,7 @@ export default async function AboutPage({ params }: AboutProps) {
   return (
     <div className="">
       {about && 
-        <AboutPageClient locale={lang} slug={slug} about={about} dict={dict} />
+        <AboutPageClient locale={lang} slug={slug} about={about} dict={dict} list={list} />
       }
       
     </div>
