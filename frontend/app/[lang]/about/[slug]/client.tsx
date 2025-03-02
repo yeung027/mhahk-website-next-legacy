@@ -18,20 +18,19 @@ interface AboutClientProps {
     locale:Locale,
     slug:string,
     dict:any,
-    about:components["schemas"]["About"],
-    list:components["schemas"]["About"][]
+    abouts:components["schemas"]["About"][],
     
 }
 
-export default function AboutPageClient({ locale, slug, dict, about, list }: AboutClientProps) 
+export default function AboutPageClient({ locale, slug, dict, abouts }: AboutClientProps) 
 {
 
 
     return  <div
                 className={``}
             >
-                <AboutDesktop locale={locale} slug={slug} dict={dict} about={about} list={list} />
-                <AboutMobile locale={locale} slug={slug} dict={dict} about={about} list={list} />
+                <AboutDesktop locale={locale} slug={slug} dict={dict} abouts={abouts} />
+                {/* <AboutMobile locale={locale} slug={slug} dict={dict} abouts={abouts} /> */}
             </div>
 
 }
@@ -40,12 +39,24 @@ interface AboutDesktopProps {
     locale:Locale,
     dict:any,
     slug:string,
-    about:components["schemas"]["About"] | undefined,
-    list:components["schemas"]["About"][]
+    abouts:components["schemas"]["About"][],
 }
 
-export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopProps) 
+export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps) 
 {
+    const [currentIndex, setCurrentIndex] = useState<number | undefined>(undefined);
+
+    useEffect(() => {
+        if(!abouts) return;
+        // 找到 `slug` 在 `abouts` 陣列中的 `index`
+        const index = abouts.findIndex((about) => about.slug === slug);
+        if (index !== -1) {
+        setCurrentIndex(index);
+        console.log(abouts[index])
+        }
+    }, [slug, abouts]); // ✅ 當 `slug` 或 `abouts` 變更時重新計算
+
+
     return <div
                 className={`hidden xl:grid grid-cols-[220px_1fr] gap-[25px]
                             ${notoSansHK.className}
@@ -76,16 +87,16 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
                                         
                                     `}>
                                     <ul className={``}>
-                                        {list &&
-                                            list.map((item, index) => {
+                                        {abouts &&
+                                            abouts.map((about, index) => {
                                                 return  <li
                                                             key={index} /* ✅ 確保 key 避免 React 錯誤 */
                                                             className={`border-b last:border-0 border-[#e8e8e8] pt-[7px] first:pt-[0] pb-[7px] last:pb-[2px]
-                                                                ${item.slug===slug? 'text-[#bf4a23]' : ''}
+                                                                ${about.slug===slug? 'text-[#bf4a23]' : ''}
                                                             `}
                                                         >
-                                                            <Link href={`/${locale}/about/${item.slug}`}>
-                                                                {item.title}
+                                                            <Link href={`/${locale}/about/${about.slug}`}>
+                                                                {about.title}
                                                             </Link>
                                                         </li>
 
@@ -98,9 +109,9 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
                 <div
                     className={`px-[20px]`}
                 >
-                    {about && about.content &&
+                    {abouts && typeof currentIndex === "number" && abouts[currentIndex]?.content &&
                         <ReactMarkdown
-                            children={about.content}
+                            children={abouts[currentIndex].content}
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeRaw]}
                         />
@@ -166,7 +177,19 @@ interface AboutMobileProps {
     list: components["schemas"]["About"][];
   }
   
-  export function AboutMobile({ locale, dict, slug, about, list }: AboutMobileProps) {
+
+
+
+
+
+
+
+
+
+
+  
+  export function AboutMobile({ locale, dict, slug, about, list }: AboutMobileProps) 
+  {
     const isFooterVisible = footersVisible(); // ✅ 監測 `layout.tsx` 內的 `footer`
     const [activeTab, setActiveTab] = useState(tabs[0].id);
     return (
