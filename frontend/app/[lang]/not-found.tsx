@@ -23,10 +23,3 @@ export default function NotFoundPage() {
       </main>
     );
   }
-  
-
-{/* <h1 className="text-4xl font-bold text-red-600">404 Not Found</h1>
-        <p className="text-gray-600 mt-2">抱歉，找不到該頁面。</p>
-        <a href="/" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">
-          回到首頁
-        </a> */}
