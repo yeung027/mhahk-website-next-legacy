@@ -3,6 +3,7 @@ import { components } from "@/api/strapi";
 import { getDictionary } from '@/app/[lang]/dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import AboutPageClient from "./client";
+import { notFound } from "next/navigation"; // ✅ 引入 `notFound()`
 
 interface AboutProps {
   params: {
@@ -31,14 +32,29 @@ export default async function AboutPage({ params }: AboutProps) {
     }
   });
 
-  const about = dataFetch.data?.data?.[0] || undefined;
-  console.log(about)
+  const listFetch = await client.GET("/abouts", {
+    params: {
+      query: {
+        // @ts-ignore
+        fields: ["slug", "title"],
+        locale: params.lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
+      },
+    },
+});
 
-  
+  const about = dataFetch.data?.data?.[0] || undefined;
+  console.log(listFetch)
+
+  if (!about) {
+    return notFound();
+  }
 
   return (
-    <div className="w-full">
-      <AboutPageClient locale={lang} slug={slug} about={about} />
+    <div className="">
+      {about && 
+        <AboutPageClient locale={lang} slug={slug} about={about} dict={dict} />
+      }
+      
     </div>
   );
 }
