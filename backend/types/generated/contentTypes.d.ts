@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
   collectionName: 'abouts';
   info: {
+    description: '';
     displayName: 'About';
     pluralName: 'abouts';
     singularName: 'about';
@@ -385,14 +386,6 @@ export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    auto_copy_simplified: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<true>;
     content: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

@@ -415,6 +415,7 @@ export function SubSubMainMenu({ locale, menu, index, category }: SubSubMenuProp
                         menu.menus.map((subsubmenu, y) => (
                             subsubmenu.items && (
                                 <SubSubMainMenuItems 
+                                    locale={locale}
                                     title={subsubmenu.title ?? ''} 
                                     items={subsubmenu.items} 
                                     index={index} 
