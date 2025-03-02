@@ -5,6 +5,8 @@ import MainMenu from "./MainMenu";
 import { client } from "@/api";
 import {StrapiLocale, Locale, PageCategory} from "@/models/util";
 import { components } from '@/api/strapi';
+import PageHeaderClient from './PageHeaderClient';
+
 
 interface PageHeaderProps {
     pathname: string,
@@ -50,23 +52,9 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
 
     return (
         <header className={"flex flex-col"}>
-            <div className={"h-[49px] w-full bg-mainGreen hidden xl:flex flex-row-reverse px-[47px] items-center text-white text-[0.938rem]"}>
-                <div className="ml-[33px] flex flex-row-reverse">
-                    <input className="text-white bg-[#4db093] focus:bg-[#61b99f] h-[27px] rounded-[3px] px-[7px] w-[124px] placeholder-white text-[0.938rem]" type='search' placeholder="搜尋" />
-                    <div className='absolute'>
-                        <LiaSearchSolid className='h-[27px] text-[1.3rem] text-white mr-[7px] cursor-pointer' />
-                    </div>
-                </div>
-                <div className="">
-                    <Link href={`zh-HK/${pathname}`}>
-                        繁
-                    </Link>
-                    <span className='mx-[8px]'>|</span>
-                    <Link href={`zh-CN/${pathname}`}>
-                        簡
-                    </Link>
-                </div>
-            </div>
+            
+            <PageHeaderClient pathname={pathname} locale={locale} category={category} />
+            
             <div className={"px-[7vw] xl:px-[30px] flex flex-col"}>
                 <div className={"flex flex-col xl:grid xl:grid-cols-[500px_auto] pt-[5px] xl:pt-0"}>
                     <div className={"grid grid-cols-[90%_auto] xl:flex"}>
