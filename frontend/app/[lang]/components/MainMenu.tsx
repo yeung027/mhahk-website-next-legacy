@@ -78,7 +78,7 @@ export default function MainMenu({ pathname, mainmenu, category }: MainMenuProps
                 <ul className={`
                     ${mobileShow ? "scale-y-[1] opacity-100" : "scale-y-[0] opacity-0 xl:scale-y-[1] xl:opacity-100"}
                     transition duration-300 ease-in-out origin-top
-                    flex flex-col gap-[3vw] absolute w-full mt-[3px] py-[10vw] px-[8vw]
+                    flex flex-col gap-0 absolute w-full mt-[3px] py-[10vw] px-[8vw]
                     font-Istok_Web text-[0.875rem] bg-mainGreen
                     xl:bg-white xl:static xl:font-Noto_Sans xl:px-[10px]
                     xl:flex-row xl:gap-[30px] xl:mb-[10px] xl:py-0 xl:mt-0
@@ -147,6 +147,7 @@ export function RootItem({ menu, index, category }: RootItemProps) {
             >
                 <div 
                     className={`
+                        mt-[3vw] mb-[2vw] xl:mt-0 xl:mb-0
                         ${menu.category?.category === category ? "text-black xl:text-[#000000e3]" : ""}
                     `}
                 >
@@ -216,6 +217,7 @@ export function SubMainMenu({ menu, index, category }: SubMenuProps) {
             `} key={`main-menu-item-${index}`}>
                 <div 
                     className={`
+                        mt-[3vw] mb-[2vw] xl:mt-0 xl:mb-0
                         cursor-pointer xl:flex flex-row items-center
                         items-center grid grid-cols-[auto_10vw]
                         ${menu.category?.category === category ? "text-black" : ""}
@@ -330,7 +332,7 @@ export function SubSubMainMenu({ menu, index, category }: SubSubMenuProps) {
             />
             
             <li 
-                className={`
+                className={` 
                     ${isSubsubmenu(menu) ? `peer/g${String(index + 1).padStart(3, "0")}` : ""}
                     text-green2 group xl:relative xl:cursor-pointer xl:text-[#000000e3] my-0
                 `} 
@@ -338,6 +340,7 @@ export function SubSubMainMenu({ menu, index, category }: SubSubMenuProps) {
             >
                 <div 
                     className={`
+                        mt-[3vw] mb-[2vw] xl:mt-0 xl:mb-0
                         cursor-pointer xl:flex flex-row items-center
                         items-center grid grid-cols-[auto_10vw]
                         ${menu.category?.category === category ? "text-black" : ""}
@@ -368,7 +371,7 @@ export function SubSubMainMenu({ menu, index, category }: SubSubMenuProps) {
                 ref={menuLIRef} 
                 className={`
                     overflow-hidden scale-[1] opacity-100 duration-300 origin-top
-                    xl:!h-auto mt-[-10px] mb-[-5px]
+                    xl:!h-auto 
                     transition transition-all ease-in-out
                     xl:static xl:mt-[1rem] xl:mx-negative_pageXLX xl:w-[calc(100%+60px)]
                     opacity-0 xl:scale-[0]
@@ -383,7 +386,7 @@ export function SubSubMainMenu({ menu, index, category }: SubSubMenuProps) {
                 <div 
                     className="
                         w-full border-t-[1px] border-[#4db093]
-                        xl:hidden mt-[5px]
+                        xl:hidden mt-[0]
                     " 
                     key={`subsubmenu-sep-${index}-top`} 
                 />
