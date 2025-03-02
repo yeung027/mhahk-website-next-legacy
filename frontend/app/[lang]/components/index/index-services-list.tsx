@@ -20,11 +20,10 @@ const notoSerifHK = Noto_Serif_HK({
 })
 
 interface IndexGridCategoryListProps {
-    pathname: string,
     services:components["schemas"]["Service"][] | undefined
 }
 
-export default function IndexServicesList({ pathname, services } : IndexGridCategoryListProps) {
+export default function IndexServicesList({ services } : IndexGridCategoryListProps) {
     const sectionRef = useRef<HTMLElement | null>(null);
     const isVisibleNow = useIsVisible(sectionRef, 0.3);
     const [isVisible, setIsVisible] = useState<boolean>(false);

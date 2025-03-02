@@ -7,12 +7,10 @@ import {StrapiLocale, Locale, PageCategory} from "@/models/util";
 
 
 interface PageHeaderClientProps {
-    pathname: string,
-    locale: Locale,
-    category: PageCategory
+    locale: Locale
   }
 
-export default function PageHeaderClient({ pathname, locale, category } : PageHeaderClientProps) {
+export default function PageHeaderClient({ locale } : PageHeaderClientProps) {
     const currentPathname = usePathname(); // 獲取當前 URL
 
     // 移除 `/zh-HK/` 或 `/zh-CN/`，確保 pathname 不會重複語系

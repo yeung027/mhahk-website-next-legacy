@@ -9,12 +9,10 @@ import PageHeaderClient from './PageHeaderClient';
 
 
 interface PageHeaderProps {
-    pathname: string,
     locale: Locale,
-    category: PageCategory
   }
 
-export default async function PageHeader({ pathname, locale, category } : PageHeaderProps) {
+export default async function PageHeader({ locale } : PageHeaderProps) {
     
     const mainMenuFetch = await client.GET("/main-menu", {
         params:{
@@ -53,7 +51,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
     return (
         <header className={"flex flex-col"}>
             
-            <PageHeaderClient pathname={pathname} locale={locale} category={category} />
+            <PageHeaderClient locale={locale} />
             
             <div className={"px-[7vw] xl:px-[30px] flex flex-col"}>
                 <div className={"flex flex-col xl:grid xl:grid-cols-[500px_auto] pt-[5px] xl:pt-0"}>
@@ -112,7 +110,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                     </div>
                 </div>
                 
-                <MainMenu pathname={pathname} mainmenu={mainMenuFetch.data?.data} category={category} />
+                <MainMenu mainmenu={mainMenuFetch.data?.data} />
 
                
             </div>

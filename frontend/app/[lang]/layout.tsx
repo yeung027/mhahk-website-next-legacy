@@ -14,7 +14,7 @@ export default async function IndexLayout({
 
     return (
       <div className={""}>
-      <PageHeader pathname={'/'} locale={lang} category={PageCategory.index} />
+      <PageHeader locale={lang} />
       <div className={"px-pageX xl:px-pageXLX mt-[10px]"}>
         {children}
       </div>

@@ -5,7 +5,6 @@ import { useIsVisible } from "@/app/util";
 import { Noto_Sans_HK } from 'next/font/google'
 
 interface IndexGridCategoryListProps {
-    pathname: string,
     items:components["schemas"]["IndexIndexGridCategoryListerComponent"][] | undefined
 }
 
@@ -14,7 +13,7 @@ const notoSansHK = Noto_Sans_HK({
     display: 'swap',
 })
 
-export default function IndexGridCategoryList({ pathname, items } : IndexGridCategoryListProps) {
+export default function IndexGridCategoryList({ items } : IndexGridCategoryListProps) {
   
     const divsRef = useRef<HTMLDivElement[]>([]);
 

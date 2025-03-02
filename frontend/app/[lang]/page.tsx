@@ -1,5 +1,4 @@
 import { client } from "@/api";
-import { components } from "@/api/strapi";
 import { getDictionary } from './dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import IndexGridCategoryList from "@/app/[lang]/components/index/index-grid-category-list";
@@ -7,7 +6,7 @@ import IndexTabsSection from "./components/index/index-tabs-section";
 import IndexHero from "./components/index/index-hero";
 import IndexServicesList from "./components/index/index-services-list";
 
-export default async function Profile({
+export default async function Index({
   params,
 }: {
   params: Promise<{ lang: Locale }>
@@ -75,10 +74,10 @@ export default async function Profile({
   
   return (
     <div className={"w-full flex flex-col items-center"}>
-      <IndexHero pathname={"/"} data={pageData.data?.data?.hero} />
-      <IndexGridCategoryList pathname={"/"} items={pageData.data?.data?.grid_category_list} />
-      <IndexTabsSection pathname={"/"} items={tabSectionData.data?.data?.tabs_section} />
-      <IndexServicesList pathname={"/"} services={services.data?.data} />
+      <IndexHero data={pageData.data?.data?.hero} />
+      <IndexGridCategoryList items={pageData.data?.data?.grid_category_list} />
+      <IndexTabsSection items={tabSectionData.data?.data?.tabs_section} />
+      <IndexServicesList services={services.data?.data} />
     </div>
     
   );

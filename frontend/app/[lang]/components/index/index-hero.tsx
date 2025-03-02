@@ -8,12 +8,11 @@ import "swiper/css";
 
 
 interface IndexHeroProps {
-    pathname: string,
     data:components["schemas"]["IndexIndexHeroComponent"] | undefined
 }
 
 
-export default function IndexHero({ pathname, data } : IndexHeroProps) {
+export default function IndexHero({ data } : IndexHeroProps) {
   
     
     const sectionRef = useRef<HTMLElement | null>(null);

@@ -17,7 +17,7 @@ export default async function Profile({
 
   
   return (
-    <div className={"w-full flex flex-col items-center"}>
+    <div className={"w-full flex border-2"}>
       1111
     </div>
     

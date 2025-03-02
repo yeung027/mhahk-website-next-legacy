@@ -39,18 +39,17 @@ const isSubsubmenu = (
 };
 
 interface MainMenuProps {
-    pathname: string,
-    mainmenu:components["schemas"]["MainMenu"] | undefined,
-    category: PageCategory
+    mainmenu:components["schemas"]["MainMenu"] | undefined
 }
 
-export default function MainMenu({ pathname, mainmenu, category }: MainMenuProps) {
+export default function MainMenu({ mainmenu }: MainMenuProps) {
     const [mobileShow, setMobileShow] = useState<boolean>(false);
     
     const menuBtnClick = () => {
         setMobileShow(!mobileShow);
     };
 
+    const category = PageCategory.index;
     return (
         <nav className="z-nav">
             <div className="

@@ -5,7 +5,6 @@ import { useIsVisible } from "@/app/util";
 import { Noto_Sans_HK } from 'next/font/google'
 
 interface IndexTabsSectionProps {
-    pathname: string,
     items:components["schemas"]["IndexIndexTabsLayoutLeftAndRightComponent"][] | undefined
 }
 
@@ -59,7 +58,7 @@ const getpageColorClasses = (page:components["schemas"]["IndexIndexTabsPageLeftA
     return {color:color, bg:bg, hover_text: hover_text}
 }
 
-export default function IndexTabsSection({ pathname, items } : IndexTabsSectionProps) {
+export default function IndexTabsSection({ items } : IndexTabsSectionProps) {
     const [selected, setSelected]       = useState<number>(0);
     const sectionRef = useRef<HTMLElement | null>(null);
     const isVisibleNow = useIsVisible(sectionRef, 0.3);
