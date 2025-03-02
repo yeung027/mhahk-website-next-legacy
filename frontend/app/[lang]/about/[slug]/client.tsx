@@ -125,27 +125,33 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
 
 
 
-export function footersVisible() {
+export function useIsFooterVisible() {
     const [isIntersecting, setIntersecting] = useState(false);
+    const [animating, setAnimating] = useState(false); // ✅ 控制動畫狀態
     const selector = "footer";
+  
     useEffect(() => {
-        const target = document.querySelector(selector); // ✅ 直接選取 `layout.tsx` 內的 `footer`
-        if (!target) return;
-
-        const observer = new IntersectionObserver(
+      const target = document.querySelector(selector);
+      if (!target) return;
+  
+      const observer = new IntersectionObserver(
         ([entry]) => {
+          if (!animating) {
+            setAnimating(true); // ✅ 當 `isFooterVisible` 變化時，設為 `animating`
             setIntersecting(entry.isIntersecting);
+            setTimeout(() => setAnimating(false), 500); // ✅ 300ms 後允許變更
+          }
         },
-    
-        );
-
-        observer.observe(target);
-
-        return () => observer.disconnect();
-    }, [selector]);
-
+        { threshold: 0.1 }
+      );
+  
+      observer.observe(target);
+  
+      return () => observer.disconnect();
+    }, [selector, animating]);
+  
     return isIntersecting;
-}
+  }
 
 
 
@@ -160,7 +166,7 @@ interface AboutMobileProps {
   
 export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) 
 {
-    const isFooterVisible = footersVisible(); // ✅ 監測 `layout.tsx` 內的 `footer`
+    const isFooterVisible = useIsFooterVisible(); // ✅ 監測 `layout.tsx` 內的 `footer`
     const [currentIndex, setCurrentIndex] = useState<number | undefined>(undefined);
 
     useEffect(() => {
@@ -169,7 +175,6 @@ export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps)
         const index = abouts.findIndex((about) => about.slug === slug);
         if (index !== -1) {
         setCurrentIndex(index);
-        console.log(abouts[index])
         }
     }, [slug, abouts]); // ✅ 當 `slug` 或 `abouts` 變更時重新計算
 
@@ -188,7 +193,7 @@ export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps)
 
         {/* 固定在底部的 `button`，如果 `footer` 出現則顯示全部 `tabs` */}
         <div
-            className={`w-full bg-white shadow-lg transition-all 
+            className={`w-full bg-white shadow-lg  transition-all duration-300 ease-in-out
                 z-[20]
                 ${
             isFooterVisible ? "static bg-gray-100 py-4" : "fixed bottom-0 left-0"
@@ -199,9 +204,11 @@ export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps)
                 <button
                 key={about.slug}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-full px-4 py-3 text-sm transition text-white ${
+                className={`w-full px-4 py-3 text-sm text-white ${
                     currentIndex === index ? "bg-blue-600" : "bg-green-500"
-                } ${index === 0 ? "rounded-t-md" : ""}`}
+                } ${index === 0 ? "rounded-t-md" : ""}
+                
+                `}
                 >
                 {about.title}
                 </button>
