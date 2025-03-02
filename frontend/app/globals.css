@@ -6,6 +6,14 @@
   
 }
 
+.prose {
+  @apply prose-lg text-gray-800 max-w-none;
+}
+
+.dark .prose {
+  /* @apply text-gray-200; */
+}
+
 * {
   padding: 0;
   margin: 0;

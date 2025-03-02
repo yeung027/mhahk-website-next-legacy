@@ -36,7 +36,7 @@ export default async function AboutPage({ params }: AboutProps) {
     params: {
       query: {
         // @ts-ignore
-        fields: ["slug", "title"],
+        fields: ["slug", "title", "content"],
         locale: params.lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
       },
     },
@@ -44,7 +44,7 @@ export default async function AboutPage({ params }: AboutProps) {
 
   const about = dataFetch.data?.data?.[0] || undefined;
   const list = listFetch.data?.data || [];
-  console.log(list)
+  console.log(about)
 
   if (!about) {
     return notFound();

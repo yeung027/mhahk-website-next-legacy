@@ -5,6 +5,9 @@ import { components } from "@/api/strapi";
 import { useState, useEffect } from "react";
 import { Noto_Sans_HK } from 'next/font/google'
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -51,7 +54,10 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
                 <ul
                     className={`
                         w-[220px] 
-                        shadow-[0_1px_6px_rgba(0,0,0,0.1)] rounded-[5px]
+                        h-fit /* ✅ 讓 Sidebar 高度根據內容自適應 */
+                        min-h-[100px] /* ✅ 確保 Sidebar 不會太短 */
+                        shadow-[0_1px_6px_rgba(0,0,0,0.1)] 
+                        rounded-[5px]
                         `}
                 >
                     <li className={`bg-[#3e5062]
@@ -73,6 +79,7 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
                                         {list &&
                                             list.map((item, index) => {
                                                 return  <li
+                                                            key={index} /* ✅ 確保 key 避免 React 錯誤 */
                                                             className={`border-b last:border-0 border-[#e8e8e8] pt-[7px] first:pt-[0] pb-[7px] last:pb-[2px]
                                                                 ${item.slug===slug? 'text-[#bf4a23]' : ''}
                                                             `}
@@ -89,9 +96,15 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
                 </ul>
 
                 <div
-                    className={`border-4 border-purple-300`}
+                    className={`px-[20px] prose prose-sm `}
                 >
-                    2
+                    {about && about.content &&
+                        <ReactMarkdown
+                            children={about.content}
+                            remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw]}
+                        />
+                    }
                 </div>
             </div>
 }
