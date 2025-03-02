@@ -30,7 +30,7 @@ export default function AboutPageClient({ locale, slug, dict, abouts }: AboutCli
                 className={``}
             >
                 <AboutDesktop locale={locale} slug={slug} dict={dict} abouts={abouts} />
-                {/* <AboutMobile locale={locale} slug={slug} dict={dict} abouts={abouts} /> */}
+                <AboutMobile locale={locale} slug={slug} dict={dict} abouts={abouts} />
             </div>
 
 }
@@ -150,75 +150,64 @@ export function footersVisible() {
 
 
 
-
-
-
-const tabs = [
-  { id: "intro", label: "機構簡介", content: "這是機構簡介內容..." },
-  { id: "mission", label: "願景、使命及價值", content: "這是願景、使命及價值內容..." },
-  { id: "structure", label: "機構架構", content: "這是機構架構內容..." },
-  { id: "history", label: "大事年表", content: "這是大事年表內容..." },
-  { id: "report", label: "財務報告", content: "這是財務報告內容..." },
-];
-
 interface AboutMobileProps {
   locale: Locale;
   dict: any;
   slug: string;
-  about: components["schemas"]["About"] | undefined;
-  list: components["schemas"]["About"][];
+  abouts: components["schemas"]["About"][];
 }
 
-interface AboutMobileProps {
-    locale: Locale;
-    dict: any;
-    slug: string;
-    about: components["schemas"]["About"] | undefined;
-    list: components["schemas"]["About"][];
-  }
   
-
-
-
-
-
-
-
-
-
-
-  
-  export function AboutMobile({ locale, dict, slug, about, list }: AboutMobileProps) 
-  {
+export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) 
+{
     const isFooterVisible = footersVisible(); // ✅ 監測 `layout.tsx` 內的 `footer`
-    const [activeTab, setActiveTab] = useState(tabs[0].id);
+    const [currentIndex, setCurrentIndex] = useState<number | undefined>(undefined);
+
+    useEffect(() => {
+        if(!abouts) return;
+        // 找到 `slug` 在 `abouts` 陣列中的 `index`
+        const index = abouts.findIndex((about) => about.slug === slug);
+        if (index !== -1) {
+        setCurrentIndex(index);
+        console.log(abouts[index])
+        }
+    }, [slug, abouts]); // ✅ 當 `slug` 或 `abouts` 變更時重新計算
+
     return (
-      <div className="relative w-full min-h-screen flex xl:hidden flex-col">
+        <div className="relative w-full min-h-screen flex xl:hidden flex-col">
         {/* 內容區 */}
-        <div className="flex-grow p-4 border rounded-lg bg-white shadow-md">
-          {tabs.find((tab) => tab.id === activeTab)?.content}
+        <div className="flex-grow p-4 border rounded-lg bg-white shadow-md overflow-hidden z-0">
+        {abouts && typeof currentIndex === "number" && abouts[currentIndex]?.content &&
+            <ReactMarkdown
+                children={abouts[currentIndex].content}
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+            />
+        }
         </div>
-  
+
         {/* 固定在底部的 `button`，如果 `footer` 出現則顯示全部 `tabs` */}
         <div
-          className={`w-full bg-white shadow-lg transition-all ${
+            className={`w-full bg-white shadow-lg transition-all 
+                z-[20]
+                ${
             isFooterVisible ? "static bg-gray-100 py-4" : "fixed bottom-0 left-0"
-          }`}
+            }`}
         >
-          <div className="flex flex-col w-full">
-            {tabs.slice(0, isFooterVisible ? tabs.length : 2).map((tab, index) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+            <div className="flex flex-col w-full">
+            {abouts.slice(0, isFooterVisible ? abouts.length : 2).map((about, index) => (
+                <button
+                key={about.slug}
+                onClick={() => setCurrentIndex(index)}
                 className={`w-full px-4 py-3 text-sm transition text-white ${
-                  activeTab === tab.id ? "bg-blue-600" : "bg-green-500"
+                    currentIndex === index ? "bg-blue-600" : "bg-green-500"
                 } ${index === 0 ? "rounded-t-md" : ""}`}
-              >
-                {tab.label}
-              </button>
+                >
+                {about.title}
+                </button>
             ))}
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
     );
-  }
+}
