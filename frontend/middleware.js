@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
  
-let locales = ['zh-HK', 'cn']
+let locales = ['zh-HK', 'zh-CN']
  
 // Get the preferred locale, similar to the above or using a library
 function getLocale(request) { return 'zh-HK' }

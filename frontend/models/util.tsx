@@ -1,6 +1,6 @@
 export enum Locale {
     zhhk = 'zh-HK',
-    cn = 'cn'
+    cn = 'zh-CN'
 }
 
 export enum StrapiLocale {

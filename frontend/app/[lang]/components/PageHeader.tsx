@@ -62,7 +62,7 @@ export default async function PageHeader({ pathname, locale, category } : PageHe
                         繁
                     </Link>
                     <span className='mx-[8px]'>|</span>
-                    <Link href={`cn/${pathname}`}>
+                    <Link href={`zh-CN/${pathname}`}>
                         簡
                     </Link>
                 </div>
