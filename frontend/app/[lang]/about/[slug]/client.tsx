@@ -96,7 +96,7 @@ export function AboutDesktop({ locale, dict, slug, about, list }: AboutDesktopPr
                 </ul>
 
                 <div
-                    className={`px-[20px] prose prose-sm `}
+                    className={`px-[20px]`}
                 >
                     {about && about.content &&
                         <ReactMarkdown
