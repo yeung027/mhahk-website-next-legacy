@@ -8,6 +8,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { useIsAtTop, useIsVisible } from "@/helpers/util";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -145,28 +146,40 @@ export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) {
     const bg_colors = ['bg-[#3e5062]', 'bg-[#8a5252]', 'bg-[#4a7c59]', 'bg-[#f4a261]', 'bg-[#264653]'];
 
     return (
-        <ul className="flex xl:hidden flex-col">
+        <div className="flex xl:hidden flex-col">
             {abouts &&
                 abouts.map((about, index) => {
-                    const bgColor = bg_colors[index % bg_colors.length]; // 確保顏色循環使用
+                    const sectionRef = useRef(null);
+                    const bannerRef = useRef(null);
+                    
+                    const isAtTop = useIsAtTop(bannerRef);
+                    const isSectionVisible = useIsVisible(sectionRef, undefined);
+
+                    const bgColor = bg_colors[index % bg_colors.length];
+
                     return (
-                        <li key={`about-${index}`}>
+                        <section ref={sectionRef} key={`about-${index}`} className="relative">
+                            {/* Banner */}
                             <div 
-                            className={`
-                                ${bgColor} p-4 text-white ${notoSansHK.className} text-[1rem] font-[400]
-                            `}
+                                ref={bannerRef}
+                                className={`
+                                    ${bgColor} p-4 text-white ${notoSansHK.className} text-[1rem] font-[400]
+                                    transition-all duration-300
+                                    ${isAtTop && isSectionVisible ? "fixed top-0 left-0 w-full shadow-md z-50" : ""}
+                                `}
                             >
                                 {about.title}
                             </div>
+
+                            {/* 內容區塊 */}
                             <div
                                 className={`
                                     markdown-content-Noto-Sans-HK
-                                    w-full 
-                                    py-[2vw] px-[2vw] mt-[2vw] mb-[5vw] 
+                                    w-full py-[2vw] px-[2vw] mt-[2vw] mb-[5vw] 
                                     border-t-[7px] border-[#00A98F]
                                     rounded-[2vw] bg-white shadow-md overflow-hidden 
                                     z-0
-                                    `}
+                                `}
                             >
                                 <ReactMarkdown
                                     children={about.content}
@@ -174,9 +187,10 @@ export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) {
                                     rehypePlugins={[rehypeRaw]}
                                 />
                             </div>
-                        </li>
+                        </section>
                     );
                 })}
-        </ul>
+        </div>
     );
 }
+
