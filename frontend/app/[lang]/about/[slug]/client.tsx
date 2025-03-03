@@ -107,13 +107,18 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
                 </ul>
 
                 <div
-                    className={`px-[20px]`}
+                    className={`
+                        px-[20px] 
+                        `}
                 >
                     {abouts && typeof currentIndex === "number" && abouts[currentIndex]?.content &&
                         <ReactMarkdown
                             children={abouts[currentIndex].content}
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeRaw]}
+                            components={{
+                                p: ({ node, ...props }) => <p className={`${notoSansHK.className} !important`} {...props} />,
+                            }}
                         />
                     }
                 </div>
@@ -125,33 +130,7 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
 
 
 
-export function useIsFooterVisible() {
-    const [isIntersecting, setIntersecting] = useState(false);
-    const [animating, setAnimating] = useState(false); // ✅ 控制動畫狀態
-    const selector = "footer";
-  
-    useEffect(() => {
-      const target = document.querySelector(selector);
-      if (!target) return;
-  
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!animating) {
-            setAnimating(true); // ✅ 當 `isFooterVisible` 變化時，設為 `animating`
-            setIntersecting(entry.isIntersecting);
-            setTimeout(() => setAnimating(false), 500); // ✅ 300ms 後允許變更
-          }
-        },
-        { threshold: 0.1 }
-      );
-  
-      observer.observe(target);
-  
-      return () => observer.disconnect();
-    }, [selector, animating]);
-  
-    return isIntersecting;
-  }
+
 
 
 
@@ -164,57 +143,42 @@ interface AboutMobileProps {
 }
 
   
-export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) 
-{
-    const isFooterVisible = useIsFooterVisible(); // ✅ 監測 `layout.tsx` 內的 `footer`
-    const [currentIndex, setCurrentIndex] = useState<number | undefined>(undefined);
-
-    useEffect(() => {
-        if(!abouts) return;
-        // 找到 `slug` 在 `abouts` 陣列中的 `index`
-        const index = abouts.findIndex((about) => about.slug === slug);
-        if (index !== -1) {
-        setCurrentIndex(index);
-        }
-    }, [slug, abouts]); // ✅ 當 `slug` 或 `abouts` 變更時重新計算
+export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) {
+    const bg_colors = ['bg-[#3e5062]', 'bg-[#8a5252]', 'bg-[#4a7c59]', 'bg-[#f4a261]', 'bg-[#264653]'];
 
     return (
-        <div className="relative w-full min-h-screen flex xl:hidden flex-col">
-        {/* 內容區 */}
-        <div className="flex-grow p-4 border rounded-lg bg-white shadow-md overflow-hidden z-0">
-        {abouts && typeof currentIndex === "number" && abouts[currentIndex]?.content &&
-            <ReactMarkdown
-                children={abouts[currentIndex].content}
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-            />
-        }
-        </div>
-
-        {/* 固定在底部的 `button`，如果 `footer` 出現則顯示全部 `tabs` */}
-        <div
-            className={`w-full bg-white shadow-lg  transition-all duration-300 ease-in-out
-                z-[20]
-                ${
-            isFooterVisible ? "static bg-gray-100 py-4" : "fixed bottom-0 left-0"
-            }`}
-        >
-            <div className="flex flex-col w-full">
-            {abouts.slice(0, isFooterVisible ? abouts.length : 2).map((about, index) => (
-                <button
-                key={about.slug}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-full px-4 py-3 text-sm text-white ${
-                    currentIndex === index ? "bg-blue-600" : "bg-green-500"
-                } ${index === 0 ? "rounded-t-md" : ""}
-                
-                `}
-                >
-                {about.title}
-                </button>
-            ))}
-            </div>
-        </div>
-        </div>
+        <ul className="flex xl:hidden flex-col">
+            {abouts &&
+                abouts.map((about, index) => {
+                    const bgColor = bg_colors[index % bg_colors.length]; // 確保顏色循環使用
+                    return (
+                        <li key={`about-${index}`}>
+                            <div 
+                            className={`
+                                ${bgColor} p-4 text-white ${notoSansHK.className} text-[1rem] font-[400]
+                            `}
+                            >
+                                {about.title}
+                            </div>
+                            <div
+                                className={`
+                                     
+                                    w-full 
+                                    py-[2vw] px-[2vw] mt-[2vw] mb-[5vw] 
+                                    border-t-[7px] border-[#00A98F]
+                                    rounded-[2vw] bg-white shadow-md overflow-hidden 
+                                    z-0
+                                    `}
+                            >
+                                <ReactMarkdown
+                                    children={about.content}
+                                    remarkPlugins={[remarkGfm]}
+                                    rehypePlugins={[rehypeRaw]}
+                                />
+                            </div>
+                        </li>
+                    );
+                })}
+        </ul>
     );
 }
