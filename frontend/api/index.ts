@@ -17,7 +17,7 @@ import type { paths } from "./strapi";
 import qs from "qs";
 
 const client = createClient<paths>({
-  baseUrl: "http://127.0.0.1:1337/api",
+  baseUrl: `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api`,
   headers: {
     Accept: "application/json",
     Authorization:`Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`

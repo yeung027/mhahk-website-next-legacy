@@ -1,6 +1,6 @@
 import { client } from "@/api";
 import { components } from "@/api/strapi";
-import { getDictionary } from '@/app/[lang]/dictionaries'
+import { getDictionary } from '@/helpers/dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import AboutPageClient from "./client";
 import { notFound } from "next/navigation"; // ✅ 引入 `notFound()`
