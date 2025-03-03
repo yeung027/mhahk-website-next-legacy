@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
-import { useIsVisible } from "@/app/util";
+import { useIsVisible } from "@/helpers/util";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules"; 
 import "swiper/css";

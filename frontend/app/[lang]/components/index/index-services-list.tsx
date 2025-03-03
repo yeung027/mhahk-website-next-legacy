@@ -7,7 +7,7 @@ import "swiper/css";
 import Image from 'next/image'
 import { Noto_Sans_HK, Noto_Serif_HK } from 'next/font/google'
 import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from "react-icons/md";
-import { useIsVisible } from "@/app/util";
+import { useIsVisible } from "@/helpers/util";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],

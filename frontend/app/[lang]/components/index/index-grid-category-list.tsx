@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
-import { useIsVisible } from "@/app/util";
+import { useIsVisible } from "@/helpers/util";
 import { Noto_Sans_HK } from 'next/font/google'
 
 interface IndexGridCategoryListProps {
