@@ -109,6 +109,7 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
                 <div
                     className={`
                         px-[20px] 
+                        markdown-content-Noto-Sans-HK
                         `}
                 >
                     {abouts && typeof currentIndex === "number" && abouts[currentIndex]?.content &&
@@ -116,9 +117,6 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
                             children={abouts[currentIndex].content}
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeRaw]}
-                            components={{
-                                p: ({ node, ...props }) => <p className={`${notoSansHK.className} !important`} {...props} />,
-                            }}
                         />
                     }
                 </div>
@@ -162,7 +160,7 @@ export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) {
                             </div>
                             <div
                                 className={`
-                                     
+                                    markdown-content-Noto-Sans-HK
                                     w-full 
                                     py-[2vw] px-[2vw] mt-[2vw] mb-[5vw] 
                                     border-t-[7px] border-[#00A98F]

@@ -49,6 +49,11 @@ a:hover {
   text-decoration: none !important;
 }
 
+.markdown-content-Noto-Sans-HK, .markdown-content-Noto-Sans-HK * {
+  font-family: 'Noto Sans HK', sans-serif !important;
+  font-weight: 300 !important;
+}
+
 
 /* UNSUPPORTED CSS FIX aspect */
 @supports not (aspect-ratio: 7.69/1) {
