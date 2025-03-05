@@ -38,6 +38,7 @@ export default {
       },
       zIndex: {
         'nav': '96',
+        'mobile_bottom_nav': '86',
       },
     },
   },
