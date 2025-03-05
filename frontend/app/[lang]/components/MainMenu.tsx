@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
 import {Locale, PageCategory} from "@/models/util";
 import React from "react";
+import Link from "next/link";
 
 const isRootItem = (
     item: components["schemas"]["MainMenuMainmenuRootitemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubsubmenuComponent"]
@@ -271,9 +272,9 @@ export function SubMainMenu({ locale, menu, index, category }: SubMenuProps) {
                                     transition duration-300 ease-in-out pt-[15px] pb-[9px] hover:text-hoverBlue
                                 " key={`submenu-item-${item.id}-${index}`}>
                                     {item.url && (
-                                        <a href={`/${locale}${item.url.startsWith("/") ? item.url : `/${item.url}`}`} className="text-blue-500">
+                                        <Link href={`${item.url}`}>
                                             {item.title}
-                                        </a>
+                                        </Link>
                                     )}
                                     {!item.url && <span>{item.title}</span>}
                                 </li>

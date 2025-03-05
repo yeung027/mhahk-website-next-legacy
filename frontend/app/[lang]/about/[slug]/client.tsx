@@ -2,13 +2,13 @@
 
 import { Locale } from "@/models/util"
 import { components } from "@/api/strapi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Noto_Sans_HK } from 'next/font/google'
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import "swiper/css";
 
 const notoSansHK = Noto_Sans_HK({
@@ -118,16 +118,37 @@ interface AboutNavSwiperProps {
 
 export function AboutNavSwiper({ list }: AboutNavSwiperProps) 
 {
+    const swiperRef = useRef<SwiperRef | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
+    const lastScrollY = useRef<number | undefined>(undefined);
+
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        if(lastScrollY && lastScrollY.current)
+            setScrollDirection(currentScrollY > lastScrollY.current ? 'down' : 'up');
+        lastScrollY.current = currentScrollY;
+    }
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        handleScroll(); 
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [swiperRef]);
 
     return  <div className={`
                     !h-[7vh] w-screen 
                     fixed
-                    bottom-[0] left-[0]
+                    transition-all duration-300 ease-in-out
+                    bottom-0 
+                    ${scrollDirection === 'up' ? 'translate-y-[0vh]' : 'translate-y-[7vh]'}
+                    left-[0]
                     bg-[#dff1ed]
                     z-mobile_bottom_nav
                 `}>
                 <Swiper 
+                    ref={swiperRef}
                     slidesPerView={2.5}
                     spaceBetween={"2.5%"}
                     className={`
@@ -139,9 +160,7 @@ export function AboutNavSwiper({ list }: AboutNavSwiperProps)
                         list.map((item, index) => {
                             return  <SwiperSlide 
                                         className={`
-                                            
-                                            max-h-[80%]
-                                            
+                                            max-h-[80%]                                         
                                             flex place-self-center content-center text-center
                                             ${
                                                 (index-2===activeIndex) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : (index+1===activeIndex && activeIndex+2==list.length) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : 'bg-white'
@@ -151,7 +170,9 @@ export function AboutNavSwiper({ list }: AboutNavSwiperProps)
                                         `}
                                         key={`SwiperSlide-${index}`}
                                     >
-                                        {item.title}
+                                        <Link href={`${item.slug}`}>
+                                            {item.title}
+                                        </Link>
                                     </SwiperSlide>
 
                         })

@@ -50,7 +50,7 @@ export default async function AboutPage({ params }: AboutProps) {
 
   const about = dataFetch.data?.data?.[0] || undefined;
   const list = listFetch.data?.data || [];
-  console.log(about)
+  // console.log(about)
 
   if (!about) {
     return notFound();
