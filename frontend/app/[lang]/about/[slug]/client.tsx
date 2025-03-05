@@ -2,13 +2,12 @@
 
 import { Locale } from "@/models/util"
 import { components } from "@/api/strapi";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Noto_Sans_HK } from 'next/font/google'
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { useIsAtTop, useIsVisible } from "@/helpers/util";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -19,58 +18,30 @@ interface AboutClientProps {
     locale:Locale,
     slug:string,
     dict:any,
-    abouts:components["schemas"]["About"][],
+    about:components["schemas"]["About"],
+    list:components["schemas"]["About"][]
     
 }
 
-export default function AboutPageClient({ locale, slug, dict, abouts }: AboutClientProps) 
+export default function AboutPageClient({ locale, slug, dict, about, list }: AboutClientProps) 
 {
 
 
     return  <div
-                className={``}
-            >
-                <AboutDesktop locale={locale} slug={slug} dict={dict} abouts={abouts} />
-                <AboutMobile locale={locale} slug={slug} dict={dict} abouts={abouts} />
-            </div>
+                className={`
+                    
+                    flex flex-col-reverse xl:grid grid-cols-[220px_1fr] gap-[25px]
+                    ${notoSansHK.className}
 
-}
-
-interface AboutDesktopProps {
-    locale:Locale,
-    dict:any,
-    slug:string,
-    abouts:components["schemas"]["About"][],
-}
-
-export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps) 
-{
-    const [currentIndex, setCurrentIndex] = useState<number | undefined>(undefined);
-
-    useEffect(() => {
-        if(!abouts) return;
-        // 找到 `slug` 在 `abouts` 陣列中的 `index`
-        const index = abouts.findIndex((about) => about.slug === slug);
-        if (index !== -1) {
-        setCurrentIndex(index);
-        console.log(abouts[index])
-        }
-    }, [slug, abouts]); // ✅ 當 `slug` 或 `abouts` 變更時重新計算
-
-
-    return <div
-                className={`hidden xl:grid grid-cols-[220px_1fr] gap-[25px]
-                            ${notoSansHK.className}
-                          `}
+                    `}
             >
                 <ul
                     className={`
-                        w-[220px] 
-                        h-fit /* ✅ 讓 Sidebar 高度根據內容自適應 */
-                        min-h-[100px] /* ✅ 確保 Sidebar 不會太短 */
+                        w-full xl:w-[220px] 
+                        h-fit 
                         shadow-[0_1px_6px_rgba(0,0,0,0.1)] 
                         rounded-[5px]
-                        `}
+                    `}
                 >
                     <li className={`bg-[#3e5062]
                                         rounded-tl-[5px] rounded-tr-[5px]
@@ -88,16 +59,16 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
                                         
                                     `}>
                                     <ul className={``}>
-                                        {abouts &&
-                                            abouts.map((about, index) => {
+                                        {list &&
+                                            list.map((item, index) => {
                                                 return  <li
-                                                            key={index} /* ✅ 確保 key 避免 React 錯誤 */
+                                                            key={index}
                                                             className={`border-b last:border-0 border-[#e8e8e8] pt-[7px] first:pt-[0] pb-[7px] last:pb-[2px]
-                                                                ${about.slug===slug? 'text-[#bf4a23]' : ''}
+                                                                ${item.slug===slug? 'text-[#bf4a23]' : ''}
                                                             `}
                                                         >
-                                                            <Link href={`/${locale}/about/${about.slug}`}>
-                                                                {about.title}
+                                                            <Link href={`/${locale}/about/${item.slug}`}>
+                                                                {item.title}
                                                             </Link>
                                                         </li>
 
@@ -109,164 +80,22 @@ export function AboutDesktop({ locale, dict, slug, abouts }: AboutDesktopProps)
 
                 <div
                     className={`
-                        px-[20px] 
-                        markdown-content-Noto-Sans-HK
-                        `}
+                        px-[3vw] py-[4vw] xl:px-[37px] xl:py-[10px]
+                        border-t-[6px] border-mainGreen rounded-tl-[3px] rounded-tr-[3px]
+                        shadow-[0_1px_3px_rgba(0,0,0,0.1)] 
+                        prose prose-sm markdown-content-Noto-Sans-HK
+                    `}
                 >
-                    {abouts && typeof currentIndex === "number" && abouts[currentIndex]?.content &&
+                    {about && about.content &&
                         <ReactMarkdown
-                            children={abouts[currentIndex].content}
+                            children={about.content}
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeRaw]}
                         />
                     }
                 </div>
+
             </div>
+
 }
 
-
-
-
-
-
-
-
-
-
-
-interface AboutMobileProps {
-  locale: Locale;
-  dict: any;
-  slug: string;
-  abouts: components["schemas"]["About"][];
-}
-
-
-
-
-export function AboutMobile({ locale, dict, slug, abouts }: AboutMobileProps) {
-    const bg_colors = ['bg-[#3e5062]', 'bg-[#8a5252]', 'bg-[#4a7c59]', 'bg-[#f4a261]', 'bg-[#264653]'];
-    const bannerHeight = 60; // 假設 Banner 高度為 60px
-    const doubleBannerHeight = bannerHeight * 2;
-
-    // 參考 `ref`，儲存 `section` & `banner`
-    const sectionRefs = useRef<HTMLElement[]>([]);
-    const bannerRefs = useRef<HTMLDivElement[]>([]);
-    const lastScrollY = useRef(0); // 紀錄上一次的滾動位置
-    const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
-
-    // **初始 active 為第一個 `section`**
-    const initialActiveIndex = abouts.findIndex(a => a.slug === slug);
-    const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
-    const [isFixed, setIsFixed] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            setScrollDirection(currentScrollY > lastScrollY.current ? 'down' : 'up');
-            lastScrollY.current = currentScrollY;
-
-            let newActiveIndex = activeIndex;
-            let newIsFixed = isFixed;
-
-            const footers = document.getElementsByTagName("footer");
-            const footer = footers && footers.length>=1 ? footers[0] : null;
-            const footerRect = footer ? footer.getBoundingClientRect() : null;
-            const footerVisible = footerRect ? footerRect.top < window.innerHeight && footerRect.bottom > 0 : false;
-
-            sectionRefs.current.forEach((ref, index) => {
-                if (!ref) return;
-
-                const rect = ref.getBoundingClientRect();
-                const prevRect = sectionRefs.current[index - 1]?.getBoundingClientRect();
-                const nextRect = sectionRefs.current[index + 1]?.getBoundingClientRect();
-
-                // **當下一個 section 1px 進入視口，它變 visible**
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-                if (scrollDirection === 'down') {
-                    // **當新 section visible，舊 section banner static**
-                    if (isVisible && prevRect?.bottom > 0) {
-                        newIsFixed = false;
-                    }
-
-                    // **當新 section banner 到頂 & 舊 section 不可見，新 banner fixed**
-                    if (isVisible && rect.top <= 0 && prevRect?.bottom <= 0) {
-                        newActiveIndex = index;
-                        newIsFixed = true;
-                    }
-                } else {
-                    // **向上滾動時，當上一個 section 至少 bannerHeight * 2 可見 & banner 在 top，則 fixed**
-                    if (index < activeIndex && rect.bottom >= doubleBannerHeight && nextRect?.top <= 0) {
-                        newActiveIndex = index;
-                        newIsFixed = true;
-                    }
-
-                    // **如果 banner 不再在 top 或更下，變 static**
-                    if (index === activeIndex && rect.top > 0) {
-                        newIsFixed = false;
-                    }
-                }
-            });
-
-            // **當 footer 可見，所有 banner 變 static**
-            if (footerVisible) {
-                newIsFixed = false;
-            }
-
-            setActiveIndex(newActiveIndex);
-            setIsFixed(newIsFixed);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        handleScroll(); // 初始化觸發一次
-
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [activeIndex]);
-
-    return (
-        <div className="flex xl:hidden flex-col">
-            {abouts &&
-                abouts.map((about, index) => (
-                    <section
-                        key={`about-${index}`}
-                        ref={(el) => {
-                            if (el) sectionRefs.current[index] = el;
-                        }}
-                        className="relative"
-                    >
-                        {/* Banner */}
-                        <div
-                            ref={(el) => {
-                                if (el) bannerRefs.current[index] = el;
-                            }}
-                            className={`
-                                ${bg_colors[index % bg_colors.length]} p-4 text-white ${notoSansHK.className} text-[1rem] font-[400]
-                                transition-all duration-300
-                                ${isFixed && activeIndex === index ? "fixed top-0 left-0 w-full shadow-md z-50" : ""}
-                            `}
-                        >
-                            {about.title}
-                        </div>
-
-                        {/* 內容區塊 */}
-                        <div
-                            className={`
-                                markdown-content-Noto-Sans-HK
-                                w-full py-[2vw] px-[2vw] mt-[2vw] mb-[5vw] 
-                                border-t-[7px] border-[#00A98F]
-                                rounded-[2vw] bg-white shadow-md overflow-hidden 
-                                z-0
-                            `}
-                        >
-                            <ReactMarkdown
-                                children={about.content}
-                                remarkPlugins={[remarkGfm]}
-                                rehypePlugins={[rehypeRaw]}
-                            />
-                        </div>
-                    </section>
-                ))}
-        </div>
-    );
-}
