@@ -99,12 +99,10 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
                 
                 <div
                     className={`
-                        border-4
-                        bg-[#dff1ed]
-                        w-screen 
                         xl:hidden
-                        absolute bottom-0 left-0 z-mobile_bottom_nav
-                        h-[7vh]
+                        absolute 
+                        h-0 w-0
+                        overflow-visible
                     `}
                 >
                     <AboutNavSwiper list={list} />
@@ -122,34 +120,42 @@ export function AboutNavSwiper({ list }: AboutNavSwiperProps)
 {
     const [activeIndex, setActiveIndex] = useState(0);
 
-    return  <Swiper 
-                slidesPerView={2.5}
-                spaceBetween={"2.5%"}
-                className={`
-                    w-[96vw] h-full
-                `}
-                onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-            >
-                {list &&
-                    list.map((item, index) => {
-                        return  <SwiperSlide 
-                                    className={`
-                                        
-                                        max-h-[80%]
-                                        
-                                        flex place-self-center content-center text-center
-                                        ${
-                                            (index-2===activeIndex) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : (index+1===activeIndex && activeIndex+2==list.length) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : 'bg-white'
-                                        }
-                                        
-                                        rounded-[3px]
-                                    `}
-                                    key={`SwiperSlide-${index}`}
-                                >
-                                    {item.title}
-                                </SwiperSlide>
+    return  <div className={`
+                    !h-[7vh] w-screen 
+                    fixed
+                    bottom-[0] left-[0]
+                    bg-[#dff1ed]
+                    z-mobile_bottom_nav
+                `}>
+                <Swiper 
+                    slidesPerView={2.5}
+                    spaceBetween={"2.5%"}
+                    className={`
+                        w-[96vw] h-[7vh] 
+                    `}
+                    onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+                >
+                    {list &&
+                        list.map((item, index) => {
+                            return  <SwiperSlide 
+                                        className={`
+                                            
+                                            max-h-[80%]
+                                            
+                                            flex place-self-center content-center text-center
+                                            ${
+                                                (index-2===activeIndex) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : (index+1===activeIndex && activeIndex+2==list.length) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : 'bg-white'
+                                            }
+                                            
+                                            rounded-[3px]
+                                        `}
+                                        key={`SwiperSlide-${index}`}
+                                    >
+                                        {item.title}
+                                    </SwiperSlide>
 
-                    })
-                }
-            </Swiper>
+                        })
+                    }
+                </Swiper>
+            </div>
 }
