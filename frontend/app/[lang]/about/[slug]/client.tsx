@@ -2,7 +2,7 @@
 
 import { Locale } from "@/models/util"
 import { components } from "@/api/strapi";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, RefObject } from "react";
 import { Noto_Sans_HK } from 'next/font/google'
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -10,6 +10,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import "swiper/css";
+import { useIsVisible } from "@/helpers/util";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -27,7 +28,10 @@ interface AboutClientProps {
 
 export default function AboutPageClient({ locale, slug, dict, about, list }: AboutClientProps) 
 {
-
+    const navRef = useRef<HTMLUListElement | null>(null);
+    const navVisible = useIsVisible(navRef, 0.1);
+    
+                            
 
     return  <div
                 className={`
@@ -38,6 +42,7 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
                     `}
             >
                 <ul
+                    ref={navRef}
                     className={`
                         w-full xl:w-[220px] 
                         h-fit 
@@ -105,7 +110,7 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
                         overflow-visible
                     `}
                 >
-                    <AboutNavSwiper list={list} />
+                    <AboutNavSwiper list={list} navVisible={navVisible} />
                 </div>
             </div>
 
@@ -113,10 +118,10 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
 
 interface AboutNavSwiperProps {
     list:components["schemas"]["About"][]
-    
+    navVisible:Boolean
 }
 
-export function AboutNavSwiper({ list }: AboutNavSwiperProps) 
+export function AboutNavSwiper({ list, navVisible }: AboutNavSwiperProps) 
 {
     const swiperRef = useRef<SwiperRef | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -142,7 +147,7 @@ export function AboutNavSwiper({ list }: AboutNavSwiperProps)
                     fixed
                     transition-all duration-300 ease-in-out
                     bottom-0 
-                    ${scrollDirection === 'up' ? 'translate-y-[0vh]' : 'translate-y-[7vh]'}
+                    ${scrollDirection === 'up' && !navVisible ? 'translate-y-[0vh]' : 'translate-y-[7vh]'}
                     left-[0]
                     bg-[#dff1ed]
                     z-mobile_bottom_nav
