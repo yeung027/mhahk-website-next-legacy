@@ -110,7 +110,7 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
                         overflow-visible
                     `}
                 >
-                    <AboutNavSwiper list={list} navVisible={navVisible} />
+                    <AboutNavSwiper list={list} navVisible={navVisible} slug={slug} />
                 </div>
             </div>
 
@@ -119,9 +119,10 @@ export default function AboutPageClient({ locale, slug, dict, about, list }: Abo
 interface AboutNavSwiperProps {
     list:components["schemas"]["About"][]
     navVisible:Boolean
+    slug:string
 }
 
-export function AboutNavSwiper({ list, navVisible }: AboutNavSwiperProps) 
+export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps) 
 {
     const swiperRef = useRef<SwiperRef | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -142,12 +143,26 @@ export function AboutNavSwiper({ list, navVisible }: AboutNavSwiperProps)
         return () => window.removeEventListener("scroll", handleScroll);
     }, [swiperRef]);
 
+    useEffect(() => {
+        // 找到 slug 相匹配的 index
+        const initialIndex = list.findIndex((item) => item.slug === slug);
+        
+        if (initialIndex !== -1) {
+          setActiveIndex(initialIndex);
+          
+          // 確保 Swiper 物件已初始化，然後設定 index
+          if (swiperRef.current?.swiper) {
+            swiperRef.current.swiper.slideTo(initialIndex, 0); // 直接跳到該 index，無動畫
+          }
+        }
+      }, [slug, list]); // 當 `slug` 或 `list` 變更時重新執行
+
     return  <div className={`
                     !h-[7vh] w-screen 
                     fixed
                     transition-all duration-300 ease-in-out
                     bottom-0 
-                    ${scrollDirection === 'up' && !navVisible ? 'translate-y-[0vh]' : 'translate-y-[7vh]'}
+                    ${scrollDirection === 'up' && !navVisible ? 'translate-y-[0vh]' : 'translate-y-[0vh]'}
                     left-[0]
                     bg-[#dff1ed]
                     z-mobile_bottom_nav
@@ -155,6 +170,7 @@ export function AboutNavSwiper({ list, navVisible }: AboutNavSwiperProps)
                 <Swiper 
                     ref={swiperRef}
                     slidesPerView={2.5}
+                    centeredSlides={activeIndex>0 && activeIndex+1<list.length}
                     spaceBetween={"2.5%"}
                     className={`
                         w-[96vw] h-[7vh] 
@@ -167,8 +183,9 @@ export function AboutNavSwiper({ list, navVisible }: AboutNavSwiperProps)
                                         className={`
                                             max-h-[80%]                                         
                                             flex place-self-center content-center text-center
+                                            ${item.slug===slug? 'text-[#bf4a23]' : 'text-black'}
                                             ${
-                                                (index-2===activeIndex) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : (index+1===activeIndex && activeIndex+2==list.length) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : 'bg-white'
+                                                ((index-2===activeIndex) && activeIndex>0) || (activeIndex==0 && index==2) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : (index+1===activeIndex) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : 'bg-white'
                                             }
                                             
                                             rounded-[3px]
@@ -176,7 +193,7 @@ export function AboutNavSwiper({ list, navVisible }: AboutNavSwiperProps)
                                         key={`SwiperSlide-${index}`}
                                     >
                                         <Link href={`${item.slug}`}>
-                                            {item.title}
+                                            {index} | {activeIndex}
                                         </Link>
                                     </SwiperSlide>
 
