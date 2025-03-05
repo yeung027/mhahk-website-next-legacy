@@ -14,7 +14,13 @@ interface AboutProps {
 
 export default async function AboutPage({ params }: AboutProps) {
 
-  const { lang, slug } = params; // 取得語系 & slug
+  const safeParams = await Promise.resolve(params); // 確保 params 不是 pending
+
+  if (!safeParams || !safeParams.lang || !safeParams.slug) {
+    return notFound();
+  }
+
+  const { lang, slug } = safeParams;
   const dict = await getDictionary(lang); // 取得翻譯字典
 
   const dataFetch = await client.GET("/abouts", {
@@ -22,10 +28,10 @@ export default async function AboutPage({ params }: AboutProps) {
       query:{
         // @ts-ignore
         populate:"*",
-        locale: params.lang== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk,
+        locale: lang== Locale.cn?  StrapiLocale.cn : StrapiLocale.zhhk,
         filters: {
           slug: {
-            $eq: params.slug,
+            $eq: slug,
           },
         },
       }
@@ -37,7 +43,7 @@ export default async function AboutPage({ params }: AboutProps) {
       query: {
         // @ts-ignore
         fields: ["slug", "title", "content"],
-        locale: params.lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
+        locale: lang === Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
       },
     },
 });

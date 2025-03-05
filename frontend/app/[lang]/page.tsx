@@ -1,5 +1,5 @@
 import { client } from "@/api";
-import { getDictionary } from '../../helpers/dictionaries'
+import { getDictionary } from '@/helpers/dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import IndexGridCategoryList from "@/app/[lang]/components/index/index-grid-category-list";
 import IndexTabsSection from "./components/index/index-tabs-section";
