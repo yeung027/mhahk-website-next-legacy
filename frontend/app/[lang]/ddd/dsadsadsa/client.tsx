@@ -137,19 +137,6 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
         lastScrollY.current = currentScrollY;
     }
 
-    const isLast = (index:number) => {
-        return index+1 >= list.length
-    }
-
-    const isFirst = (index:number) => {
-        return index==0
-    }
-
-    const isPrev = (index:number) => {
-        return index+1 === activeIndex
-    }
-
-
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         handleScroll(); 

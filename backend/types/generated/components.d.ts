@@ -269,6 +269,23 @@ export interface MainMenuMainmenuSubsubmenuMenu extends Struct.ComponentSchema {
   };
 }
 
+export interface PagePage extends Struct.ComponentSchema {
+  collectionName: 'components_page_pages';
+  info: {
+    description: '';
+    displayName: 'page';
+  };
+  attributes: {
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    title: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -291,6 +308,7 @@ declare module '@strapi/strapi' {
       'main-menu.mainmenu-subsubitem': MainMenuMainmenuSubsubitem;
       'main-menu.mainmenu-subsubmenu': MainMenuMainmenuSubsubmenu;
       'main-menu.mainmenu-subsubmenu-menu': MainMenuMainmenuSubsubmenuMenu;
+      'page.page': PagePage;
     }
   }
 }
