@@ -126,8 +126,9 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
 {
     const swiperRef = useRef<SwiperRef | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
+    const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | undefined>(undefined);
     const lastScrollY = useRef<number | undefined>(undefined);
+    const [isLastSlide, setIsLastSlide] = useState(false);
 
     const handleScroll = () => {
         const currentScrollY = window.scrollY;
@@ -135,6 +136,19 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
             setScrollDirection(currentScrollY > lastScrollY.current ? 'down' : 'up');
         lastScrollY.current = currentScrollY;
     }
+
+    const isLast = (index:number) => {
+        return index+1 >= list.length
+    }
+
+    const isFirst = (index:number) => {
+        return index==0
+    }
+
+    const isPrev = (index:number) => {
+        return index+1 === activeIndex
+    }
+
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -162,7 +176,7 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
                     fixed
                     transition-all duration-300 ease-in-out
                     bottom-0 
-                    ${scrollDirection === 'up' && !navVisible ? 'translate-y-[0vh]' : 'translate-y-[0vh]'}
+                    ${scrollDirection === 'up' && !navVisible ? 'translate-y-[0vh]' : 'translate-y-[7vh]'}
                     left-[0]
                     bg-[#dff1ed]
                     z-mobile_bottom_nav
@@ -170,12 +184,15 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
                 <Swiper 
                     ref={swiperRef}
                     slidesPerView={2.5}
-                    centeredSlides={activeIndex>0 && activeIndex+1<list.length}
+                    centeredSlides={activeIndex>0 && !(activeIndex+2>=list.length)}
                     spaceBetween={"2.5%"}
                     className={`
                         w-[96vw] h-[7vh] 
                     `}
-                    onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+                    onSlideChange={(swiper) => {
+                        setActiveIndex(swiper.activeIndex)
+                        setIsLastSlide(swiper.isEnd)
+                    }}
                 >
                     {list &&
                         list.map((item, index) => {
@@ -185,15 +202,18 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
                                             flex place-self-center content-center text-center
                                             ${item.slug===slug? 'text-[#bf4a23]' : 'text-black'}
                                             ${
-                                                ((index-2===activeIndex) && activeIndex>0) || (activeIndex==0 && index==2) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : (index+1===activeIndex) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]' : 'bg-white'
+                                                ((index-1 ===activeIndex && activeIndex>0) || (activeIndex==0 && index== (activeIndex+2) ) ) && !(isLastSlide && (index+1>=list.length)) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
+                                                : (activeIndex-1==index) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
+                                                : 'bg-white'
                                             }
                                             
                                             rounded-[3px]
                                         `}
+                                        
                                         key={`SwiperSlide-${index}`}
                                     >
                                         <Link href={`${item.slug}`}>
-                                            {index} | {activeIndex}
+                                            {item.title}
                                         </Link>
                                     </SwiperSlide>
 
