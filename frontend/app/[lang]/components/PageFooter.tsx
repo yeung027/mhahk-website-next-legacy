@@ -1,6 +1,7 @@
 import { client } from "@/api";
 import {StrapiLocale, Locale} from "@/models/util";
 import { Noto_Sans_HK } from 'next/font/google'
+import Image from "next/image";
 
 interface PageFooterProps {
     locale: Locale
@@ -52,11 +53,21 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                         data.data.data.xl_only_nav_icons.map((icon, index) => {
                             return  <li key={`xl_only_nav_icons-${index}`}>
                                         {icon.image &&
-                                            <img 
-                                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image.url}`} 
-                                                key={`index-hero-image-${index}`} 
-                                                className={``}
+                                            // <img 
+                                            //     src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image.url}`} 
+                                            //     key={`index-hero-image-${index}`} 
+                                            //     className={``}
+                                            // />
+                                            <Image
+                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image.url}`} 
+                                                alt={icon.image.alternativeText || `Item Image ${index}`} // 提供 SEO 友善的 alt 文本
+                                                width={150} // 設定寬度
+                                                height={80} // 設定高度，根據 `max-h-[60px]`
+                                                layout="intrinsic" // ✅ 自動維持圖片原始比例
+                                                className=""
+                                                priority={false} // 這裡不需要優先載入（如果是 Header 內的圖片才需要）
                                             />
+                                                                                
                                         }
                                     </li>
                         })
@@ -93,13 +104,24 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                     <div key={`group-${index}`} className="flex justify-center items-center gap-[7px] flex-wrap">
                     {group.icons?.map((icon, iconIndex) => (
                         <div key={`icon-${index}-${iconIndex}`} className="w-[120px] h-[80px] flex justify-center items-center">
-                        {icon.image && icon.image.length > 0 && (
+                        {/* {icon.image && icon.image.length > 0 && (
                             <img 
                             src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image[0].url}`} 
                             className="max-w-full max-h-full w-auto h-auto object-contain"
                             alt={`icon-${index}-${iconIndex}`}
                             />
+                        )} */}
+                        {icon.image && icon.image.length > 0 && (
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image[0].url}`}
+                                alt={`icon-${index}-${iconIndex}`}
+                                width={100} // ✅ 設定一個合理的預設寬度
+                                height={100} // ✅ 設定一個合理的預設高度
+                                layout="intrinsic" // ✅ 根據圖片原比例縮放
+                                className="max-w-full max-h-full w-auto h-auto object-contain"
+                            />
                         )}
+
                         </div>
                     ))}
                     </div>
@@ -111,11 +133,21 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                     <>
                     {group.icons?.map((icon, iconIndex) => (
                         <div key={`icon-${index}-${iconIndex}`} className="w-[120px] h-[80px] flex justify-center items-center">
-                        {icon.image && icon.image.length > 0 && (
+                        {/* {icon.image && icon.image.length > 0 && (
                             <img 
                             src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image[0].url}`} 
                             className="max-w-full max-h-full w-auto h-auto object-contain"
                             alt={`icon-${index}-${iconIndex}`}
+                            />
+                        )} */}
+                        {icon.image && icon.image.length > 0 && (
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image[0].url}`}
+                                alt={`icon-${index}-${iconIndex}`}
+                                width={100} // ✅ 設定一個合理的預設寬度
+                                height={100} // ✅ 設定一個合理的預設高度
+                                layout="intrinsic" // ✅ 根據圖片原比例縮放
+                                className="max-w-full max-h-full w-auto h-auto object-contain"
                             />
                         )}
                         </div>

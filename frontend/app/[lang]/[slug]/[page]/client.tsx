@@ -93,7 +93,22 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                         prose prose-sm markdown-content-Noto-Sans-HK
                     `}
                 >
-                    <div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div>
+                    {page && page.sections &&
+                        page.sections.map((section, index) => {
+                            switch (section.__component) {
+                                case "page.simple":
+                                    return (
+                                        <section 
+                                        key={`page-section-${index}`} 
+                                        className={``}
+                                        >
+                                            <h2>Simple Component</h2> 
+                                        </section>
+                                    );
+                                
+                            }
+                        })
+                    }
                 </div>
                 
                 <div

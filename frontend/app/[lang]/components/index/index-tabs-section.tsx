@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { components } from "@/api/strapi";
 import { useIsVisible } from "@/helpers/util";
 import { Noto_Sans_HK } from 'next/font/google'
+import Image from "next/image";
 
 interface IndexTabsSectionProps {
     items:components["schemas"]["IndexIndexTabsLayoutLeftAndRightComponent"][] | undefined
@@ -119,9 +120,21 @@ export default function IndexTabsSection({ items } : IndexTabsSectionProps) {
 
                                             return  <div className="flex flex-col items-start py-[20px] px-[12px]" key={`tabs-section-ul-page-left-${index_j}`}>
                                                         <div className={`w-full flex justify-center`}>
-                                                            {item.image &&
+                                                            {/* {item.image &&
                                                                 <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} />
-                                                            }
+                                                            } */}
+                                                            {item.image && (
+                                                                <Image
+                                                                    src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`}
+                                                                    alt={item.image.alternativeText || "Item Image"} // ✅ 提供 SEO 友善的 alt 文本
+                                                                    width={300} // ✅ 設定合理的寬度（根據 UI 調整）
+                                                                    height={300} // ✅ 設定合理的高度
+                                                                    layout="intrinsic" // ✅ 保持圖片原比例，不變形
+                                                                    priority={index==selected}
+                                                                    className="object-contain"
+                                                                />
+                                                            )}
+
                                                         </div>
                                                         <div className={`w-fit pt-[10px]`}>
                                                             {item.title &&
@@ -154,9 +167,20 @@ export default function IndexTabsSection({ items } : IndexTabsSectionProps) {
                                                         key={`tabs-section-ul-page-right-${index_j}`}
                                                     >
                                                         <div className={``}>
-                                                            {item.image &&
+                                                            {/* {item.image &&
                                                                 <img src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} />
-                                                            }
+                                                            } */}
+                                                            {item.image && (
+                                                                <Image
+                                                                    src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`}
+                                                                    alt={item.image.alternativeText || "Item Image"} // ✅ 提供 SEO 友善的 alt 文本
+                                                                    width={300} // ✅ 設定合理的寬度（根據 UI 調整）
+                                                                    height={300} // ✅ 設定合理的高度
+                                                                    layout="intrinsic" // ✅ 保持圖片原比例，不變形
+                                                                    priority={index==selected}
+                                                                    className="object-contain"
+                                                                />
+                                                            )}
                                                         </div>
                                                         <div className={`self-center pl-[7px]`}>
                                                             {item.title &&

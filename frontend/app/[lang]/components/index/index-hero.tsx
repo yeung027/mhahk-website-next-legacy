@@ -5,6 +5,7 @@ import { useIsVisible } from "@/helpers/util";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules"; 
 import "swiper/css";
+import Image from "next/image";
 
 
 interface IndexHeroProps {
@@ -43,10 +44,14 @@ export default function IndexHero({ data } : IndexHeroProps) {
                 {data && data.images &&
                     data.images.map((image, index) => {
                         return  <SwiperSlide className="" key={`SwiperSlide-${index}`}>
-                                    <img 
+                                    <Image 
                                         src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.url}`} 
-                                        key={`index-hero-image-${index}`} 
-                                        className={``}
+                                        alt={image.alternativeText || `Slide ${index}`} // 提供 SEO 友善的 alt 文本
+                                        width={1920} // 設定寬度
+                                        height={1080} // 設定高度
+                                        layout="responsive" // 讓圖片自動適應螢幕
+                                        priority
+                                        className="object-cover w-full h-full" // 確保圖片適應容器
                                     />
                                 </SwiperSlide>
                     })

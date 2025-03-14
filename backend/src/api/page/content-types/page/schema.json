@@ -50,6 +50,17 @@
       "relation": "manyToOne",
       "target": "api::page-group.page-group",
       "inversedBy": "pages"
+    },
+    "sections": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "page.simple"
+      ]
     }
   }
 }

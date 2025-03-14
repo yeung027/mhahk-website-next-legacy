@@ -269,6 +269,24 @@ export interface MainMenuMainmenuSubsubmenuMenu extends Struct.ComponentSchema {
   };
 }
 
+export interface PageSimple extends Struct.ComponentSchema {
+  collectionName: 'components_page_simples';
+  info: {
+    description: '';
+    displayName: 'simple';
+  };
+  attributes: {
+    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -291,6 +309,7 @@ declare module '@strapi/strapi' {
       'main-menu.mainmenu-subsubitem': MainMenuMainmenuSubsubitem;
       'main-menu.mainmenu-subsubmenu': MainMenuMainmenuSubsubmenu;
       'main-menu.mainmenu-subsubmenu-menu': MainMenuMainmenuSubsubmenuMenu;
+      'page.simple': PageSimple;
     }
   }
 }

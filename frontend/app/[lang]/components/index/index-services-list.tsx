@@ -158,13 +158,24 @@ export default function IndexServicesList({ services } : IndexGridCategoryListPr
                                             priority={true}
                                         />
                                         {/* 服務封面圖片 */}
-                                        {service.index_cover &&
+                                        {/* {service.index_cover &&
                                             <img 
                                                 src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${service.index_cover.url}`} 
                                                 key={`index-hero-image-${index}`} 
                                                 className="z-0 w-full h-auto object-cover"
                                             />
-                                        }
+                                        } */}
+                                        {service.index_cover && (
+                                            <Image
+                                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${service.index_cover.url}`}
+                                                alt={service.index_cover.alternativeText || `Service Cover ${index}`} // ✅ 提供 SEO 友善的 alt 文本
+                                                width={800} // ✅ 設定一個合理的寬度（可以根據 UI 設計調整）
+                                                height={450} // ✅ 設定一個合理的高度
+                                                layout="intrinsic" // ✅ 確保圖片按照原比例縮放
+                                                className="z-0 w-full h-auto object-cover"
+                                            />
+                                        )}
+
                                     </div>
                                 </SwiperSlide>
                             ))

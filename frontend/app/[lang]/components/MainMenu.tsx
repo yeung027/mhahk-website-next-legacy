@@ -9,6 +9,7 @@ import { components } from "@/api/strapi";
 import {Locale, PageCategory} from "@/models/util";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const isRootItem = (
     item: components["schemas"]["MainMenuMainmenuRootitemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubsubmenuComponent"]
@@ -507,13 +508,18 @@ export function SubSubMainMenuItems({ locale, items, title, index, isLast }: Sub
                                     transition duration-300 ease-in-out pt-[3vw] pb-[1vw]
                                     xl:pt-[15px] xl:pb-[9px] hover:text-hoverBlue xl:max-w-[140px]
                                 " key={`subsubmenu-item-${index}-${y}`}>
-                                    {item.image && (
-                                        <img 
-                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`} 
-                                            key={`subsubmenu-item-image-${index}`} 
-                                            className="max-h-[60px]"
+                                   {item.image && (
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`}
+                                            alt={item.image.alternativeText || `Item Image ${index}`} // 提供 SEO 友善的 alt 文本
+                                            width={60} // 設定寬度
+                                            height={60} // 設定高度，根據 `max-h-[60px]`
+                                            layout="responsive" // ✅ 根據容器大小動態調整
+                                            className="max-h-[60px] object-contain"
+                                            priority={false} // 這裡不需要優先載入（如果是 Header 內的圖片才需要）
                                         />
                                     )}
+
                                     {!item.image && item.title}
                                 </li>
                                 <li className={`
