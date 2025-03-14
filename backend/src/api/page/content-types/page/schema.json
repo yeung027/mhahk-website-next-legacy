@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "page_groups",
+  "collectionName": "pages",
   "info": {
-    "singularName": "page-group",
-    "pluralName": "page-groups",
-    "displayName": "Page Group",
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page",
     "description": ""
   },
   "options": {
@@ -34,11 +34,22 @@
       },
       "type": "string"
     },
-    "pages": {
+    "order": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "unique": false,
+      "min": 1,
+      "type": "integer"
+    },
+    "group": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::page.page",
-      "mappedBy": "group"
+      "relation": "manyToOne",
+      "target": "api::page-group.page-group",
+      "inversedBy": "pages"
     }
   }
 }

@@ -3,7 +3,7 @@ import { components } from "@/api/strapi";
 import { getDictionary } from '@/helpers/dictionaries'
 import {StrapiLocale, Locale} from "@/models/util";
 import { notFound } from "next/navigation"; // ✅ 引入 `notFound()`
-import AboutPageClient from "./client";
+import PageClient from "./client";
 
 interface AboutProps {
   params: {
@@ -24,14 +24,30 @@ export default async function AboutPage({ params }: AboutProps) {
   const { lang, slug, page } = safeParams;
   const dict = await getDictionary(lang); // 取得翻譯字典
 
-  const dataFetch = await client.GET("/page-groups", {
+  const dataFetch = await client.GET("/pages", {
+    params: {
+      query: {
+        // @ts-ignore
+        populate: "*",
+        locale: lang == Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
+        filters: {
+          slug: { $eq: page },
+          group:{
+            slug:{ $eq: slug }
+          }
+        },
+      },
+    },
+  });
+
+  const list = await client.GET("/page-groups", {
     params: {
       query: {
         // @ts-ignore
         populate: {
-          pages:{
-            populate:"*"
-          }
+          pages: {
+            fields: ["title", "slug"], 
+          },
         },
         locale: lang == Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
         filters: {
@@ -41,9 +57,10 @@ export default async function AboutPage({ params }: AboutProps) {
     },
   });
   
+  
 
 
-  // console.log(dataFetch)
+  console.log(list)
 
   if (!dataFetch || !dataFetch.data || !dataFetch.data.data || dataFetch.data.data.length<=0) {
     return notFound();
@@ -51,8 +68,9 @@ export default async function AboutPage({ params }: AboutProps) {
 
   return (
     <div className="">
-      {about && 
-              <AboutPageClient locale={lang} slug={slug} about={about} dict={dict} list={list} />
+      {dataFetch && dataFetch.data && dataFetch.data.data && dataFetch.data.data[0] &&
+        list && list.data && list.data.data && list.data.data[0] && list.data.data[0].pages &&
+              <PageClient locale={lang} slug={slug} page_slug={page} page={dataFetch.data.data[0]} list={list.data.data[0]} dict={dict} />
             }
     </div>
   );

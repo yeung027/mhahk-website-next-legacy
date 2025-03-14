@@ -20,13 +20,13 @@ const notoSansHK = Noto_Sans_HK({
 interface PageClientProps {
     locale:Locale,
     slug:string,
+    page_slug:string,
     dict:any,
-    about:components["schemas"]["About"],
-    list:components["schemas"]["About"][]
-    
+    page:components["schemas"]["Page"],
+    list:components["schemas"]["PageGroup"],
 }
 
-export default function PageClient({ locale, slug, dict, pages, list }: PageClientProps) 
+export default function PageClient({ locale, slug, page_slug, dict, page, list }: PageClientProps) 
 {
     const navRef = useRef<HTMLUListElement | null>(null);
     const navVisible = useIsVisible(navRef, 0.1);
@@ -55,8 +55,8 @@ export default function PageClient({ locale, slug, dict, pages, list }: PageClie
                                         px-[10px] py-[10px]
                                         text-white text-[1rem] font-[500]
                                     `}>
-                                    {dict && 
-                                        dict?.about?.title
+                                    {list && 
+                                        list.title
                                     }
                     </li>
                     <li className={`
@@ -66,16 +66,16 @@ export default function PageClient({ locale, slug, dict, pages, list }: PageClie
                                         
                                     `}>
                                     <ul className={``}>
-                                        {list &&
-                                            list.map((item, index) => {
+                                        {list && list.pages &&
+                                            list.pages.map((page, index) => {
                                                 return  <li
                                                             key={index}
                                                             className={`border-b last:border-0 border-[#e8e8e8] pt-[7px] first:pt-[0] pb-[7px] last:pb-[2px]
-                                                                ${item.slug===slug? 'text-[#bf4a23]' : ''}
+                                                                ${page.slug===page_slug? 'text-[#bf4a23]' : ''}
                                                             `}
                                                         >
-                                                            <Link href={`/${locale}/about/${item.slug}`}>
-                                                                {item.title}
+                                                            <Link href={`/${locale}/about/${page.slug}`}>
+                                                                {page.title}
                                                             </Link>
                                                         </li>
 
@@ -93,7 +93,7 @@ export default function PageClient({ locale, slug, dict, pages, list }: PageClie
                         prose prose-sm markdown-content-Noto-Sans-HK
                     `}
                 >
-                    xx
+                    <div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div><div>111</div>
                 </div>
                 
                 <div
@@ -104,19 +104,20 @@ export default function PageClient({ locale, slug, dict, pages, list }: PageClie
                         overflow-visible
                     `}
                 >
-                    <AboutNavSwiper list={list} navVisible={navVisible} slug={slug} />
+                    <PageGroupNavSwiper list={list} navVisible={navVisible} slug={slug} page_slug={page_slug} />
                 </div>
             </div>
 
 }
 
-interface AboutNavSwiperProps {
-    list:components["schemas"]["About"][]
+interface PageGroupNavSwiperProps {
+    list:components["schemas"]["PageGroup"]
     navVisible:Boolean
     slug:string
+    page_slug:string
 }
 
-export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps) 
+export function PageGroupNavSwiper({ list, navVisible, slug, page_slug }: PageGroupNavSwiperProps) 
 {
     const swiperRef = useRef<SwiperRef | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -140,7 +141,8 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
 
     useEffect(() => {
         // 找到 slug 相匹配的 index
-        const initialIndex = list.findIndex((item) => item.slug === slug);
+        if(!list.pages) return;
+        const initialIndex = list.pages.findIndex((item) => item.slug === slug);
         
         if (initialIndex !== -1) {
           setActiveIndex(initialIndex);
@@ -150,7 +152,7 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
             swiperRef.current.swiper.slideTo(initialIndex, 0); // 直接跳到該 index，無動畫
           }
         }
-      }, [slug, list]); // 當 `slug` 或 `list` 變更時重新執行
+      }, [slug, page_slug, list]); // 當 `slug` 或 `list` 變更時重新執行
 
     return  <div className={`
                     !h-[7vh] w-screen 
@@ -165,7 +167,7 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
                 <Swiper 
                     ref={swiperRef}
                     slidesPerView={2.5}
-                    centeredSlides={activeIndex>0 && !(activeIndex+2>=list.length)}
+                    centeredSlides={activeIndex>0 && !(activeIndex+2>=(list.pages ? list.pages.length : 0))}
                     spaceBetween={"2.5%"}
                     className={`
                         w-[96vw] h-[7vh] 
@@ -175,8 +177,8 @@ export function AboutNavSwiper({ list, navVisible, slug }: AboutNavSwiperProps)
                         setIsLastSlide(swiper.isEnd)
                     }}
                 >
-                    {list &&
-                        list.map((item, index) => {
+                    {list && list.pages &&
+                        list.pages.map((item, index) => {
                             return  <SwiperSlide 
                                         className={`
                                             max-h-[80%]                                         
