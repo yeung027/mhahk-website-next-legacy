@@ -515,7 +515,7 @@ export function SubSubMainMenuItems({ locale, items, title, index, isLast }: Sub
                                             width={60} // 設定寬度
                                             height={60} // 設定高度，根據 `max-h-[60px]`
                                             layout="responsive" // ✅ 根據容器大小動態調整
-                                            className="max-h-[60px] object-contain"
+                                            className="h-[60px] object-contain"
                                             priority={false} // 這裡不需要優先載入（如果是 Header 內的圖片才需要）
                                         />
                                     )}

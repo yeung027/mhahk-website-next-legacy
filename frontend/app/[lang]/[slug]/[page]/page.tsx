@@ -28,7 +28,15 @@ export default async function AboutPage({ params }: AboutProps) {
     params: {
       query: {
         // @ts-ignore
-        populate: "*",
+        populate: {
+          sections:{
+            on:{
+              "page.simple": {
+                populate: "*"
+              }
+            }
+          }
+        },
         locale: lang == Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
         filters: {
           slug: { $eq: page },
@@ -60,7 +68,7 @@ export default async function AboutPage({ params }: AboutProps) {
   
 
 
-  console.log(list)
+  console.log(dataFetch)
 
   if (!dataFetch || !dataFetch.data || !dataFetch.data.data || dataFetch.data.data.length<=0) {
     return notFound();

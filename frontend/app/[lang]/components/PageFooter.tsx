@@ -59,7 +59,7 @@ export default async function PageFooter({ locale } : PageFooterProps) {
                                             //     className={``}
                                             // />
                                             <Image
-                                            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image.url}`} 
+                                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${icon.image.url}`} 
                                                 alt={icon.image.alternativeText || `Item Image ${index}`} // 提供 SEO 友善的 alt 文本
                                                 width={150} // 設定寬度
                                                 height={80} // 設定高度，根據 `max-h-[60px]`

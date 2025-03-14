@@ -11,6 +11,7 @@ import rehypeRaw from "rehype-raw";
 import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import "swiper/css";
 import { useIsVisible } from "@/helpers/util";
+import Image from "next/image";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -100,12 +101,31 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                                     return (
                                         <section 
                                         key={`page-section-${index}`} 
-                                        className={``}
+                                        className={`flex flex-col`}
                                         >
-                                            <h2>Simple Component</h2> 
+                                            {section.banner &&
+                                                <Image
+                                                    src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${section.banner.url}`} 
+                                                    alt={section.banner.alternativeText || `Item Image ${index}`} // 提供 SEO 友善的 alt 文本
+                                                    width={620} // 設定寬度
+                                                    height={175} // 設定高度
+                                                    className={`block my-0`}
+                                                    priority={true} // 這裡不需要優先載入（如果是 Header 內的圖片才需要）
+                                                />
+                                            }
+                                            <div 
+                                                className={`w-full bg-mainGreen h-[9px]`}
+                                            />
+                                            {section && section.content &&
+                                                <ReactMarkdown
+                                                    children={section.content}
+                                                    remarkPlugins={[remarkGfm]}
+                                                    rehypePlugins={[rehypeRaw]}
+                                                />
+                                            }
                                         </section>
                                     );
-                                
+                                //end simple
                             }
                         })
                     }
