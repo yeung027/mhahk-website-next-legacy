@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import "swiper/css";
 import { useIsVisible } from "@/helpers/util";
 import { SimpleSection } from "@/app/[lang]/components/page/simple";
+import Image from "next/image";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -28,9 +29,16 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
 {
     const navRef = useRef<HTMLUListElement | null>(null);
     const navVisible = useIsVisible(navRef, 0.1);
-    
-                            
+    const bannerRef = useRef<HTMLDivElement | null>(null);
+    const bannerVisNow = useIsVisible(bannerRef, 0.3);                       
+    const [bannerVis, setBannerVis] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (bannerVisNow && !bannerVis) {
+            setBannerVis(true); // 只更新一次
+        }
+    }, [bannerVisNow, bannerVis]);
+    
     return  <div
                 className={`
                     
@@ -85,11 +93,37 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
 
                 <div
                     className={`
-                        px-[3vw] py-[4vw] xl:px-[37px] xl:py-[10px]
+                        px-[3vw] py-[4vw] xl:px-[37px] xl:py-[10px] xl:pt-[40px]
                         border-t-[6px] border-mainGreen rounded-tl-[3px] rounded-tr-[3px]
                         shadow-[0_1px_3px_rgba(0,0,0,0.1)] 
+                        flex flex-col
                     `}
                 >
+                    {page && page.banner &&
+                        <div
+                            ref={bannerRef}
+                            className={`
+                                w-fit max-w-full
+                                delay-[0.1s] transition duration-[1s] ease-in-out
+                                ${bannerVis? 'opacity-100 translate-x-[0]' : 'opacity-0 translate-x-[2vw] xl:translate-x-[10px]'}
+                            `}
+                        >
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${page.banner.url}`} 
+                                alt={page.banner.alternativeText || `Item Image`} // 提供 SEO 友善的 alt 文本
+                                width={page.banner.width} // 設定寬度
+                                height={page.banner.height} // 設定高度
+                                className="w-full max-w-full object-cover"
+                                priority={true}
+                            />
+                            <div 
+                                className={`
+                                    py-0 mt-[5px]
+                                    w-full bg-mainGreen h-[9px]
+                                `}
+                            />
+                        </div>
+                    }
                     {page && page.sections &&
                         page.sections.map((section, index) => {
                             switch (section.__component) {

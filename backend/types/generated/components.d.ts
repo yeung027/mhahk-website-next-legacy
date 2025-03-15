@@ -269,6 +269,14 @@ export interface MainMenuMainmenuSubsubmenuMenu extends Struct.ComponentSchema {
   };
 }
 
+export interface PageCollapsibleList extends Struct.ComponentSchema {
+  collectionName: 'components_page_collapsible_lists';
+  info: {
+    displayName: 'collapsible-list';
+  };
+  attributes: {};
+}
+
 export interface PageSimple extends Struct.ComponentSchema {
   collectionName: 'components_page_simples';
   info: {
@@ -276,7 +284,6 @@ export interface PageSimple extends Struct.ComponentSchema {
     displayName: 'simple';
   };
   attributes: {
-    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     content: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',
@@ -309,6 +316,7 @@ declare module '@strapi/strapi' {
       'main-menu.mainmenu-subsubitem': MainMenuMainmenuSubsubitem;
       'main-menu.mainmenu-subsubmenu': MainMenuMainmenuSubsubmenu;
       'main-menu.mainmenu-subsubmenu-menu': MainMenuMainmenuSubsubmenuMenu;
+      'page.collapsible-list': PageCollapsibleList;
       'page.simple': PageSimple;
     }
   }

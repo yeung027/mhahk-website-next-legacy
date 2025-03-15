@@ -29,6 +29,9 @@ export default async function AboutPage({ params }: AboutProps) {
       query: {
         // @ts-ignore
         populate: {
+          banner: {
+            populate:"*"
+          },
           sections:{
             on:{
               "page.simple": {
@@ -62,7 +65,6 @@ export default async function AboutPage({ params }: AboutProps) {
       },
     },
   });
-  
 
   if (!dataFetch || !dataFetch.data || !dataFetch.data.data || dataFetch.data.data.length<=0) {
     return notFound();
