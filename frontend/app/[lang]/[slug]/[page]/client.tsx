@@ -91,7 +91,6 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                         px-[3vw] py-[4vw] xl:px-[37px] xl:py-[10px]
                         border-t-[6px] border-mainGreen rounded-tl-[3px] rounded-tr-[3px]
                         shadow-[0_1px_3px_rgba(0,0,0,0.1)] 
-                        prose prose-sm markdown-content-Noto-Sans-HK
                     `}
                 >
                     {page && page.sections &&
@@ -100,28 +99,41 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                                 case "page.simple":
                                     return (
                                         <section 
-                                        key={`page-section-${index}`} 
-                                        className={`flex flex-col`}
+                                            key={`page-section-${index}`} 
+                                            className={` 
+                                                flex flex-col
+                                                p-0 m-0
+                                                `
+                                            }
                                         >
                                             {section.banner &&
                                                 <Image
                                                     src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${section.banner.url}`} 
                                                     alt={section.banner.alternativeText || `Item Image ${index}`} // 提供 SEO 友善的 alt 文本
-                                                    width={620} // 設定寬度
-                                                    height={175} // 設定高度
+                                                    width={section.banner.width} // 設定寬度
+                                                    height={section.banner.height} // 設定高度
                                                     className={`block my-0`}
                                                     priority={true} // 這裡不需要優先載入（如果是 Header 內的圖片才需要）
                                                 />
                                             }
                                             <div 
-                                                className={`w-full bg-mainGreen h-[9px]`}
+                                                className={`
+                                                    py-0 mt-[5px]
+                                                    w-full bg-mainGreen h-[9px]
+                                                    `}
                                             />
                                             {section && section.content &&
-                                                <ReactMarkdown
-                                                    children={section.content}
-                                                    remarkPlugins={[remarkGfm]}
-                                                    rehypePlugins={[rehypeRaw]}
-                                                />
+                                                <div
+                                                    className={`
+                                                        prose prose-sm markdown-content-Noto-Sans-HK
+                                                    `}
+                                                >
+                                                    <ReactMarkdown
+                                                        children={section.content}
+                                                        remarkPlugins={[remarkGfm]}
+                                                        rehypePlugins={[rehypeRaw]}
+                                                    />
+                                                </div>
                                             }
                                         </section>
                                     );
