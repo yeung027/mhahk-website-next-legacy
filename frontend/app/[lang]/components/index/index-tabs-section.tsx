@@ -127,9 +127,8 @@ export default function IndexTabsSection({ items } : IndexTabsSectionProps) {
                                                                 <Image
                                                                     src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`}
                                                                     alt={item.image.alternativeText || "Item Image"} // ✅ 提供 SEO 友善的 alt 文本
-                                                                    width={300} // ✅ 設定合理的寬度（根據 UI 調整）
-                                                                    height={300} // ✅ 設定合理的高度
-                                                                    layout="intrinsic" // ✅ 保持圖片原比例，不變形
+                                                                    width={item.image.width} // ✅ 設定合理的寬度（根據 UI 調整）
+                                                                    height={item.image.height} // ✅ 設定合理的高度
                                                                     priority={index==selected}
                                                                     className="object-contain"
                                                                 />
@@ -176,7 +175,6 @@ export default function IndexTabsSection({ items } : IndexTabsSectionProps) {
                                                                     alt={item.image.alternativeText || "Item Image"} // ✅ 提供 SEO 友善的 alt 文本
                                                                     width={300} // ✅ 設定合理的寬度（根據 UI 調整）
                                                                     height={300} // ✅ 設定合理的高度
-                                                                    layout="intrinsic" // ✅ 保持圖片原比例，不變形
                                                                     priority={index==selected}
                                                                     className="object-contain"
                                                                 />

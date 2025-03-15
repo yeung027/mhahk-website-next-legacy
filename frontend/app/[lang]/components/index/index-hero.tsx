@@ -49,7 +49,6 @@ export default function IndexHero({ data } : IndexHeroProps) {
                                         alt={image.alternativeText || `Slide ${index}`} // 提供 SEO 友善的 alt 文本
                                         width={1920} // 設定寬度
                                         height={1080} // 設定高度
-                                        layout="responsive" // 讓圖片自動適應螢幕
                                         priority
                                         className="object-cover w-full h-full" // 確保圖片適應容器
                                     />

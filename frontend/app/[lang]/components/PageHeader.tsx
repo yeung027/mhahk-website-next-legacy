@@ -47,7 +47,7 @@ export default async function PageHeader({ locale } : PageHeaderProps) {
           }
         }
       });
-
+    // console.log(mainMenuFetch)
     return (
         <header className={"flex flex-col"}>
             

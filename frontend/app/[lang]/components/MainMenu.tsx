@@ -512,10 +512,9 @@ export function SubSubMainMenuItems({ locale, items, title, index, isLast }: Sub
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${item.image.url}`}
                                             alt={item.image.alternativeText || `Item Image ${index}`} // 提供 SEO 友善的 alt 文本
-                                            width={60} // 設定寬度
-                                            height={60} // 設定高度，根據 `max-h-[60px]`
-                                            layout="responsive" // ✅ 根據容器大小動態調整
-                                            className="h-[60px] object-contain"
+                                            width={item.image.width} // 設定寬度
+                                            height={item.image.height} // 設定高度
+                                            className="max-h-[60px] w-auto object-contain" // 確保圖片適應容器
                                             priority={false} // 這裡不需要優先載入（如果是 Header 內的圖片才需要）
                                         />
                                     )}
