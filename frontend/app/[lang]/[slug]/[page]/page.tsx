@@ -48,27 +48,21 @@ export default async function AboutPage({ params }: AboutProps) {
     },
   });
 
-  const list = await client.GET("/page-groups", {
+  const list = await client.GET("/pages", {
     params: {
       query: {
         // @ts-ignore
         populate: {
-          pages: {
-            fields: ["title", "slug"], 
-          },
+          fields: ["title", "slug", "order"],
+          group: { fields: ["title"] },
         },
         locale: lang == Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,
-        filters: {
-          slug: { $eq: slug }
-        },
+        sort: "order:asc",
+        filters: { group: { slug: { $eq: slug } } }
       },
     },
   });
   
-  
-
-
-  console.log(dataFetch)
 
   if (!dataFetch || !dataFetch.data || !dataFetch.data.data || dataFetch.data.data.length<=0) {
     return notFound();
@@ -77,8 +71,8 @@ export default async function AboutPage({ params }: AboutProps) {
   return (
     <div className="">
       {dataFetch && dataFetch.data && dataFetch.data.data && dataFetch.data.data[0] &&
-        list && list.data && list.data.data && list.data.data[0] && list.data.data[0].pages &&
-              <PageClient locale={lang} slug={slug} page_slug={page} page={dataFetch.data.data[0]} list={list.data.data[0]} dict={dict} />
+        list && list.data && list.data.data &&
+              <PageClient locale={lang} slug={slug} page_slug={page} page={dataFetch.data.data[0]} list={list.data.data} dict={dict} />
             }
     </div>
   );

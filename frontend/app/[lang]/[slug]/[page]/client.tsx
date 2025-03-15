@@ -24,7 +24,7 @@ interface PageClientProps {
     page_slug:string,
     dict:any,
     page:components["schemas"]["Page"],
-    list:components["schemas"]["PageGroup"],
+    list:components["schemas"]["Page"][],
 }
 
 export default function PageClient({ locale, slug, page_slug, dict, page, list }: PageClientProps) 
@@ -56,8 +56,8 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                                         px-[10px] py-[10px]
                                         text-white text-[1rem] font-[500]
                                     `}>
-                                    {list && 
-                                        list.title
+                                    {list && list[0] && list[0].group &&
+                                        list[0].group.title
                                     }
                     </li>
                     <li className={`
@@ -67,8 +67,8 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                                         
                                     `}>
                                     <ul className={``}>
-                                        {list && list.pages &&
-                                            list.pages.map((page, index) => {
+                                        {list &&
+                                            list.map((page, index) => {
                                                 return  <li
                                                             key={index}
                                                             className={`border-b last:border-0 border-[#e8e8e8] pt-[7px] first:pt-[0] pb-[7px] last:pb-[2px]
@@ -158,7 +158,7 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
 }
 
 interface PageGroupNavSwiperProps {
-    list:components["schemas"]["PageGroup"]
+    list:components["schemas"]["Page"][]
     navVisible:Boolean
     slug:string
     page_slug:string
@@ -188,8 +188,8 @@ export function PageGroupNavSwiper({ list, navVisible, slug, page_slug }: PageGr
 
     useEffect(() => {
         // 找到 slug 相匹配的 index
-        if(!list.pages) return;
-        const initialIndex = list.pages.findIndex((item) => item.slug === slug);
+        if(!list) return;
+        const initialIndex = list.findIndex((item) => item.slug === slug);
         
         if (initialIndex !== -1) {
           setActiveIndex(initialIndex);
@@ -214,7 +214,7 @@ export function PageGroupNavSwiper({ list, navVisible, slug, page_slug }: PageGr
                 <Swiper 
                     ref={swiperRef}
                     slidesPerView={2.5}
-                    centeredSlides={activeIndex>0 && !(activeIndex+2>=(list.pages ? list.pages.length : 0))}
+                    centeredSlides={activeIndex>0 && !(activeIndex+2>=(list ? list.length : 0))}
                     spaceBetween={"2.5%"}
                     className={`
                         w-[96vw] h-[7vh] 
@@ -224,15 +224,15 @@ export function PageGroupNavSwiper({ list, navVisible, slug, page_slug }: PageGr
                         setIsLastSlide(swiper.isEnd)
                     }}
                 >
-                    {list && list.pages &&
-                        list.pages.map((item, index) => {
+                    {list &&
+                        list.map((item, index) => {
                             return  <SwiperSlide 
                                         className={`
                                             max-h-[80%]                                         
                                             flex place-self-center content-center text-center
                                             ${item.slug===slug? 'text-[#bf4a23]' : 'text-black'}
                                             ${
-                                                ((index-1 ===activeIndex && activeIndex>0) || (activeIndex==0 && index== (activeIndex+2) ) ) && !(isLastSlide && (index+1>=(list.pages ? list.pages.length : 0))) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
+                                                ((index-1 ===activeIndex && activeIndex>0) || (activeIndex==0 && index== (activeIndex+2) ) ) && !(isLastSlide && (index+1>=(list ? list.length : 0))) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
                                                 : (activeIndex-1==index) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
                                                 : 'bg-white'
                                             }
