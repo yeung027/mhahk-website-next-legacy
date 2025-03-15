@@ -36,8 +36,11 @@ export default async function AboutPage({ params }: AboutProps) {
             on:{
               "page.simple": {
                 populate: "*"
+              },
+              "page.collapsible-list": {
+                populate: "*"
               }
-            }
+            },
           }
         },
         locale: lang == Locale.cn ? StrapiLocale.cn : StrapiLocale.zhhk,

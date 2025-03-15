@@ -59,7 +59,8 @@
       },
       "type": "dynamiczone",
       "components": [
-        "page.simple"
+        "page.simple",
+        "page.collapsible-list"
       ]
     },
     "banner": {

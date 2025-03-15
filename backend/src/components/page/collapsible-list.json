@@ -1,8 +1,15 @@
 {
   "collectionName": "components_page_collapsible_lists",
   "info": {
-    "displayName": "collapsible-list"
+    "displayName": "collapsible-list",
+    "description": ""
   },
   "options": {},
-  "attributes": {}
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page.collapsible-item"
+    }
+  }
 }

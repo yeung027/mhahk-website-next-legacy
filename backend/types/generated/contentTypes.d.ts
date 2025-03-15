@@ -619,7 +619,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         number
       >;
     publishedAt: Schema.Attribute.DateTime;
-    sections: Schema.Attribute.DynamicZone<['page.simple']> &
+    sections: Schema.Attribute.DynamicZone<
+      ['page.simple', 'page.collapsible-list']
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

@@ -10,6 +10,7 @@ import "swiper/css";
 import { useIsVisible } from "@/helpers/util";
 import { SimpleSection } from "@/app/[lang]/components/page/simple";
 import Image from "next/image";
+import { CollapsibleListSection } from "@/app/[lang]/components/page/collapsible-list";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -129,6 +130,8 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                             switch (section.__component) {
                                 case "page.simple":
                                     return <SimpleSection section={section} index={index} key={`page-section-component-${index}`} />
+                                case "page.collapsible-list":
+                                    return <CollapsibleListSection section={section} index={index} key={`page-section-component-${index}`}/>
                             }
                         })
                     }

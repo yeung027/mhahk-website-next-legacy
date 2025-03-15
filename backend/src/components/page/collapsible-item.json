@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_page_collapsible_items",
+  "info": {
+    "displayName": "Collapsible-list-item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultHtml"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

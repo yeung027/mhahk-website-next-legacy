@@ -2066,7 +2066,7 @@ export interface components {
                 order: number;
                 /** @example string or id */
                 group?: number | string;
-                sections?: components["schemas"]["PageSimpleComponent"][];
+                sections?: (components["schemas"]["PageSimpleComponent"] | components["schemas"]["PageCollapsibleListComponent"])[];
                 /** @example string or id */
                 banner?: number | string;
                 locale?: string;
@@ -2105,7 +2105,7 @@ export interface components {
                         id?: number;
                         documentId?: string;
                     };
-                    sections?: components["schemas"]["PageSimpleComponent"][];
+                    sections?: (components["schemas"]["PageSimpleComponent"] | components["schemas"]["PageCollapsibleListComponent"])[];
                     banner?: {
                         id?: number;
                         documentId?: string;
@@ -2361,7 +2361,7 @@ export interface components {
                     documentId?: string;
                 }[];
             };
-            sections?: components["schemas"]["PageSimpleComponent"][];
+            sections?: (components["schemas"]["PageSimpleComponent"] | components["schemas"]["PageCollapsibleListComponent"])[];
             banner?: {
                 id?: number;
                 documentId?: string;
@@ -2438,6 +2438,17 @@ export interface components {
             /** @enum {string} */
             __component?: "page.simple";
             content?: string;
+        };
+        PageCollapsibleItemComponent: {
+            id?: number;
+            content?: string;
+            title?: string;
+        };
+        PageCollapsibleListComponent: {
+            id?: number;
+            /** @enum {string} */
+            __component?: "page.collapsible-list";
+            items?: components["schemas"]["PageCollapsibleItemComponent"][];
         };
         PageGroupRequest: {
             data: {
@@ -2590,7 +2601,7 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
-                sections?: components["schemas"]["PageSimpleComponent"][];
+                sections?: (components["schemas"]["PageSimpleComponent"] | components["schemas"]["PageCollapsibleListComponent"])[];
                 banner?: {
                     id?: number;
                     documentId?: string;

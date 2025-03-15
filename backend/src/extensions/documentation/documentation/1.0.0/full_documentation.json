@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-03-15T11:39:08.311Z"
+    "x-generation-date": "2025-03-15T11:59:52.804Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6037,13 +6037,17 @@
                   "anyOf": [
                     {
                       "$ref": "#/components/schemas/PageSimpleComponent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageCollapsibleListComponent"
                     }
                   ]
                 },
                 "discriminator": {
                   "propertyName": "__component",
                   "mapping": {
-                    "page.simple": "#/components/schemas/PageSimpleComponent"
+                    "page.simple": "#/components/schemas/PageSimpleComponent",
+                    "page.collapsible-list": "#/components/schemas/PageCollapsibleListComponent"
                   }
                 }
               },
@@ -6188,13 +6192,17 @@
                         "anyOf": [
                           {
                             "$ref": "#/components/schemas/PageSimpleComponent"
+                          },
+                          {
+                            "$ref": "#/components/schemas/PageCollapsibleListComponent"
                           }
                         ]
                       },
                       "discriminator": {
                         "propertyName": "__component",
                         "mapping": {
-                          "page.simple": "#/components/schemas/PageSimpleComponent"
+                          "page.simple": "#/components/schemas/PageSimpleComponent",
+                          "page.collapsible-list": "#/components/schemas/PageCollapsibleListComponent"
                         }
                       }
                     },
@@ -6909,13 +6917,17 @@
               "anyOf": [
                 {
                   "$ref": "#/components/schemas/PageSimpleComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/PageCollapsibleListComponent"
                 }
               ]
             },
             "discriminator": {
               "propertyName": "__component",
               "mapping": {
-                "page.simple": "#/components/schemas/PageSimpleComponent"
+                "page.simple": "#/components/schemas/PageSimpleComponent",
+                "page.collapsible-list": "#/components/schemas/PageCollapsibleListComponent"
               }
             }
           },
@@ -7126,6 +7138,40 @@
           },
           "content": {
             "type": "string"
+          }
+        }
+      },
+      "PageCollapsibleItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "PageCollapsibleListComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "page.collapsible-list"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageCollapsibleItemComponent"
+            }
           }
         }
       },
@@ -7595,13 +7641,17 @@
                     "anyOf": [
                       {
                         "$ref": "#/components/schemas/PageSimpleComponent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/PageCollapsibleListComponent"
                       }
                     ]
                   },
                   "discriminator": {
                     "propertyName": "__component",
                     "mapping": {
-                      "page.simple": "#/components/schemas/PageSimpleComponent"
+                      "page.simple": "#/components/schemas/PageSimpleComponent",
+                      "page.collapsible-list": "#/components/schemas/PageCollapsibleListComponent"
                     }
                   }
                 },

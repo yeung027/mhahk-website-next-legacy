@@ -53,4 +53,3 @@ export function SimpleSection({ section, index }: ComponentSimpleProps)
                 }
             </section>
 }
-/** END COMPONENT SIMPLE **/
