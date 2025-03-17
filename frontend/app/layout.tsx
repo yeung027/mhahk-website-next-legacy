@@ -15,6 +15,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "The Mental Health Association of Hong Kong 香港心理衞生會",
   description: "The Mental Health Association of Hong Kong 香港心理衞生會",
+  icons: {
+    icon: [
+      { rel: "icon", url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { rel: "icon", url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { rel: "icon", url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { rel: "icon", url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/site.webmanifest",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
