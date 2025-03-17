@@ -49,11 +49,18 @@ a:hover {
   text-decoration: none !important;
 }
 
-.markdown-content-Noto-Sans-HK, .markdown-content-Noto-Sans-HK * {
-  font-family: 'Noto Sans HK', sans-serif !important;
-  font-weight: 300 !important;
-  line-height: 1.77em;
+@layer components {
+  .markdown-content-Noto-Sans-HK, .markdown-content-Noto-Sans-HK * {
+    font-family: 'Noto Sans HK', sans-serif !important;
+    font-weight: 300 !important;
+    line-height: 1.77em;
+    @apply tracking-[0.12em]
+  }
+  .markdown-content-Noto-Sans-HK table td{
+    @apply px-[2vw] xl:px-[10px]
+  }
 }
+
 
 
 /* UNSUPPORTED CSS FIX aspect */
