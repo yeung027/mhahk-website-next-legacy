@@ -185,8 +185,7 @@ export function PageGroupNavSwiper({ list, navVisible, slug, page_slug }: PageGr
     useEffect(() => {
         // 找到 slug 相匹配的 index
         if(!list) return;
-        const initialIndex = list.findIndex((item) => item.slug === slug);
-        
+        const initialIndex = list.findIndex((item) => item.slug === page_slug);
         if (initialIndex !== -1) {
           setActiveIndex(initialIndex);
           
@@ -226,10 +225,10 @@ export function PageGroupNavSwiper({ list, navVisible, slug, page_slug }: PageGr
                                         className={`
                                             max-h-[80%]                                         
                                             flex place-self-center content-center text-center
-                                            ${item.slug===slug? 'text-[#bf4a23]' : 'text-black'}
+                                            ${item.slug===page_slug? 'text-[#bf4a23]' : 'text-black'}
                                             ${
-                                                ((index-1 ===activeIndex && activeIndex>0) || (activeIndex==0 && index== (activeIndex+2) ) ) && !(isLastSlide && (index+1>=(list ? list.length : 0))) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
-                                                : (activeIndex-1==index) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.6),rgba(255,255,255,0))]'
+                                                ((index-1 ===activeIndex && activeIndex>0) || (activeIndex==0 && index== (activeIndex+2) ) ) && !(isLastSlide && (index+1>=(list ? list.length : 0))) ? 'bg-[linear-gradient(to_right,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]'
+                                                : (activeIndex-1==index) ? 'bg-[linear-gradient(to_left,rgba(255,255,255,1),rgba(255,255,255,0.1),rgba(255,255,255,0))]'
                                                 : 'bg-white'
                                             }
                                             
