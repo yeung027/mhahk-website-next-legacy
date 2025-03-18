@@ -104,7 +104,7 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                         <div
                             ref={bannerRef}
                             className={`
-                                w-fit max-w-full
+                                w-full
                                 delay-[0.1s] transition duration-[1s] ease-in-out
                                 ${bannerVis? 'opacity-100 translate-x-[0]' : 'opacity-0 translate-x-[2vw] xl:translate-x-[10px]'}
                             `}
@@ -114,7 +114,7 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                                 alt={page.banner.alternativeText || `Item Image`} // 提供 SEO 友善的 alt 文本
                                 width={page.banner.width} // 設定寬度
                                 height={page.banner.height} // 設定高度
-                                className="w-full max-w-full object-cover"
+                                className="w-full object-cover"
                                 priority={true}
                             />
                             <div 
