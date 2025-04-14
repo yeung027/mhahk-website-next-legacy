@@ -76,6 +76,9 @@
           "localized": true
         }
       }
+    },
+    "banner_text": {
+      "type": "string"
     }
   }
 }

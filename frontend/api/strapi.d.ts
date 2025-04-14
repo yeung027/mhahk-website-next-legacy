@@ -2069,6 +2069,7 @@ export interface components {
                 sections?: (components["schemas"]["PageSimpleComponent"] | components["schemas"]["PageCollapsibleListComponent"])[];
                 /** @example string or id */
                 banner?: number | string;
+                banner_text?: string;
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -2321,6 +2322,7 @@ export interface components {
                             documentId?: string;
                         }[];
                     };
+                    banner_text?: string;
                     /** Format: date-time */
                     createdAt?: string;
                     /** Format: date-time */
@@ -2409,6 +2411,7 @@ export interface components {
                     documentId?: string;
                 }[];
             };
+            banner_text?: string;
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -2726,6 +2729,7 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
+                banner_text?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */

@@ -3,7 +3,7 @@
 import { Locale } from "@/models/util"
 import { components } from "@/api/strapi";
 import { useState, useEffect, useRef, RefObject } from "react";
-import { Noto_Sans_HK } from 'next/font/google'
+import { Noto_Sans_HK, Cactus_Classical_Serif } from 'next/font/google'
 import Link from "next/link";
 import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import "swiper/css";
@@ -13,6 +13,12 @@ import Image from "next/image";
 import { CollapsibleListSection } from "@/app/[lang]/components/page/collapsible-list";
 
 const notoSansHK = Noto_Sans_HK({
+    subsets: ['latin'],
+    display: 'swap',
+})
+
+const cactusClassicalSerif = Cactus_Classical_Serif({
+    weight: ['400'],
     subsets: ['latin'],
     display: 'swap',
 })
@@ -109,14 +115,36 @@ export default function PageClient({ locale, slug, page_slug, dict, page, list }
                                 ${bannerVis? 'opacity-100 translate-x-[0]' : 'opacity-0 translate-x-[2vw] xl:translate-x-[10px]'}
                             `}
                         >
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${page.banner.url}`} 
-                                alt={page.banner.alternativeText || `Item Image`} // 提供 SEO 友善的 alt 文本
-                                width={page.banner.width} // 設定寬度
-                                height={page.banner.height} // 設定高度
-                                className="w-full object-cover"
-                                priority={true}
-                            />
+                            
+                            <div 
+                                className="relative"
+                                
+                            >
+                                {page.banner_text &&
+                                    <span
+                                        className={`
+                                                ${cactusClassicalSerif.className}
+                                                text-[1.6rem] xl:text-[1.875rem]
+                                                text-transparent bg-clip-text bg-gradient-to-r from-[#016d21] to-[#053705]
+                                                h-full
+                                                pl-[12px]
+                                                flex 
+                                                items-center
+                                                absolute 
+                                            `}
+                                    >
+                                        {page.banner_text}
+                                    </span>
+                                }
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${page.banner.url}`} 
+                                    alt={page.banner.alternativeText || `Item Image`} // 提供 SEO 友善的 alt 文本
+                                    width={page.banner.width} // 設定寬度
+                                    height={page.banner.height} // 設定高度
+                                    className="w-full object-cover"
+                                    priority={true}
+                                />
+                            </div>
                             <div 
                                 className={`
                                     py-0 mt-[5px]

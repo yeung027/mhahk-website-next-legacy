@@ -10,6 +10,7 @@ import {Locale, PageCategory} from "@/models/util";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from 'next/navigation'
 
 const isRootItem = (
     item: components["schemas"]["MainMenuMainmenuRootitemComponent"] | components["schemas"]["MainMenuMainmenuSubmenuComponent"] | components["schemas"]["MainMenuMainmenuSubsubmenuComponent"]
@@ -46,12 +47,24 @@ interface MainMenuProps {
 
 export default function MainMenu({ locale, mainmenu }: MainMenuProps) {
     const [mobileShow, setMobileShow] = useState<boolean>(false);
-    
+    const pathname = usePathname()
+    const firstLoad = useRef(true)
+
     const menuBtnClick = () => {
         setMobileShow(!mobileShow);
     };
 
     const category = PageCategory.index;
+
+    useEffect(() => {
+        if (firstLoad.current) {
+          firstLoad.current = false
+          return
+        }
+        // 當 pathname 改變，就收起 menu
+        setMobileShow(false)
+    }, [pathname])
+
     return (
         <nav className="z-nav">
             <div className="
