@@ -2,9 +2,10 @@ import { components } from "@/api/strapi";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Noto_Sans_HK } from 'next/font/google'
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { useIsVisible } from "@/helpers/util";
 
 const notoSansHK = Noto_Sans_HK({
     subsets: ['latin'],
@@ -18,12 +19,37 @@ interface CollapsibleListSectionProps {
 
 export function CollapsibleListSection({ section, index }: CollapsibleListSectionProps) {
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
-
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [hasAnimatedList, setHasAnimatedList] = useState<boolean[]>([]);
     const toggleItem = (j: number) => {
         setOpenIndexes(prev =>
             prev.includes(j) ? prev.filter(i => i !== j) : [...prev, j]
         );
     };
+      
+    // 所有 isVisible state（每個 item 都用 useIsVisible）
+    const isVisibleList = section.items?.map((_, j) =>
+        useIsVisible({ current: itemRefs.current[j] }, 0.2)
+    ) ?? [];
+
+    useEffect(() => {
+        if (section.items) {
+          setHasAnimatedList(Array(section.items.length).fill(false));
+        }
+      }, [section.items]);
+      
+      // 當某 item 第一次 visible，就 set hasAnimated = true
+      useEffect(() => {
+        isVisibleList.forEach((isVisible, j) => {
+          if (isVisible && !hasAnimatedList[j]) {
+            setHasAnimatedList((prev) => {
+              const updated = [...prev];
+              updated[j] = true;
+              return updated;
+            });
+          }
+        });
+      }, [isVisibleList]);
 
     return (
         <section key={`page-section-${index}`} className="flex flex-col mt-[4vw] xl:mt-[30px] gap-[5px]">
@@ -33,7 +59,16 @@ export function CollapsibleListSection({ section, index }: CollapsibleListSectio
                     return (
                         <div 
                             key={`collapsible-item-${j}`} 
-                            className={`grid grid-rows-[70px_1fr] ${notoSansHK.className} border-mainGreen border-2`}
+                            ref={el => {
+                                itemRefs.current[j] = el;
+                            }}
+                            
+                            className={`
+                                grid grid-rows-[70px_1fr] 
+                                ${notoSansHK.className} border-mainGreen border-2
+                                delay-[0.8s] transition duration-[1.2s] ease-in-out
+                                ${hasAnimatedList[j] ? 'opacity-100 -translate-y-[0]' : 'opacity-0 -translate-y-[2vw] xl:-translate-y-[10px]'}
+                                `}
                         >
                             {/* 標題區 */}
                             <div
