@@ -21,11 +21,17 @@ export function CollapsibleListSection({ section, index }: CollapsibleListSectio
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [hasAnimatedList, setHasAnimatedList] = useState<boolean[]>([]);
+    const [itemsHeight, setItemsHeight] = useState<number[]>([]);
+
+
     const toggleItem = (j: number) => {
+        const isNowOpen = openIndexes.includes(j);
+
         setOpenIndexes(prev =>
-            prev.includes(j) ? prev.filter(i => i !== j) : [...prev, j]
+            isNowOpen ? prev.filter(i => i !== j) : [...prev, j]
         );
     };
+    
       
     // 所有 isVisible state（每個 item 都用 useIsVisible）
     const isVisibleList = section.items?.map((_, j) =>
@@ -48,6 +54,7 @@ export function CollapsibleListSection({ section, index }: CollapsibleListSectio
               return updated;
             });
           }
+          
         });
       }, [isVisibleList]);
 
@@ -93,7 +100,7 @@ export function CollapsibleListSection({ section, index }: CollapsibleListSectio
                             <div
                                 className={`transition-all duration-300 overflow-hidden`}
                                 style={{
-                                    maxHeight: isOpen ? "1000px" : "0px", // 限制高度
+                                    maxHeight: isOpen ? `9999px` : "0px", // 限制高度
                                     opacity: isOpen ? 1 : 0, // 淡入淡出效果
                                     padding: isOpen ? "12px" : "0px", // 收起時移除 padding
                                 }}
